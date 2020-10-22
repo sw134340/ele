@@ -109,7 +109,10 @@ create table if not exists storeinfo
     sphoto      varchar(128) default null comment '图片',
     marking     varchar(12)  default null comment '评分',
     dispatching varchar(32)  default null comment '配送方式',
-    offer       varchar(32)  default null comment '推荐字段',
+    offer       tinyint(1)                          null comment '是否是推荐字段',
+    sgid        int                                 null comment '商品id外键',
+    constraint fk_st_sgid_to_goods_gid
+        foreign key (sgid) references goods (gid),
     add_time timestamp   not null default current_timestamp comment '创建时间',
     up_time  timestamp   not null default current_timestamp on update current_timestamp comment '修改时间'
 ) auto_increment=1 charset=utf8 comment '商家信息表';
@@ -126,7 +129,7 @@ BEGIN
         i INT DEFAULT 1;
     WHILE
             i < 100 DO
-            insert into storeinfo (sname,spassword) value (concat('sto',i),'696aa7bb5ee7ac9135f7ed4ef526fe4d') ;
+            insert into storeinfo (sname,spassword,sgid) value (concat('sto',i),'696aa7bb5ee7ac9135f7ed4ef526fe4d',i) ;
             SET i = i + 1;
 
         END WHILE;
