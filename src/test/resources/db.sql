@@ -62,7 +62,7 @@ create table if not exists customer
     cavatar varchar(50) default null comment '头像',
     cgender boolean default false comment '性别',
     cstatus boolean default false comment '是否禁用',
-#    caddress varchar(50) default null comment '用户地址',
+    caddress varchar(50) default null comment '用户地址',
     add_time timestamp   not null default current_timestamp comment '创建时间',
     up_time  timestamp   not null default current_timestamp on update current_timestamp comment '修改时间',
     primary key (`cid`),
@@ -167,6 +167,49 @@ DELIMITER ;
 CALL typeofgoods_insert();
 
 
+
+#商家信息表
+drop table if exists storeinfo;
+create table if not exists storeinfo
+(
+    sid    integer auto_increment comment '商家id'
+        primary key,
+    sname       varchar(50)  not null comment '商家名称',
+    spassword   varchar(32)  not null comment '商家密码',
+    sphoto      varchar(128) default null comment '图片',
+    marking     varchar(12)  default null comment '评分',
+    dispatching varchar(32)  default null comment '配送方式',
+    sadderss varchar(50) default null coment '商家地址'
+    offer       tinyint(1)                          null comment '是否是推荐字段',
+    add_time timestamp   not null default current_timestamp comment '创建时间',
+    up_time  timestamp   not null default current_timestamp on update current_timestamp comment '修改时间'
+) auto_increment=1 charset=utf8 comment '商家信息表';
+commit;
+# 通过批处理插入测试数据
+DROP PROCEDURE
+    IF
+        EXISTS storeinfo_insert;
+
+DELIMITER $$
+CREATE PROCEDURE storeinfo_insert ()
+BEGIN
+    DECLARE
+        i INT DEFAULT 1;
+    WHILE
+            i < 100 DO
+            insert into storeinfo (sname,spassword,sgid) value (concat('sto',i),'696aa7bb5ee7ac9135f7ed4ef526fe4d',i) ;
+            SET i = i + 1;
+
+        END WHILE;
+    COMMIT;
+
+END $$
+DELIMITER ;
+CALL storeinfo_insert();
+
+
+
+
 #商品信息表
 drop table if exists goods;
 create table if not exists goods
@@ -180,6 +223,9 @@ create table if not exists goods
     gtid  integer  not null comment '商品所属分类',
     constraint fk_go_gtid_to_ty_tid
         foreign key (gtid) references typeofgoods (tid),
+        gsid        int                                 null comment '商家id外键',
+    constraint fk_goods_sgid_to_st_sid
+        foreign key (gsid) references storeinfo (sid),
     add_time timestamp   not null default current_timestamp comment '创建时间',
     up_time  timestamp   not null default current_timestamp on update current_timestamp comment '修改时间'
 ) auto_increment=1 charset=utf8 comment '商家信息表';
@@ -206,46 +252,6 @@ END $$
 DELIMITER ;
 CALL goods_insert();
 
-#商家信息表
-drop table if exists storeinfo;
-create table if not exists storeinfo
-(
-    sid    integer auto_increment comment '商家id'
-        primary key,
-    sname       varchar(50)  not null comment '商家名称',
-    spassword   varchar(32)  not null comment '商家密码',
-    sphoto      varchar(128) default null comment '图片',
-    marking     varchar(12)  default null comment '评分',
-    dispatching varchar(32)  default null comment '配送方式',
-    offer       tinyint(1)                          null comment '是否是推荐字段',
-    sgid        int                                 null comment '商品id外键',
-    constraint fk_st_sgid_to_goods_gid
-        foreign key (sgid) references goods (gid),
-    add_time timestamp   not null default current_timestamp comment '创建时间',
-    up_time  timestamp   not null default current_timestamp on update current_timestamp comment '修改时间'
-) auto_increment=1 charset=utf8 comment '商家信息表';
-commit;
-# 通过批处理插入测试数据
-DROP PROCEDURE
-    IF
-        EXISTS storeinfo_insert;
-
-DELIMITER $$
-CREATE PROCEDURE storeinfo_insert ()
-BEGIN
-    DECLARE
-        i INT DEFAULT 1;
-    WHILE
-            i < 100 DO
-            insert into storeinfo (sname,spassword,sgid) value (concat('sto',i),'696aa7bb5ee7ac9135f7ed4ef526fe4d',i) ;
-            SET i = i + 1;
-
-        END WHILE;
-    COMMIT;
-
-END $$
-DELIMITER ;
-CALL storeinfo_insert();
 
 
 
@@ -298,10 +304,10 @@ drop table if exists orderlist;
 create table if not exists orderlist(
                                         oid integer auto_increment comment '订单编号',
                                         ouserid integer default null comment '所属用户',
-                                        goods varchar(50) not null comment '订购产品',
+                                        ogid integer not null comment '订购产品',
                                         quantity integer not null comment '产品数量',
                                         ostoreid integer default null comment '所属商户',
-                                        status boolean default false comment '结算状态未支付',
+                                        status integer default false comment '结算状态未支付',
                                         add_time timestamp  not null default current_timestamp comment '创建时间',
                                         up_time  timestamp  not null default current_timestamp on update current_timestamp comment '修改时间',
                                         constraint `fk_ol_ouserid_to_cus_cid`foreign key orderlist(`ouserid`)references customer(`cid`),
@@ -322,7 +328,7 @@ BEGIN
         i INT DEFAULT 1;
     WHILE
             i < 100 DO
-            insert into orderlist (goods,quantity) value (concat('goods',i),1) ;
+            insert into orderlist (ogid,quantity) value (i,1) ;
             SET i = i + 1;
 
         END WHILE;
