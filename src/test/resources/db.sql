@@ -94,7 +94,7 @@ END $$
 DELIMITER ;
 CALL customer_insert ();
 
-
+#活动表
 drop table if exists active;
 create table if not exists active
 (
@@ -131,7 +131,7 @@ CALL active_insert();
 
 
 
-
+#商品分类表
 drop table if exists typeofgoods;
 create table if not exists typeofgoods
 (
@@ -166,7 +166,7 @@ DELIMITER ;
 CALL typeofgoods_insert();
 
 
-
+#商品信息表
 drop table if exists goods;
 create table if not exists goods
 (
@@ -205,7 +205,7 @@ END $$
 DELIMITER ;
 CALL goods_insert();
 
-
+#商家信息表
 drop table if exists storeinfo;
 create table if not exists storeinfo
 (
@@ -249,7 +249,7 @@ CALL storeinfo_insert();
 
 
 
-
+#商家活动表
 drop table if exists st_ac;
 create table if not exists st_ac
 (
