@@ -95,51 +95,6 @@ DELIMITER ;
 CALL customer_insert ();
 
 
-
-
-
-
-drop table if exists storeinfo;
-create table if not exists storeinfo
-(
-    sid    integer auto_increment comment '商家id'
-        primary key,
-    sname       varchar(50)  not null comment '商家名称',
-    spassword   varchar(32)  not null comment '商家密码',
-    sphoto      varchar(128) default null comment '图片',
-    marking     varchar(12)  default null comment '评分',
-    dispatching varchar(32)  default null comment '配送方式',
-    offer       tinyint(1)                          null comment '是否是推荐字段',
-    sgid        int                                 null comment '商品id外键',
-    constraint fk_st_sgid_to_goods_gid
-        foreign key (sgid) references goods (gid),
-    add_time timestamp   not null default current_timestamp comment '创建时间',
-    up_time  timestamp   not null default current_timestamp on update current_timestamp comment '修改时间'
-) auto_increment=1 charset=utf8 comment '商家信息表';
-    commit;
-# 通过批处理插入测试数据
-DROP PROCEDURE
-    IF
-        EXISTS storeinfo_insert;
-
-DELIMITER $$
-CREATE PROCEDURE storeinfo_insert ()
-BEGIN
-    DECLARE
-        i INT DEFAULT 1;
-    WHILE
-            i < 100 DO
-            insert into storeinfo (sname,spassword,sgid) value (concat('sto',i),'696aa7bb5ee7ac9135f7ed4ef526fe4d',i) ;
-            SET i = i + 1;
-
-        END WHILE;
-    COMMIT;
-
-END $$
-DELIMITER ;
-CALL storeinfo_insert();
-
-
 drop table if exists active;
 create table if not exists active
 (
@@ -174,17 +129,16 @@ DELIMITER ;
 CALL active_insert();
 
 
-drop table if exists st_ac;
-create table if not exists st_ac
+
+
+
+drop table if exists typeofgoods;
+create table if not exists typeofgoods
 (
-    stid integer auto_increment comment '商家活动表id'
+    tid   integer auto_increment comment '商品类别id'
         primary key,
-    fsid int not null comment '商家表的外键',
-    faid int not null comment '活动表的外键',
-    constraint fk_stac_fsid_to_st_sid
-        foreign key (fsid) references storeinfo (sid),
-    constraint fk_stac_faid_to_ac_aid
-        foreign key (faid) references active (aid),
+    tname varchar(20) not null comment '商品分类名称',
+    tinfo varchar(50) default null comment '商品分类信息',
     add_time timestamp   not null default current_timestamp comment '创建时间',
     up_time  timestamp   not null default current_timestamp on update current_timestamp comment '修改时间'
 ) auto_increment=1 charset=utf8 comment '商家信息表';
@@ -192,16 +146,16 @@ commit;
 # 通过批处理插入测试数据
 DROP PROCEDURE
     IF
-        EXISTS st_ac_insert;
+        EXISTS typeofgoods_insert;
 
 DELIMITER $$
-CREATE PROCEDURE st_ac_insert ()
+CREATE PROCEDURE typeofgoods_insert ()
 BEGIN
     DECLARE
         i INT DEFAULT 1;
     WHILE
             i < 100 DO
-            insert into st_ac(fsid, faid) value (i,i) ;
+            insert into typeofgoods (tname) value (concat('typ',i)) ;
             SET i = i + 1;
 
         END WHILE;
@@ -209,7 +163,8 @@ BEGIN
 
 END $$
 DELIMITER ;
-CALL st_ac_insert();
+CALL typeofgoods_insert();
+
 
 
 drop table if exists goods;
@@ -250,13 +205,21 @@ END $$
 DELIMITER ;
 CALL goods_insert();
 
-drop table if exists typeofgoods;
-create table if not exists typeofgoods
+
+drop table if exists storeinfo;
+create table if not exists storeinfo
 (
-    tid   integer auto_increment comment '商品类别id'
+    sid    integer auto_increment comment '商家id'
         primary key,
-    tname varchar(20) not null comment '商品分类名称',
-    tinfo varchar(50) default null comment '商品分类信息',
+    sname       varchar(50)  not null comment '商家名称',
+    spassword   varchar(32)  not null comment '商家密码',
+    sphoto      varchar(128) default null comment '图片',
+    marking     varchar(12)  default null comment '评分',
+    dispatching varchar(32)  default null comment '配送方式',
+    offer       tinyint(1)                          null comment '是否是推荐字段',
+    sgid        int                                 null comment '商品id外键',
+    constraint fk_st_sgid_to_goods_gid
+        foreign key (sgid) references goods (gid),
     add_time timestamp   not null default current_timestamp comment '创建时间',
     up_time  timestamp   not null default current_timestamp on update current_timestamp comment '修改时间'
 ) auto_increment=1 charset=utf8 comment '商家信息表';
@@ -264,16 +227,16 @@ commit;
 # 通过批处理插入测试数据
 DROP PROCEDURE
     IF
-        EXISTS typeofgoods_insert;
+        EXISTS storeinfo_insert;
 
 DELIMITER $$
-CREATE PROCEDURE typeofgoods_insert ()
+CREATE PROCEDURE storeinfo_insert ()
 BEGIN
     DECLARE
         i INT DEFAULT 1;
     WHILE
             i < 100 DO
-            insert into typeofgoods (tname) value (concat('typ',i)) ;
+            insert into storeinfo (sname,spassword,sgid) value (concat('sto',i),'696aa7bb5ee7ac9135f7ed4ef526fe4d',i) ;
             SET i = i + 1;
 
         END WHILE;
@@ -281,39 +244,40 @@ BEGIN
 
 END $$
 DELIMITER ;
-CALL typeofgoods_insert();
+CALL storeinfo_insert();
 
 
-# 创建订单表
-drop table if exists orderlist;
-create table if not exists orderlist(
-    oid integer auto_increment comment '订单编号',
-    ouserid integer default null comment '所属用户',
-    goods varchar(50) not null comment '订购产品',
-    quantity integer not null comment '产品数量',
-    ostoreid integer default null comment '所属商户',
-    status boolean default false comment '结算状态未支付',
-    add_time timestamp  not null default current_timestamp comment '创建时间',
-    up_time  timestamp  not null default current_timestamp on update current_timestamp comment '修改时间',
-    constraint `fk_ol_ouserid_to_cus_cid`foreign key orderlist(`ouserid`)references customer(`cid`),
-    constraint `fk_ol_ostoreid_to_store_sid`foreign key orderlist(`ostoreid`)references storeinfo(`sid`),
-    primary key (`oid`)
-)comment '订单表';
 
+
+
+drop table if exists st_ac;
+create table if not exists st_ac
+(
+    stid integer auto_increment comment '商家活动表id'
+        primary key,
+    fsid int not null comment '商家表的外键',
+    faid int not null comment '活动表的外键',
+    constraint fk_stac_fsid_to_st_sid
+        foreign key (fsid) references storeinfo (sid),
+    constraint fk_stac_faid_to_ac_aid
+        foreign key (faid) references active (aid),
+    add_time timestamp   not null default current_timestamp comment '创建时间',
+    up_time  timestamp   not null default current_timestamp on update current_timestamp comment '修改时间'
+) auto_increment=1 charset=utf8 comment '商家信息表';
 commit;
-# 批量处理插入订单测试数据
+# 通过批处理插入测试数据
 DROP PROCEDURE
     IF
-        EXISTS order_insert;
+        EXISTS st_ac_insert;
 
 DELIMITER $$
-CREATE PROCEDURE order_insert ()
+CREATE PROCEDURE st_ac_insert ()
 BEGIN
     DECLARE
         i INT DEFAULT 1;
     WHILE
             i < 100 DO
-            insert into orderlist (goods,quantity) value (concat('goods',i),1) ;
+            insert into st_ac(fsid, faid) value (i,i) ;
             SET i = i + 1;
 
         END WHILE;
@@ -321,9 +285,12 @@ BEGIN
 
 END $$
 DELIMITER ;
-CALL order_insert ();
+CALL st_ac_insert();
 
-commit;
+
+
+
+
 
 # 创建订单表
 drop table if exists orderlist;
