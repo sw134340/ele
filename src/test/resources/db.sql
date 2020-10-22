@@ -62,6 +62,7 @@ create table if not exists customer
     cavatar varchar(50) default null comment '头像',
     cgender boolean default false comment '性别',
     cstatus boolean default false comment '是否禁用',
+#    caddress varchar(50) default null comment '用户地址',
     add_time timestamp   not null default current_timestamp comment '创建时间',
     up_time  timestamp   not null default current_timestamp on update current_timestamp comment '修改时间',
     primary key (`cid`),
