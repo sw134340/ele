@@ -282,3 +282,87 @@ BEGIN
 END $$
 DELIMITER ;
 CALL typeofgoods_insert();
+
+
+# 创建订单表
+drop table if exists orderlist;
+create table if not exists orderlist(
+    oid integer auto_increment comment '订单编号',
+    ouserid integer default null comment '所属用户',
+    goods varchar(50) not null comment '订购产品',
+    quantity integer not null comment '产品数量',
+    ostoreid integer default null comment '所属商户',
+    status boolean default false comment '结算状态未支付',
+    add_time timestamp  not null default current_timestamp comment '创建时间',
+    up_time  timestamp  not null default current_timestamp on update current_timestamp comment '修改时间',
+    constraint `fk_ol_ouserid_to_cus_cid`foreign key orderlist(`ouserid`)references customer(`cid`),
+    constraint `fk_ol_ostoreid_to_store_sid`foreign key orderlist(`ostoreid`)references storeinfo(`sid`),
+    primary key (`oid`)
+)comment '订单表';
+
+commit;
+# 批量处理插入订单测试数据
+DROP PROCEDURE
+    IF
+        EXISTS order_insert;
+
+DELIMITER $$
+CREATE PROCEDURE order_insert ()
+BEGIN
+    DECLARE
+        i INT DEFAULT 1;
+    WHILE
+            i < 100 DO
+            insert into orderlist (goods,quantity) value (concat('goods',i),1) ;
+            SET i = i + 1;
+
+        END WHILE;
+    COMMIT;
+
+END $$
+DELIMITER ;
+CALL order_insert ();
+
+commit;
+
+# 创建订单表
+drop table if exists orderlist;
+create table if not exists orderlist(
+                                        oid integer auto_increment comment '订单编号',
+                                        ouserid integer default null comment '所属用户',
+                                        goods varchar(50) not null comment '订购产品',
+                                        quantity integer not null comment '产品数量',
+                                        ostoreid integer default null comment '所属商户',
+                                        status boolean default false comment '结算状态未支付',
+                                        add_time timestamp  not null default current_timestamp comment '创建时间',
+                                        up_time  timestamp  not null default current_timestamp on update current_timestamp comment '修改时间',
+                                        constraint `fk_ol_ouserid_to_cus_cid`foreign key orderlist(`ouserid`)references customer(`cid`),
+                                        constraint `fk_ol_ostoreid_to_store_sid`foreign key orderlist(`ostoreid`)references storeinfo(`sid`),
+                                        primary key (`oid`)
+)comment '订单表';
+
+commit;
+# 批量处理插入订单测试数据
+DROP PROCEDURE
+    IF
+        EXISTS order_insert;
+
+DELIMITER $$
+CREATE PROCEDURE order_insert ()
+BEGIN
+    DECLARE
+        i INT DEFAULT 1;
+    WHILE
+            i < 100 DO
+            insert into orderlist (goods,quantity) value (concat('goods',i),1) ;
+            SET i = i + 1;
+
+        END WHILE;
+    COMMIT;
+
+END $$
+DELIMITER ;
+CALL order_insert ();
+
+commit;
+
