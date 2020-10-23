@@ -1,9 +1,8 @@
 package elm.demo.service;
 
 import elm.demo.domain.User;
-import org.apache.ibatis.annotations.Param;
-import elm.demo.domain.User;
 import elm.demo.domain.UserExample;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,6 +21,7 @@ public interface UserService {
     List<User> selectByExample(UserExample example);
 
     User selectByPrimaryKey(Integer uid);
+    User selectByUser(User user);
 
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 
@@ -30,6 +30,4 @@ public interface UserService {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
-
-
 }

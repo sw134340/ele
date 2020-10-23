@@ -36,6 +36,7 @@
 <a href="${app}/user/logout">退出登录</a>
 <hr/>
 <a href="${app}/user/list">用户管理</a>
+<a href="${app}/typeofgoods/list">商品种类管理</a>
 <a href="${app}/userrest/list">用户管理REST</a>
 <hr/>
 

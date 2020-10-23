@@ -92,5 +92,5 @@
                            validator="localValidatorFactoryBean"></mvc:annotation-driven>
 
     <!--    6 全局异常处理器-->
-    <bean class="elm.demo.exception.CustomExceptionResolver" id="customExceptionResolver"></bean>
+<!--    <bean class="elm.demo.exception.CustomExceptionResolver" id="customExceptionResolver"></bean>-->
 </beans>

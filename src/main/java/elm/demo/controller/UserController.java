@@ -2,6 +2,9 @@ package elm.demo.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import elm.demo.domain.UserExample;
+import elm.demo.service.UserService;
+import elm.demo.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -9,12 +12,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import elm.demo.domain.User;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import elm.demo.domain.User;
-import elm.demo.domain.UserExample;
-import elm.demo.service.UserService;
-import elm.demo.utils.MD5Util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -105,35 +105,9 @@ public class UserController {
     @RequestMapping(value = "/logout")
     public String logout(HttpServletRequest request){
 //            将用户基本信息从session中清除
-            HttpSession session = request.getSession();
-            session.setAttribute("USER_SESSION","");//单独设置session
+        HttpSession session = request.getSession();
+        session.setAttribute("USER_SESSION","");//单独设置session
 //            session.invalidate();//使所有的session失效
-            return "redirect:/index.jsp";
+        return "redirect:/index.jsp";
     }
-
-
-
-//    @RequestMapping(value = "/update")
-//    public ModelAndView update(@RequestParam(value = "file") MultipartFile file, HttpServletRequest request, UserInfo userInfo) throws IOException {
-////        获取文件存储的路径
-//        String path="c:\\upload";
-////        String path = request.getSession().getServletContext().getRealPath("/images/upload");
-////        获取上传文件的文件名,并重命名
-//        String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
-////        判断文件和目录是否存在,不存在则创建
-//        File file1 = new File(path, filename);
-//        if(!file1.exists()){
-//            file1.mkdirs();
-//        }
-////        上传文件
-//        file.transferTo(file1);
-//        //将文件名和路径拼接后录入数据库
-//        String photoUrl = "images/upload/" + filename;
-//        userInfo.setEmail(photoUrl);
-//
-//        Integer i = userInfoService.update(userInfo);
-//        ModelAndView modelAndView = new ModelAndView("redirect:/admin/toAdmin");
-//        return modelAndView;
-//    }
-
 }

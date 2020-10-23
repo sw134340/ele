@@ -4,36 +4,36 @@ import java.io.Serializable;
 import java.util.Date;
 
 
-public class UserCondition extends User implements Serializable {
-    private Integer uidCondition;
+public class TypeofgoodsCondition extends Typeofgoods implements Serializable {
+    private Integer tidCondition;
     private Date startDate;
     private Date endDate;
 
-    public UserCondition() {
+    public TypeofgoodsCondition() {
     }
 
-    public UserCondition(Integer uid, String username, Date addTime, Integer uidCondition, Date startDate, Date endDate) {
+    public TypeofgoodsCondition(Integer tid, String tname, Date addTime, Integer tidCondition, Date startDate, Date endDate) {
         super();
-        this.uidCondition = uidCondition;
+        this.tidCondition = tidCondition;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
     @Override
     public String toString() {
-        return "UserCondition{" +
-                "uidCondition=" + uidCondition +
+        return "TypeofgoodsCondition{" +
+                "tidCondition=" + tidCondition +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 "} " + super.toString();
     }
 
-    public Integer getUidCondition() {
-        return uidCondition;
+    public Integer getTidCondition() {
+        return tidCondition;
     }
 
-    public void setUidCondition(Integer uidCondition) {
-        this.uidCondition = uidCondition;
+    public void setTidCondition(Integer tidCondition) {
+        this.tidCondition = tidCondition;
     }
 
     public Date getStartDate() {

@@ -1,22 +1,24 @@
 package elm.demo.service.impl;
 
-import elm.demo.utils.MD5Util;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import elm.demo.dao.UserMapper;
 import elm.demo.domain.User;
 import elm.demo.domain.UserExample;
 import elm.demo.service.UserService;
+import elm.demo.utils.MD5Util;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+/**
+ * @创建人 epss[wangzhanf]
+ * @创建时间 2020/10/19 0019
+ * @描述
+ */
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
-
-
 
 
     @Override
@@ -56,6 +58,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User selectByPrimaryKey(Integer uid) {
         return userMapper.selectByPrimaryKey(uid);
+    }
+
+    @Override
+    public User selectByUser(User user) {
+        return null;
     }
 
     @Override

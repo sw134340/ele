@@ -2,14 +2,15 @@ package elm.demo.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 import elm.demo.domain.User;
 import elm.demo.domain.UserCondition;
 import elm.demo.domain.UserExample;
 import elm.demo.service.UserService;
 import elm.demo.utils.MessageAndData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -134,7 +135,4 @@ public class UserrestController {
             return MessageAndData.error("修改失败");
         }
     }
-
-
-
 }
