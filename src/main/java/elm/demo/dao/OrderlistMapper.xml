@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="elm.demo.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="elm.demo.domain.User">
-    <id column="uid" jdbcType="INTEGER" property="uid" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
+<mapper namespace="elm.demo.dao.OrderlistMapper">
+  <resultMap id="BaseResultMap" type="elm.demo.domain.Orderlist">
+    <id column="oid" jdbcType="INTEGER" property="oid" />
+    <result column="ouserid" jdbcType="INTEGER" property="ouserid" />
+    <result column="ogid" jdbcType="INTEGER" property="ogid" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="ostoreid" jdbcType="INTEGER" property="ostoreid" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -66,15 +69,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    uid, username, password, add_time
+    oid, ouserid, ogid, quantity, ostoreid, status, add_time
   </sql>
-  <select id="selectByExample" parameterType="elm.demo.domain.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="elm.demo.domain.OrderlistExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from adminuser
+    from orderlist
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,73 +88,102 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from adminuser
-    where uid = #{uid,jdbcType=INTEGER}
+    from orderlist
+    where oid = #{oid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from adminuser
-    where uid = #{uid,jdbcType=INTEGER}
+    delete from orderlist
+    where oid = #{oid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="elm.demo.domain.UserExample">
-    delete from adminuser
+  <delete id="deleteByExample" parameterType="elm.demo.domain.OrderlistExample">
+    delete from orderlist
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="elm.demo.domain.User">
-    insert into adminuser (uid, username, password, 
+  <insert id="insert" parameterType="elm.demo.domain.Orderlist">
+    insert into orderlist (oid, ouserid, ogid, 
+      quantity, ostoreid, status, 
       add_time)
-    values (#{uid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{oid,jdbcType=INTEGER}, #{ouserid,jdbcType=INTEGER}, #{ogid,jdbcType=INTEGER}, 
+      #{quantity,jdbcType=INTEGER}, #{ostoreid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{addTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="elm.demo.domain.User">
-    insert into adminuser
+  <insert id="insertSelective" parameterType="elm.demo.domain.Orderlist">
+    insert into orderlist
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="uid != null">
-        uid,
+      <if test="oid != null">
+        oid,
       </if>
-      <if test="username != null">
-        username,
+      <if test="ouserid != null">
+        ouserid,
       </if>
-      <if test="password != null">
-        password,
+      <if test="ogid != null">
+        ogid,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="ostoreid != null">
+        ostoreid,
+      </if>
+      <if test="status != null">
+        status,
       </if>
       <if test="addTime != null">
         add_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="uid != null">
-        #{uid,jdbcType=INTEGER},
+      <if test="oid != null">
+        #{oid,jdbcType=INTEGER},
       </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
+      <if test="ouserid != null">
+        #{ouserid,jdbcType=INTEGER},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="ogid != null">
+        #{ogid,jdbcType=INTEGER},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="ostoreid != null">
+        #{ostoreid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="elm.demo.domain.UserExample" resultType="java.lang.Long">
-    select count(*) from adminuser
+  <select id="countByExample" parameterType="elm.demo.domain.OrderlistExample" resultType="java.lang.Long">
+    select count(*) from orderlist
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update adminuser
+    update orderlist
     <set>
-      <if test="record.uid != null">
-        uid = #{record.uid,jdbcType=INTEGER},
+      <if test="record.oid != null">
+        oid = #{record.oid,jdbcType=INTEGER},
       </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
+      <if test="record.ouserid != null">
+        ouserid = #{record.ouserid,jdbcType=INTEGER},
       </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
+      <if test="record.ogid != null">
+        ogid = #{record.ogid,jdbcType=INTEGER},
+      </if>
+      <if test="record.quantity != null">
+        quantity = #{record.quantity,jdbcType=INTEGER},
+      </if>
+      <if test="record.ostoreid != null">
+        ostoreid = #{record.ostoreid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
@@ -162,35 +194,50 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update adminuser
-    set uid = #{record.uid,jdbcType=INTEGER},
-      username = #{record.username,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
+    update orderlist
+    set oid = #{record.oid,jdbcType=INTEGER},
+      ouserid = #{record.ouserid,jdbcType=INTEGER},
+      ogid = #{record.ogid,jdbcType=INTEGER},
+      quantity = #{record.quantity,jdbcType=INTEGER},
+      ostoreid = #{record.ostoreid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
       add_time = #{record.addTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="elm.demo.domain.User">
-    update adminuser
+  <update id="updateByPrimaryKeySelective" parameterType="elm.demo.domain.Orderlist">
+    update orderlist
     <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
+      <if test="ouserid != null">
+        ouserid = #{ouserid,jdbcType=INTEGER},
       </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+      <if test="ogid != null">
+        ogid = #{ogid,jdbcType=INTEGER},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="ostoreid != null">
+        ostoreid = #{ostoreid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where uid = #{uid,jdbcType=INTEGER}
+    where oid = #{oid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="elm.demo.domain.User">
-    update adminuser
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="elm.demo.domain.Orderlist">
+    update orderlist
+    set ouserid = #{ouserid,jdbcType=INTEGER},
+      ogid = #{ogid,jdbcType=INTEGER},
+      quantity = #{quantity,jdbcType=INTEGER},
+      ostoreid = #{ostoreid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
       add_time = #{addTime,jdbcType=TIMESTAMP}
-    where uid = #{uid,jdbcType=INTEGER}
+    where oid = #{oid,jdbcType=INTEGER}
   </update>
 </mapper>

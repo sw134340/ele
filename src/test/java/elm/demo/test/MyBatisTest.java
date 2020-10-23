@@ -1,15 +1,15 @@
 package elm.demo.test;
 
-import elm.demo.dao.CustomerMapper;
-import elm.demo.dao.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
-import elm.demo.domain.Customer;
-import elm.demo.domain.User;
+import vip.epss.dao.CustomerMapper;
+import vip.epss.dao.UserMapper;
+import vip.epss.domain.Customer;
+import vip.epss.domain.User;
 
 import java.io.IOException;
 import java.io.InputStream;

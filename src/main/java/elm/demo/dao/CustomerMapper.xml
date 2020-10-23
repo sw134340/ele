@@ -11,6 +11,7 @@
     <result column="cavatar" jdbcType="VARCHAR" property="cavatar" />
     <result column="cgender" jdbcType="BIT" property="cgender" />
     <result column="cstatus" jdbcType="BIT" property="cstatus" />
+    <result column="caddress" jdbcType="VARCHAR" property="caddress" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -72,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    cid, cname, cphone, cemail, cpass, cbirth, cavatar, cgender, cstatus, add_time
+    cid, cname, cphone, cemail, cpass, cbirth, cavatar, cgender, cstatus, caddress, add_time
   </sql>
   <select id="selectByExample" parameterType="elm.demo.domain.CustomerExample" resultMap="BaseResultMap">
     select
@@ -108,11 +109,11 @@
     insert into customer (cid, cname, cphone, 
       cemail, cpass, cbirth, 
       cavatar, cgender, cstatus, 
-      add_time)
+      caddress, add_time)
     values (#{cid,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR}, #{cphone,jdbcType=VARCHAR}, 
       #{cemail,jdbcType=VARCHAR}, #{cpass,jdbcType=VARCHAR}, #{cbirth,jdbcType=DATE}, 
       #{cavatar,jdbcType=VARCHAR}, #{cgender,jdbcType=BIT}, #{cstatus,jdbcType=BIT}, 
-      #{addTime,jdbcType=TIMESTAMP})
+      #{caddress,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="elm.demo.domain.Customer">
     insert into customer
@@ -143,6 +144,9 @@
       </if>
       <if test="cstatus != null">
         cstatus,
+      </if>
+      <if test="caddress != null">
+        caddress,
       </if>
       <if test="addTime != null">
         add_time,
@@ -175,6 +179,9 @@
       </if>
       <if test="cstatus != null">
         #{cstatus,jdbcType=BIT},
+      </if>
+      <if test="caddress != null">
+        #{caddress,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -217,6 +224,9 @@
       <if test="record.cstatus != null">
         cstatus = #{record.cstatus,jdbcType=BIT},
       </if>
+      <if test="record.caddress != null">
+        caddress = #{record.caddress,jdbcType=VARCHAR},
+      </if>
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
       </if>
@@ -236,6 +246,7 @@
       cavatar = #{record.cavatar,jdbcType=VARCHAR},
       cgender = #{record.cgender,jdbcType=BIT},
       cstatus = #{record.cstatus,jdbcType=BIT},
+      caddress = #{record.caddress,jdbcType=VARCHAR},
       add_time = #{record.addTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -268,6 +279,9 @@
       <if test="cstatus != null">
         cstatus = #{cstatus,jdbcType=BIT},
       </if>
+      <if test="caddress != null">
+        caddress = #{caddress,jdbcType=VARCHAR},
+      </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
@@ -284,6 +298,7 @@
       cavatar = #{cavatar,jdbcType=VARCHAR},
       cgender = #{cgender,jdbcType=BIT},
       cstatus = #{cstatus,jdbcType=BIT},
+      caddress = #{caddress,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=TIMESTAMP}
     where cid = #{cid,jdbcType=INTEGER}
   </update>

@@ -1,10 +1,10 @@
 package elm.demo.test;
 
 
-import elm.demo.service.UserService;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import elm.demo.domain.User;
+import vip.epss.domain.User;
+import vip.epss.service.UserService;
 
 public class SpringTest {
     @Test

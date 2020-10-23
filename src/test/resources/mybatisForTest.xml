@@ -20,7 +20,7 @@
 
     <!--    3 定义别名映射,一般都是封装为实体类对象-->
     <typeAliases>
-        <package name="vip.epss.domain"/>
+        <package name="elm.demo.domain"/>
     </typeAliases>
 
     <!--    4 环境配置-->
@@ -57,6 +57,6 @@
         <!--        一个单独文件的映射-->
         <!--        <mapper class="UserMapper.xml" />-->
         <!--        包内所有mapper文件的映射-->
-        <package name="vip.epss.dao"/>
+        <package name="elm.demo.dao"/>
     </mappers>
 </configuration>

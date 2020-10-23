@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="elm.demo.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="elm.demo.domain.User">
-    <id column="uid" jdbcType="INTEGER" property="uid" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
+<mapper namespace="elm.demo.dao.StAcMapper">
+  <resultMap id="BaseResultMap" type="elm.demo.domain.StAc">
+    <id column="stid" jdbcType="INTEGER" property="stid" />
+    <result column="fsid" jdbcType="INTEGER" property="fsid" />
+    <result column="faid" jdbcType="INTEGER" property="faid" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -66,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    uid, username, password, add_time
+    stid, fsid, faid, add_time
   </sql>
-  <select id="selectByExample" parameterType="elm.demo.domain.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="elm.demo.domain.StAcExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from adminuser
+    from st_ac
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,73 +85,73 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from adminuser
-    where uid = #{uid,jdbcType=INTEGER}
+    from st_ac
+    where stid = #{stid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from adminuser
-    where uid = #{uid,jdbcType=INTEGER}
+    delete from st_ac
+    where stid = #{stid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="elm.demo.domain.UserExample">
-    delete from adminuser
+  <delete id="deleteByExample" parameterType="elm.demo.domain.StAcExample">
+    delete from st_ac
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="elm.demo.domain.User">
-    insert into adminuser (uid, username, password, 
+  <insert id="insert" parameterType="elm.demo.domain.StAc">
+    insert into st_ac (stid, fsid, faid, 
       add_time)
-    values (#{uid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{stid,jdbcType=INTEGER}, #{fsid,jdbcType=INTEGER}, #{faid,jdbcType=INTEGER}, 
       #{addTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="elm.demo.domain.User">
-    insert into adminuser
+  <insert id="insertSelective" parameterType="elm.demo.domain.StAc">
+    insert into st_ac
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="uid != null">
-        uid,
+      <if test="stid != null">
+        stid,
       </if>
-      <if test="username != null">
-        username,
+      <if test="fsid != null">
+        fsid,
       </if>
-      <if test="password != null">
-        password,
+      <if test="faid != null">
+        faid,
       </if>
       <if test="addTime != null">
         add_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="uid != null">
-        #{uid,jdbcType=INTEGER},
+      <if test="stid != null">
+        #{stid,jdbcType=INTEGER},
       </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
+      <if test="fsid != null">
+        #{fsid,jdbcType=INTEGER},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="faid != null">
+        #{faid,jdbcType=INTEGER},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="elm.demo.domain.UserExample" resultType="java.lang.Long">
-    select count(*) from adminuser
+  <select id="countByExample" parameterType="elm.demo.domain.StAcExample" resultType="java.lang.Long">
+    select count(*) from st_ac
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update adminuser
+    update st_ac
     <set>
-      <if test="record.uid != null">
-        uid = #{record.uid,jdbcType=INTEGER},
+      <if test="record.stid != null">
+        stid = #{record.stid,jdbcType=INTEGER},
       </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
+      <if test="record.fsid != null">
+        fsid = #{record.fsid,jdbcType=INTEGER},
       </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
+      <if test="record.faid != null">
+        faid = #{record.faid,jdbcType=INTEGER},
       </if>
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
@@ -162,35 +162,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update adminuser
-    set uid = #{record.uid,jdbcType=INTEGER},
-      username = #{record.username,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
+    update st_ac
+    set stid = #{record.stid,jdbcType=INTEGER},
+      fsid = #{record.fsid,jdbcType=INTEGER},
+      faid = #{record.faid,jdbcType=INTEGER},
       add_time = #{record.addTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="elm.demo.domain.User">
-    update adminuser
+  <update id="updateByPrimaryKeySelective" parameterType="elm.demo.domain.StAc">
+    update st_ac
     <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
+      <if test="fsid != null">
+        fsid = #{fsid,jdbcType=INTEGER},
       </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+      <if test="faid != null">
+        faid = #{faid,jdbcType=INTEGER},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where uid = #{uid,jdbcType=INTEGER}
+    where stid = #{stid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="elm.demo.domain.User">
-    update adminuser
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="elm.demo.domain.StAc">
+    update st_ac
+    set fsid = #{fsid,jdbcType=INTEGER},
+      faid = #{faid,jdbcType=INTEGER},
       add_time = #{addTime,jdbcType=TIMESTAMP}
-    where uid = #{uid,jdbcType=INTEGER}
+    where stid = #{stid,jdbcType=INTEGER}
   </update>
 </mapper>

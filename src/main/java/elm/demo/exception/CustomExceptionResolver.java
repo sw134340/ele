@@ -14,11 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 public class CustomExceptionResolver implements HandlerExceptionResolver {
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        CustomException customException = null;
-        if(ex instanceof CustomException){
-            customException = (CustomException)ex;
+        elm.demo.exception.CustomException customException = null;
+        if(ex instanceof elm.demo.exception.CustomException){
+            customException = (elm.demo.exception.CustomException)ex;
         }else{
-            customException = new CustomException("未知的错误");
+            customException = new elm.demo.exception.CustomException("未知的错误");
         }
 
         //错误信息

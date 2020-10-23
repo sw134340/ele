@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="elm.demo.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="elm.demo.domain.User">
-    <id column="uid" jdbcType="INTEGER" property="uid" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
+<mapper namespace="elm.demo.dao.TypeofgoodsMapper">
+  <resultMap id="BaseResultMap" type="elm.demo.domain.Typeofgoods">
+    <id column="tid" jdbcType="INTEGER" property="tid" />
+    <result column="tname" jdbcType="VARCHAR" property="tname" />
+    <result column="tinfo" jdbcType="VARCHAR" property="tinfo" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -66,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    uid, username, password, add_time
+    tid, tname, tinfo, add_time
   </sql>
-  <select id="selectByExample" parameterType="elm.demo.domain.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="elm.demo.domain.TypeofgoodsExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from adminuser
+    from typeofgoods
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,73 +85,73 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from adminuser
-    where uid = #{uid,jdbcType=INTEGER}
+    from typeofgoods
+    where tid = #{tid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from adminuser
-    where uid = #{uid,jdbcType=INTEGER}
+    delete from typeofgoods
+    where tid = #{tid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="elm.demo.domain.UserExample">
-    delete from adminuser
+  <delete id="deleteByExample" parameterType="elm.demo.domain.TypeofgoodsExample">
+    delete from typeofgoods
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="elm.demo.domain.User">
-    insert into adminuser (uid, username, password, 
+  <insert id="insert" parameterType="elm.demo.domain.Typeofgoods">
+    insert into typeofgoods (tid, tname, tinfo, 
       add_time)
-    values (#{uid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{tid,jdbcType=INTEGER}, #{tname,jdbcType=VARCHAR}, #{tinfo,jdbcType=VARCHAR}, 
       #{addTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="elm.demo.domain.User">
-    insert into adminuser
+  <insert id="insertSelective" parameterType="elm.demo.domain.Typeofgoods">
+    insert into typeofgoods
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="uid != null">
-        uid,
+      <if test="tid != null">
+        tid,
       </if>
-      <if test="username != null">
-        username,
+      <if test="tname != null">
+        tname,
       </if>
-      <if test="password != null">
-        password,
+      <if test="tinfo != null">
+        tinfo,
       </if>
       <if test="addTime != null">
         add_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="uid != null">
-        #{uid,jdbcType=INTEGER},
+      <if test="tid != null">
+        #{tid,jdbcType=INTEGER},
       </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
+      <if test="tname != null">
+        #{tname,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="tinfo != null">
+        #{tinfo,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="elm.demo.domain.UserExample" resultType="java.lang.Long">
-    select count(*) from adminuser
+  <select id="countByExample" parameterType="elm.demo.domain.TypeofgoodsExample" resultType="java.lang.Long">
+    select count(*) from typeofgoods
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update adminuser
+    update typeofgoods
     <set>
-      <if test="record.uid != null">
-        uid = #{record.uid,jdbcType=INTEGER},
+      <if test="record.tid != null">
+        tid = #{record.tid,jdbcType=INTEGER},
       </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
+      <if test="record.tname != null">
+        tname = #{record.tname,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
+      <if test="record.tinfo != null">
+        tinfo = #{record.tinfo,jdbcType=VARCHAR},
       </if>
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
@@ -162,35 +162,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update adminuser
-    set uid = #{record.uid,jdbcType=INTEGER},
-      username = #{record.username,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
+    update typeofgoods
+    set tid = #{record.tid,jdbcType=INTEGER},
+      tname = #{record.tname,jdbcType=VARCHAR},
+      tinfo = #{record.tinfo,jdbcType=VARCHAR},
       add_time = #{record.addTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="elm.demo.domain.User">
-    update adminuser
+  <update id="updateByPrimaryKeySelective" parameterType="elm.demo.domain.Typeofgoods">
+    update typeofgoods
     <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
+      <if test="tname != null">
+        tname = #{tname,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+      <if test="tinfo != null">
+        tinfo = #{tinfo,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where uid = #{uid,jdbcType=INTEGER}
+    where tid = #{tid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="elm.demo.domain.User">
-    update adminuser
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="elm.demo.domain.Typeofgoods">
+    update typeofgoods
+    set tname = #{tname,jdbcType=VARCHAR},
+      tinfo = #{tinfo,jdbcType=VARCHAR},
       add_time = #{addTime,jdbcType=TIMESTAMP}
-    where uid = #{uid,jdbcType=INTEGER}
+    where tid = #{tid,jdbcType=INTEGER}
   </update>
 </mapper>

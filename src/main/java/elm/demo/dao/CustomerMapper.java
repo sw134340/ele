@@ -1,9 +1,9 @@
 package elm.demo.dao;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 import elm.demo.domain.Customer;
 import elm.demo.domain.CustomerExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface CustomerMapper {
     long countByExample(CustomerExample example);
