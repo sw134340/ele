@@ -7,11 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-/**
- * @创建人 epss[wangzhanf]
- * @创建时间 2020/10/15 0015
- * @描述
- */
+
 public class StringToDateConvert implements Converter<String, Date> {
     @Override
     public Date convert(String source) {

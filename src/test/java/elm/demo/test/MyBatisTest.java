@@ -6,20 +6,16 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Before;
 import org.junit.Test;
-import vip.epss.dao.CustomerMapper;
-import vip.epss.dao.UserMapper;
-import vip.epss.domain.Customer;
-import vip.epss.domain.User;
+import elm.demo.dao.CustomerMapper;
+import elm.demo.dao.UserMapper;
+import elm.demo.domain.Customer;
+import elm.demo.domain.User;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-/**
- * @创建人 epss[wangzhanf]
- * @创建时间 2020/10/13 0013
- * @描述
- */
+
 public class MyBatisTest {
     InputStream resourceAsStream = null;
     SqlSessionFactory sqlSessionFactory = null;

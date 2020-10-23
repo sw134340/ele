@@ -3,8 +3,8 @@ package elm.demo.test;
 
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import vip.epss.domain.User;
-import vip.epss.service.UserService;
+import elm.demo.domain.User;
+import elm.demo.service.UserService;
 
 public class SpringTest {
     @Test

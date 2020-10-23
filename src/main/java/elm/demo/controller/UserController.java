@@ -20,11 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-/**
- * @创建人 epss[wangzhanf]
- * @创建时间 2020/10/19 0019
- * @描述
- */
 @Controller
 @RequestMapping("/user")
 public class UserController {

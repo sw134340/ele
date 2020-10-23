@@ -3,11 +3,7 @@ package elm.demo.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * @创建人 epss[wangzhanf]
- * @创建时间 2020/10/22 0022
- * @描述
- */
+
 public class UserCondition extends User implements Serializable {
     private Integer uidCondition;
     private Date startDate;

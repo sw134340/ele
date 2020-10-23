@@ -7,11 +7,7 @@ import elm.demo.domain.UserExample;
 
 import java.util.List;
 
-/**
- * @创建人 epss[wangzhanf]
- * @创建时间 2020/10/19 0019
- * @描述
- */
+
 public interface UserService {
     long countByExample(UserExample example);
 
