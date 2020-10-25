@@ -36,7 +36,10 @@
 <a href="${app}/user/logout">退出登录</a>
 <hr/>
 <a href="${app}/user/list">用户管理</a>
-<a href="${app}/typeofgoods/list">商品种类管理</a>
+<a href="${app}/typeofgoodsrest/list">商品种类管理</a>
+<a href="${app}/activerest/list">活动管理</a>
+<a href="${app}/customerrest/list">客户信息管理</a>
+<a href="${app}/goodsrest/list">商品信息管理</a>
 <a href="${app}/userrest/list">用户管理REST</a>
 <hr/>
 
@@ -76,9 +79,12 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
             </div>
 
+
         </div>
     </div>
 </div>
+
+
 
 <div class="modal fade" id="updateModal">
     <div class="modal-dialog">

@@ -156,7 +156,7 @@ BEGIN
         i INT DEFAULT 1;
     WHILE
             i < 100 DO
-            insert into typeofgoods (tname) value (concat('typ',i)) ;
+            insert into typeofgoods (tname,tinfo) value (concat('typ',i),(concat('tinfo',i))) ;
             SET i = i + 1;
 
         END WHILE;
@@ -242,7 +242,7 @@ BEGIN
         i INT DEFAULT 1;
     WHILE
             i < 100 DO
-            insert into goods (gname,gtid) value (concat('good',i),1) ;
+            insert into goods (gname,ginfo,gphoto,gprice,gtid,gsid) value (concat('good',i),CONCAT('商品介绍',i),'/upload/goods.png',RAND() * 15 + 5,1,1) ;
             SET i = i + 1;
 
         END WHILE;

@@ -1,8 +1,11 @@
 package elm.demo.domain;
 
-import java.util.Date;
+import lombok.Data;
 
-public class Active {
+import java.io.Serializable;
+import java.util.Date;
+@Data
+public class Active implements Serializable {
     private Integer aid;
 
     private String aname;
