@@ -36,10 +36,10 @@
 <a href="${app}/user/logout">退出登录</a>
 <hr/>
 <a target="dataDisplay"href="${app}/user/list">用户管理</a>
-<a target="dataDisplay"href="${app}/typeofgoodsrest/list">商品种类管理</a>
-<a target="dataDisplay"href="${app}/activerest/list">活动管理</a>
+<a target="dataDisplay"href="${app}/typeofgoodsrest/index">商品种类管理</a>
+<a target="dataDisplay"href="${app}/activerest/index">活动管理</a>
 <a target="dataDisplay"href="${app}/customerrest/index">客户信息管理</a>
-<a target="dataDisplay" href="${app}/goodsrest/list">商品管理</a>
+<a target="dataDisplay" href="${app}/goodsrest/index">商品管理</a>
 <a target="dataDisplay"href="${app}/userrest/index">用户管理REST</a>
 <hr/>
 <iframe name="dataDisplay" width="100%" height="1000" src=""></iframe>
