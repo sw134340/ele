@@ -1,10 +1,12 @@
 package elm.demo.domain;
 
+import com.fasterxml.jackson.annotation.JacksonAnnotation;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
 @Data
+
 public class Orderlist implements Serializable {
     private Integer oid;
 
@@ -20,17 +22,22 @@ public class Orderlist implements Serializable {
 
     private Date addTime;
 
-    public Orderlist(Integer oid, Integer ouserid, Integer ogid, Integer quantity, Integer ostoreid, Integer status, Date addTime) {
-        this.oid = oid;
-        this.ouserid = ouserid;
-        this.ogid = ogid;
-        this.quantity = quantity;
-        this.ostoreid = ostoreid;
-        this.status = status;
-        this.addTime = addTime;
-    }
+    private User user;
+    private Storeinfo storeinfo;
 
-    public Orderlist() {
+    @Override
+    public String toString() {
+        return "Orderlist{" +
+                "oid=" + oid +
+                ", ouserid=" + ouserid +
+                ", ogid=" + ogid +
+                ", quantity=" + quantity +
+                ", ostoreid=" + ostoreid +
+                ", status=" + status +
+                ", addTime=" + addTime +
+                ", user=" + user +
+                ", storeinfo=" + storeinfo +
+                '}';
     }
 
     public Integer getOid() {
@@ -87,5 +94,36 @@ public class Orderlist implements Serializable {
 
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Storeinfo getStoreinfo() {
+        return storeinfo;
+    }
+
+    public void setStoreinfo(Storeinfo storeinfo) {
+        this.storeinfo = storeinfo;
+    }
+
+    public Orderlist(Integer oid, Integer ouserid, Integer ogid, Integer quantity, Integer ostoreid, Integer status, Date addTime, User user, Storeinfo storeinfo) {
+        this.oid = oid;
+        this.ouserid = ouserid;
+        this.ogid = ogid;
+        this.quantity = quantity;
+        this.ostoreid = ostoreid;
+        this.status = status;
+        this.addTime = addTime;
+        this.user = user;
+        this.storeinfo = storeinfo;
+    }
+
+    public Orderlist() {
     }
 }

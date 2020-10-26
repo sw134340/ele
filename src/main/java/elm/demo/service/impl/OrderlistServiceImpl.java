@@ -43,8 +43,18 @@ public class OrderlistServiceImpl implements OrderlistService {
     }
 
     @Override
+    public List<Orderlist> selectByExampleWithObject(OrderlistExample example) {
+        return orderlistMapper.selectByExampleWithObject(example);
+    }
+
+    @Override
     public Orderlist selectByPrimaryKey(Integer oid) {
         return orderlistMapper.selectByPrimaryKey(oid);
+    }
+
+    @Override
+    public Orderlist selectByPrimaryKeyWithObject(Integer oid) {
+        return orderlistMapper.selectByPrimaryKeyWithObject(oid);
     }
 
     @Override

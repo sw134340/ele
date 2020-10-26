@@ -76,7 +76,7 @@ public class OrderlistController {
 
         //初始化,约束
         PageHelper.startPage(pageNum, pageSize);
-        List<Orderlist> lists = service.selectByExample(example);
+        List<Orderlist> lists = service.selectByExampleWithObject(example);
         //使用pageHelper的方式封装数据,默认的导航列表长度为8
         PageInfo pageInfo = new PageInfo(lists, 8);
         return MessageAndData.success("").add("pageInfo",pageInfo);
@@ -84,7 +84,7 @@ public class OrderlistController {
 
     @ResponseBody
     @RequestMapping(value = "/opt/{id}",method = RequestMethod.GET)
-    public MessageAndData optSelectPrimaryKey(@PathVariable("id")Integer id){
+    public MessageAndData optSelectPrimaryKeyWithObject(@PathVariable("id")Integer id){
         Orderlist obj = service.selectByPrimaryKey(id);
         return MessageAndData.success("查询成功").add("obj",obj);
     }

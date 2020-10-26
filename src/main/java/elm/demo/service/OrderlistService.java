@@ -18,8 +18,10 @@ public interface OrderlistService {
     int insertSelective(Orderlist record);
 
     List<Orderlist> selectByExample(OrderlistExample example);
+    List<Orderlist> selectByExampleWithObject(OrderlistExample example);
 
     Orderlist selectByPrimaryKey(Integer oid);
+    Orderlist selectByPrimaryKeyWithObject(Integer oid);
 
     int updateByExampleSelective(@Param("record") Orderlist record, @Param("example") OrderlistExample example);
 

@@ -51,8 +51,8 @@ private Integer maxquantity;
         this.endDate = endDate;
     }
 
-    public OrderlistCondition(Integer oid, Integer ouserid, Integer ogid, Integer quantity, Integer ostoreid, Integer status, Date addTime, Integer minquantity, Integer maxquantity, Date startDate, Date endDate) {
-        super(oid, ouserid, ogid, quantity, ostoreid, status, addTime);
+    public OrderlistCondition(Integer oid, Integer ouserid, Integer ogid, Integer quantity, Integer ostoreid, Integer status, Date addTime, User user, Storeinfo storeinfo, Integer minquantity, Integer maxquantity, Date startDate, Date endDate) {
+        super(oid, ouserid, ogid, quantity, ostoreid, status, addTime, user, storeinfo);
         this.minquantity = minquantity;
         this.maxquantity = maxquantity;
         this.startDate = startDate;
