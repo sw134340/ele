@@ -5,35 +5,36 @@ import java.util.Date;
 
 
 public class GoodsCondition extends Goods implements Serializable {
-    private Integer gidCondition;
+    private Double minPrice;
+    private Double maxPrice;
     private Date startDate;
     private Date endDate;
 
     public GoodsCondition() {
     }
 
-    public GoodsCondition(Integer gid, String gname, Date addTime, Integer uidCondition, Date startDate, Date endDate) {
-        super();
-        this.gidCondition = gidCondition;
+    public GoodsCondition(Integer gid, String gname, String ginfo, String gphoto, Double gprice, Integer gtid, Integer gsid, Date addTime, Double minPrice, Double maxPrice, Date startDate, Date endDate) {
+        super(gid, gname, ginfo, gphoto, gprice, gtid, gsid, addTime);
+        this.minPrice = minPrice;
+        this.maxPrice = maxPrice;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    @Override
-    public String toString() {
-        return "GoodsCondition{" +
-                "gidCondition=" + gidCondition +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                "} " + super.toString();
+    public Double getMinPrice() {
+        return minPrice;
     }
 
-    public Integer getGidCondition() {
-        return gidCondition;
+    public void setMinPrice(Double minPrice) {
+        this.minPrice = minPrice;
     }
 
-    public void setGidCondition(Integer gidCondition) {
-        this.gidCondition = gidCondition;
+    public Double getMaxPrice() {
+        return maxPrice;
+    }
+
+    public void setMaxPrice(Double maxPrice) {
+        this.maxPrice = maxPrice;
     }
 
     public Date getStartDate() {

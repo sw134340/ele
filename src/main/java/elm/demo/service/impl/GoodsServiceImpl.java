@@ -14,27 +14,27 @@ public class GoodsServiceImpl implements GoodsService {
     private GoodsMapper goodsMapper;
     @Override
     public long countByExample(GoodsExample example) {
-        return 0;
+        return goodsMapper.countByExample(example);
     }
 
     @Override
     public int deleteByExample(GoodsExample example) {
-        return 0;
+        return goodsMapper.deleteByExample(example);
     }
 
     @Override
     public int deleteByPrimaryKey(Integer gid) {
-        return 0;
+        return goodsMapper.deleteByPrimaryKey(gid);
     }
 
     @Override
     public int insert(Goods record) {
-        return 0;
+        return goodsMapper.insert(record);
     }
 
     @Override
     public int insertSelective(Goods record) {
-        return 0;
+        return goodsMapper.insertSelective(record);
     }
 
     @Override
@@ -44,26 +44,26 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public Goods selectByPrimaryKey(Integer gid) {
-        return null;
+        return goodsMapper.selectByPrimaryKey(gid);
     }
 
     @Override
     public int updateByExampleSelective(Goods record, GoodsExample example) {
-        return 0;
+        return goodsMapper.updateByExampleSelective(record, example);
     }
 
     @Override
     public int updateByExample(Goods record, GoodsExample example) {
-        return 0;
+        return goodsMapper.updateByExample(record, example);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Goods record) {
-        return 0;
+        return goodsMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(Goods record) {
-        return 0;
+        return updateByPrimaryKey(record);
     }
 }

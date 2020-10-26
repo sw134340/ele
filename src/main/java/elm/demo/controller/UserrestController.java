@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.security.PublicKey;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +25,12 @@ import java.util.List;
 public class UserrestController {
     @Autowired
     private UserService userService;
+
+    @RequestMapping(value = "/index")
+    public String index(){
+        //return "forward:/WEB-INF/user.jsp";    @RestController的话
+        return "user";
+    }
 
     @ResponseBody
     @RequestMapping(value = "/list",method = {RequestMethod.GET})

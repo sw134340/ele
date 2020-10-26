@@ -16,27 +16,27 @@ public class ActiveServiceImpl implements ActiveService {
 
     @Override
     public long countByExample(ActiveExample example) {
-        return 0;
+        return activeMapper.countByExample(example);
     }
 
     @Override
     public int deleteByExample(ActiveExample example) {
-        return 0;
+        return activeMapper.deleteByExample(example);
     }
 
     @Override
     public int deleteByPrimaryKey(Integer aid) {
-        return 0;
+        return activeMapper.deleteByPrimaryKey(aid);
     }
 
     @Override
     public int insert(Active record) {
-        return 0;
+        return activeMapper.insert(record);
     }
 
     @Override
     public int insertSelective(Active record) {
-        return 0;
+        return activeMapper.insertSelective(record);
     }
 
     @Override
@@ -46,26 +46,26 @@ public class ActiveServiceImpl implements ActiveService {
 
     @Override
     public Active selectByPrimaryKey(Integer aid) {
-        return null;
+        return activeMapper.selectByPrimaryKey(aid);
     }
 
     @Override
     public int updateByExampleSelective(Active record, ActiveExample example) {
-        return 0;
+        return activeMapper.updateByExampleSelective(record, example);
     }
 
     @Override
     public int updateByExample(Active record, ActiveExample example) {
-        return 0;
+        return activeMapper.updateByExample(record, example);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Active record) {
-        return 0;
+        return activeMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(Active record) {
-        return 0;
+        return activeMapper.updateByPrimaryKey(record);
     }
 }

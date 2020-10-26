@@ -22,43 +22,47 @@ public class ActiveController {
     @Autowired
     private ActiveService activeService;
 
+    @RequestMapping(value = "/index")
+    public String index(){
+        return "active";
+    }
+
 @ResponseBody
 @RequestMapping(value = "/list",method = {RequestMethod.GET})
 public MessageAndData list(
-        ActiveCondition activeCondition,/*检索条件*/
+        ActiveCondition condition,/*检索条件*/
         @RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum,
         @RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize
 
 ) throws ParseException {
-    System.out.println(activeCondition);
-    ActiveExample activeExample = new ActiveExample();
-    ActiveExample.Criteria criteria = activeExample.createCriteria();
+    ActiveExample example = new ActiveExample();
+    ActiveExample.Criteria criteria = example.createCriteria();
 
-    String aName="";
-    if(activeCondition.getAname()!=null && !activeCondition.getAname().equals("")){
-        aName = "%"+ activeCondition.getAname()+"%";
-        criteria.andAnameLike(aName);
+    String name="";
+    if(condition.getAname()!=null && !condition.getAname().equals("")){
+        name = "%"+ condition.getAname()+"%";
+        criteria.andAnameLike(name);
     }
 
-    Integer aidC = activeCondition.getAidCondition();
-    if(aidC!=null && aidC!=-1 && activeCondition.getAid()!=null){//不限定条件
+    Integer aidC = condition.getAidCondition();
+    if(aidC!=null && aidC!=-1 && condition.getAid()!=null){//不限定条件
         if(aidC == 0){
-            criteria.andAidGreaterThan(activeCondition.getAid());
+            criteria.andAidGreaterThan(condition.getAid());
         }
         if(aidC == 1){
-            criteria.andAidEqualTo(activeCondition.getAid());
+            criteria.andAidEqualTo(condition.getAid());
         }
         if(aidC == 2){
-            criteria.andAidLessThan(activeCondition.getAid());
+            criteria.andAidLessThan(condition.getAid());
         }
     }
 
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    Date startDate1 = dateFormat.parse("1970-01-01");
-    Date endDate1 = dateFormat.parse("2999-12-31");
+    Date startDate = dateFormat.parse("1970-01-01");
+    Date endDate = dateFormat.parse("2999-12-31");
 
-    Date startDate = activeCondition.getStartDate()==null?startDate1:activeCondition.getStartDate();
-    Date endDate = activeCondition.getEndDate()==null?endDate1:activeCondition.getEndDate();
+    startDate = condition.getStartDate()==null?startDate:condition.getStartDate();
+    endDate = condition.getEndDate()==null?endDate:condition.getEndDate();
     if(startDate.after(endDate)){
         Date tempDate = startDate;
         startDate = endDate;
@@ -69,23 +73,23 @@ public MessageAndData list(
 
     //初始化,约束
     PageHelper.startPage(pageNum, pageSize);
-    List<Active> actives = activeService.selectByExample(activeExample);
+    List<Active> lists = activeService.selectByExample(example);
     //使用pageHelper的方式封装数据,默认的导航列表长度为8
-    PageInfo pageInfo = new PageInfo(actives, 8);
+    PageInfo pageInfo = new PageInfo(lists, 8);
     return MessageAndData.success("").add("pageInfo",pageInfo);
 }
 
     @ResponseBody
-    @RequestMapping(value = "/opt/{aid}",method = RequestMethod.GET)
-    public MessageAndData optSelectPrimaryKey(@PathVariable("aid")Integer aid){
-        Active active = activeService.selectByPrimaryKey(aid);
-        return MessageAndData.success("查询成功").add("active",active);
+    @RequestMapping(value = "/opt/{id}",method = RequestMethod.GET)
+    public MessageAndData optSelectPrimaryKey(@PathVariable("id")Integer id){
+        Active obj = activeService.selectByPrimaryKey(id);
+        return MessageAndData.success("查询成功").add("obj",obj);
     }
 
     @ResponseBody
     @RequestMapping(value = "/opt",method = RequestMethod.POST)
-    public MessageAndData optInsert(Active active){
-        Integer i = activeService.insertSelective(active);
+    public MessageAndData optInsert(Active obj){
+        Integer i = activeService.insertSelective(obj);
         if(i>0){
             return MessageAndData.success("成功添加"+i+"条记录");
         }else{
@@ -94,23 +98,24 @@ public MessageAndData list(
     }
 
     @ResponseBody
-    @RequestMapping(value = "/opt/{aids}",method = RequestMethod.DELETE)
-    public MessageAndData deletes(@PathVariable("aids")String aids){
+    @RequestMapping(value = "/opt/{ids}",method = RequestMethod.DELETE)
+    public MessageAndData deletes(@PathVariable("ids")String ids){
         //获取传递过来的aid列表,分解为一个集合对象
-        List<Integer> iAids = new ArrayList<Integer>();
-        String[] sAids = aids.split("-");
+        List<Integer> iIds = new ArrayList<Integer>();
+        String splitSymbol = "\\D";
+        String[] sIds = ids.split(splitSymbol);
         Integer i = null;
-        for (String sAid : sAids) {
-            iAids.add(Integer.parseInt(sAid));
+        for (String sId : sIds) {
+            iIds.add(Integer.parseInt(sId));
         }
-        if(iAids.size() > 1) {//删除多条记录
-            //创建一个ActiverExample对象
-            ActiveExample activeExample = new ActiveExample();
-            activeExample.createCriteria().andAidIn(iAids);
+        if(iIds.size() > 1) {//删除多条记录
+            //创建一个ActiveExample对象
+            ActiveExample example = new ActiveExample();
+            example.createCriteria().andAidIn(iIds);
             //执行批量删除
-            i = activeService.deleteByExample(activeExample);
+            i = activeService.deleteByExample(example);
         }else{//删除一条记录
-            i = activeService.deleteByPrimaryKey(iAids.get(0));
+            i = activeService.deleteByPrimaryKey(iIds.get(0));
         }
         return MessageAndData.success("删除成功"+i+"条记录").add("num", i);
     }
@@ -118,9 +123,9 @@ public MessageAndData list(
     //    如果使用put方法,记得要在web.xml中添加相应过滤器,对象不能封装
     @ResponseBody
     @RequestMapping(value = "/opt",method = RequestMethod.PUT)
-    public MessageAndData optUpdate(Active active){
-        System.out.println(active);
-        int i = activeService.updateByPrimaryKeySelective(active);
+    public MessageAndData optUpdate(Active obj){
+        System.out.println(obj);
+        int i = activeService.updateByPrimaryKeySelective(obj);
         if(i>0){
             return MessageAndData.success("成功修改"+i+"条记录");
         }else{
