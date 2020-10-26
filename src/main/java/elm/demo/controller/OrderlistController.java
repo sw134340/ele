@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import elm.demo.domain.*;
 import elm.demo.service.OrderlistService;
-import elm.demo.service.StoreinfoService;
+import elm.demo.service.UserService;
 import elm.demo.utils.MessageAndData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,21 +19,21 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/orderlistrest")
-public class StoreinfoController {
+public class OrderlistController {
     @Autowired
-    private StoreinfoService service;
+    private OrderlistService service;
 
     @ResponseBody
     @RequestMapping(value = "/list",method = {RequestMethod.GET})
     public MessageAndData list(
-            StoreinfoCondition condition,/*检索条件*/
+            OrderlistCondition condition,/*检索条件*/
             @RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum,
             @RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize
 
     ) throws ParseException {
         System.out.println(condition);
-        StoreinfoExample example = new StoreinfoExample();
-        StoreinfoExample.Criteria criteria = example.createCriteria();
+        OrderlistExample example = new OrderlistExample();
+        OrderlistExample.Criteria criteria = example.createCriteria();
 
 
 //        Integer uidC = condition.getUidCondition();
@@ -48,11 +48,11 @@ public class StoreinfoController {
 //                criteria.andUidLessThan(condition.getUid());
 //            }
 //        }
-        String name="";
-        if(condition.getSname()!=null && !condition.getSname().equals("")){
-            name = "%"+condition.getSname()+"%";
-            criteria.andSnameLike(name);
-        }
+//        String name="";
+//        if(userCondition.getUsername()!=null && !userCondition.getUsername().equals("")){
+//            userName = "%"+userCondition.getUsername()+"%";
+//            criteria.andUsernameLike(name);
+//        }
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date startDate1 = dateFormat.parse("1970-01-01");
         Date endDate1 = dateFormat.parse("2999-12-31");
@@ -72,7 +72,7 @@ public class StoreinfoController {
 
         //初始化,约束
         PageHelper.startPage(pageNum, pageSize);
-        List<Storeinfo> lists = service.selectByExample(example);
+        List<Orderlist> lists = service.selectByExample(example);
         //使用pageHelper的方式封装数据,默认的导航列表长度为8
         PageInfo pageInfo = new PageInfo(lists, 8);
         return MessageAndData.success("").add("pageInfo",pageInfo);
@@ -81,14 +81,14 @@ public class StoreinfoController {
     @ResponseBody
     @RequestMapping(value = "/opt/{id}",method = RequestMethod.GET)
     public MessageAndData optSelectPrimaryKey(@PathVariable("id")Integer id){
-        Storeinfo obj = service.selectByPrimaryKey(id);
+        Orderlist obj = service.selectByPrimaryKey(id);
         return MessageAndData.success("查询成功").add("obj",obj);
     }
 
 
     @ResponseBody
     @RequestMapping(value = "/opt",method = RequestMethod.POST)
-    public MessageAndData optInsert(Storeinfo obj){
+    public MessageAndData optInsert(Orderlist obj){
         Integer i = service.insertSelective(obj);
         if(i>0){
             return MessageAndData.success("成功添加"+i+"条记录");
@@ -110,8 +110,8 @@ public class StoreinfoController {
         }
         if(iIds.size() > 1) {//删除多条记录
             //创建一个UserExample对象
-            StoreinfoExample example = new StoreinfoExample();
-            example.createCriteria().andSidIn(iIds);
+            OrderlistExample example = new OrderlistExample();
+            example.createCriteria().andOidIn(iIds);
             //执行批量删除
             i = service.deleteByExample(example);
         }else{//删除一条记录
@@ -124,7 +124,7 @@ public class StoreinfoController {
     //    如果使用put方法,记得要在web.xml中添加相应过滤器,对象不能封装
     @ResponseBody
     @RequestMapping(value = "/opt",method = RequestMethod.PUT)
-    public MessageAndData optUpdate(Storeinfo obj){
+    public MessageAndData optUpdate(Orderlist obj){
         System.out.println(obj);
         int i = service.updateByPrimaryKeySelective(obj);
         if(i>0){
