@@ -2,9 +2,10 @@ package elm.demo.domain;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 @Data
-public class Orderlist {
+public class Orderlist implements Serializable {
     private Integer oid;
 
     private Integer ouserid;

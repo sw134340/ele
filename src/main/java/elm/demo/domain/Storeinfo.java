@@ -2,9 +2,10 @@ package elm.demo.domain;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 @Data
-public class Storeinfo {
+public class Storeinfo implements Serializable {
     private Integer sid;
 
     private String sname;
