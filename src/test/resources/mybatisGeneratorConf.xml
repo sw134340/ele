@@ -51,10 +51,7 @@
             <!--            忽略部分字段的生成-->
             <ignoreColumn column="up_time"></ignoreColumn>
         </table>
-        <table tableName="st_ac" domainObjectName="StAc">
-            <!--            忽略部分字段的生成-->
-            <ignoreColumn column="up_time"></ignoreColumn>
-        </table>
+
         <table tableName="typeofgoods" domainObjectName="Typeofgoods">
             <!--            忽略部分字段的生成-->
             <ignoreColumn column="up_time"></ignoreColumn>
