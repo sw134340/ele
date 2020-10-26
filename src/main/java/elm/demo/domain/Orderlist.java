@@ -1,7 +1,9 @@
 package elm.demo.domain;
 
-import java.util.Date;
+import lombok.Data;
 
+import java.util.Date;
+@Data
 public class Orderlist {
     private Integer oid;
 
@@ -16,6 +18,19 @@ public class Orderlist {
     private Integer status;
 
     private Date addTime;
+
+    public Orderlist(Integer oid, Integer ouserid, Integer ogid, Integer quantity, Integer ostoreid, Integer status, Date addTime) {
+        this.oid = oid;
+        this.ouserid = ouserid;
+        this.ogid = ogid;
+        this.quantity = quantity;
+        this.ostoreid = ostoreid;
+        this.status = status;
+        this.addTime = addTime;
+    }
+
+    public Orderlist() {
+    }
 
     public Integer getOid() {
         return oid;

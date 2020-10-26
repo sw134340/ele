@@ -1,7 +1,9 @@
 package elm.demo.domain;
 
-import java.util.Date;
+import lombok.Data;
 
+import java.util.Date;
+@Data
 public class Storeinfo {
     private Integer sid;
 
@@ -11,15 +13,30 @@ public class Storeinfo {
 
     private String sphoto;
 
-    private String marking;
+    private String marking;//评分
 
-    private String dispatching;
+    private String dispatching;//快递方式
 
     private String sadderss;
 
     private Boolean offer;
 
     private Date addTime;
+
+    public Storeinfo(Integer sid, String sname, String spassword, String sphoto, String marking, String dispatching, String sadderss, Boolean offer, Date addTime) {
+        this.sid = sid;
+        this.sname = sname;
+        this.spassword = spassword;
+        this.sphoto = sphoto;
+        this.marking = marking;
+        this.dispatching = dispatching;
+        this.sadderss = sadderss;
+        this.offer = offer;
+        this.addTime = addTime;
+    }
+
+    public Storeinfo() {
+    }
 
     public Integer getSid() {
         return sid;
