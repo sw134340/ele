@@ -18,10 +18,15 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/orderlistrest")
+@RequestMapping("/storeinforest")
 public class StoreinfoController {
     @Autowired
     private StoreinfoService service;
+    @RequestMapping(value = "/index")
+    public String index(){
+//    return "forward:/WEB-INF/user.jsp";
+        return "storeinfolist";
+    }
 
     @ResponseBody
     @RequestMapping(value = "/list",method = {RequestMethod.GET})
