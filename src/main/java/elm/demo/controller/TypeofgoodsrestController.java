@@ -2,6 +2,7 @@ package elm.demo.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import elm.demo.domain.Storeinfo;
 import elm.demo.domain.Typeofgoods;
 import elm.demo.domain.TypeofgoodsCondition;
 import elm.demo.domain.TypeofgoodsExample;
@@ -22,6 +23,13 @@ import java.util.List;
 public class TypeofgoodsrestController {
     @Autowired
     private TypeofgoodsService typeofgoodsService;
+    @ResponseBody
+    @RequestMapping(value = "/listJSON")
+    public MessageAndData listJSON(){
+        List<Typeofgoods> typeofgoods = typeofgoodsService.selectByExample(null);
+        return MessageAndData.success("").add("typeofgoods",typeofgoods);
+    }
+
 
     @ResponseBody
     @RequestMapping(value = "/list",method = {RequestMethod.GET})

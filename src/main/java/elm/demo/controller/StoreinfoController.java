@@ -27,6 +27,13 @@ public class StoreinfoController {
 //    return "forward:/WEB-INF/user.jsp";
         return "storeinfolist";
     }
+@ResponseBody
+@RequestMapping(value = "/listJSON")
+public MessageAndData listJSON(){
+    List<Storeinfo> storeinfos = service.selectByExample(null);
+    return MessageAndData.success("").add("storeinfos",storeinfos);
+}
+
 
     @ResponseBody
     @RequestMapping(value = "/list",method = {RequestMethod.GET})
