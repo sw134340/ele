@@ -25,7 +25,7 @@ public class StoreinfoController {
     @RequestMapping(value = "/index")
     public String index(){
 //    return "forward:/WEB-INF/user.jsp";
-        return "storeinfolist";
+        return "storeinfo";
     }
 @ResponseBody
 @RequestMapping(value = "/listJSON")

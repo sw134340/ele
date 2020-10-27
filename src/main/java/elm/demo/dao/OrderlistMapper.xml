@@ -245,41 +245,41 @@
 
 
 
-  <resultMap id="BaseResultMapWithObject" type="elm.demo.domain.Orderlist">
-    <id column="oid" jdbcType="INTEGER" property="oid" />
-    <result column="ouserid" jdbcType="INTEGER" property="ouserid" />
-    <result column="ogid" jdbcType="INTEGER" property="ogid" />
-    <result column="quantity" jdbcType="INTEGER" property="quantity" />
-    <result column="ostoreid" jdbcType="INTEGER" property="ostoreid" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <association property="storeinfo" javaType="elm.demo.domain.Storeinfo" select="elm.demo.dao.StoreinfoMapper.selectByprimaryKey" column="ostoreid">
-      <id property="sid" column="sid"></id>
-      <result property="sname" column="sname"></result>
-    </association>
-    <association property="user" javaType="elm.demo.domain.User" select="elm.demo.dao.UserMapper.selectByprimaryKey" column="ouserid">
-      <id property="uid" column="uid"></id>
-      <result property="username" column="username"></result>
-    </association>
-  </resultMap>
-  <select id="selectByExample" parameterType="elm.demo.domain.OrderlistExample" resultMap="BaseResultMapWithObject">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from orderlist
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMapWithObject">
-    select
-    <include refid="Base_Column_List" />
-    from orderlist
-    where oid = #{oid,jdbcType=INTEGER}
-  </select>
+<!--  <resultMap id="BaseResultMapWithObject" type="elm.demo.domain.Orderlist">-->
+<!--    <id column="oid" jdbcType="INTEGER" property="oid" />-->
+<!--    <result column="ouserid" jdbcType="INTEGER" property="ouserid" />-->
+<!--    <result column="ogid" jdbcType="INTEGER" property="ogid" />-->
+<!--    <result column="quantity" jdbcType="INTEGER" property="quantity" />-->
+<!--    <result column="ostoreid" jdbcType="INTEGER" property="ostoreid" />-->
+<!--    <result column="status" jdbcType="INTEGER" property="status" />-->
+<!--    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />-->
+<!--    <association property="storeinfo" javaType="elm.demo.domain.Storeinfo" select="elm.demo.dao.StoreinfoMapper.selectByprimaryKey" column="ostoreid">-->
+<!--      <id property="sid" column="sid"></id>-->
+<!--      <result property="sname" column="sname"></result>-->
+<!--    </association>-->
+<!--    <association property="user" javaType="elm.demo.domain.User" select="elm.demo.dao.UserMapper.selectByprimaryKey" column="ouserid">-->
+<!--      <id property="uid" column="uid"></id>-->
+<!--      <result property="username" column="username"></result>-->
+<!--    </association>-->
+<!--  </resultMap>-->
+<!--  <select id="selectByExample" parameterType="elm.demo.domain.OrderlistExample" resultMap="BaseResultMapWithObject">-->
+<!--    select-->
+<!--    <if test="distinct">-->
+<!--      distinct-->
+<!--    </if>-->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from orderlist-->
+<!--    <if test="_parameter != null">-->
+<!--      <include refid="Example_Where_Clause" />-->
+<!--    </if>-->
+<!--    <if test="orderByClause != null">-->
+<!--      order by ${orderByClause}-->
+<!--    </if>-->
+<!--  </select>-->
+<!--  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMapWithObject">-->
+<!--    select-->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from orderlist-->
+<!--    where oid = #{oid,jdbcType=INTEGER}-->
+<!--  </select>-->
 </mapper>
