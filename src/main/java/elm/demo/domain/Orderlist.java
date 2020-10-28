@@ -1,12 +1,13 @@
 package elm.demo.domain;
 
 import com.fasterxml.jackson.annotation.JacksonAnnotation;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
 @Data
-
+@JsonIgnoreProperties(value = "handler")    //用于解决mybatis关联查询时使用了懒加载方式过程中数据封装引发的问题
 public class Orderlist implements Serializable {
     private Integer oid;
 

@@ -39,6 +39,7 @@
 <a target="dataDisplay"href="${app}/typeofgoodsrest/index">商品种类管理</a>
 <a target="dataDisplay"href="${app}/activerest/index">活动管理</a>
 <a target="dataDisplay"href="${app}/storeinforest/index">商家管理</a>
+<a target="dataDisplay"href="${app}/orderlistrest/index">订单管理</a>
 <a target="dataDisplay"href="${app}/customerrest/index">客户信息管理</a>
 <a target="dataDisplay" href="${app}/goodsrest/index">商品管理</a>
 <a target="dataDisplay"href="${app}/userrest/index">用户管理REST</a>

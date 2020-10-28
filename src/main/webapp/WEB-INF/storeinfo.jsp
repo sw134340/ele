@@ -333,7 +333,7 @@
         //修改数据之前先进行数据校验
         //校验通过向服务器发送请求
         var formData = new FormData($("#updateModal form").get(0));
-        formData.append("_method", 'put');
+        // formData.append("_method", 'put');
         $.ajax({
             url: "${app}/storeinforest/opt",
             type: "PUT",
@@ -381,7 +381,7 @@
                 alertTips(result.message,"alert-success");
             },
             error: function (result) {
-                alert(result.message);
+                alert(result.message,"alert-danger");
                 return false;
             }
         });

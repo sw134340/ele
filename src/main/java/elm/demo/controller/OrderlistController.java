@@ -28,12 +28,7 @@ public class OrderlistController {
         return "orderlist";
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/listJSON")
-    public MessageAndData listJSON(){
-        List<Orderlist> orderlists = service.selectByExample(null);
-        return MessageAndData.success("").add("orderlists",orderlists);
-    }
+
 
     @ResponseBody
     @RequestMapping(value = "/list",method = {RequestMethod.GET})
@@ -49,6 +44,20 @@ public class OrderlistController {
         if(condition.getOid()!=null){
             criteria.andOidEqualTo(condition.getOid());
         }
+
+
+        Integer minQuantity = 0;
+        Integer maxQuantity = 1000000000;
+        minQuantity = condition.getMinQuantity()==null?minQuantity:condition.getMinQuantity();
+        maxQuantity = condition.getMaxQuantity()==null?maxQuantity:condition.getMaxQuantity();
+        if(minQuantity>maxQuantity){
+            Integer temp = minQuantity;
+            minQuantity = maxQuantity;
+            maxQuantity = temp;
+        }
+        criteria.andQuantityBetween(minQuantity,maxQuantity);
+
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date startDate1 = dateFormat.parse("1970-01-01");
         Date endDate1 = dateFormat.parse("2999-12-31");
@@ -77,7 +86,7 @@ public class OrderlistController {
     @ResponseBody
     @RequestMapping(value = "/opt/{id}",method = RequestMethod.GET)
     public MessageAndData optSelectPrimaryKeyWithObject(@PathVariable("id")Integer id){
-        Orderlist obj = service.selectByPrimaryKey(id);
+        Orderlist obj = service.selectByPrimaryKeyWithObject(id);
         return MessageAndData.success("查询成功").add("obj",obj);
     }
 

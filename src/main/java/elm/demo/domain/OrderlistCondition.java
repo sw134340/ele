@@ -4,35 +4,35 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class OrderlistCondition extends Orderlist implements Serializable {
-private Integer minquantity;
-private Integer maxquantity;
+private Integer minQuantity;
+private Integer maxQuantity;
     private Date startDate;
     private Date endDate;
 
     @Override
     public String toString() {
         return "OrderlistCondition{" +
-                "minquantity=" + minquantity +
-                ", maxquantity=" + maxquantity +
+                "minQuantity=" + minQuantity +
+                ", maxQuantity=" + maxQuantity +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 '}';
     }
 
-    public Integer getMinquantity() {
-        return minquantity;
+    public Integer getMinQuantity() {
+        return minQuantity;
     }
 
-    public void setMinquantity(Integer minquantity) {
-        this.minquantity = minquantity;
+    public void setMinQuantity(Integer minQuantity) {
+        this.minQuantity = minQuantity;
     }
 
-    public Integer getMaxquantity() {
-        return maxquantity;
+    public Integer getMaxQuantity() {
+        return maxQuantity;
     }
 
-    public void setMaxquantity(Integer maxquantity) {
-        this.maxquantity = maxquantity;
+    public void setMaxQuantity(Integer maxQuantity) {
+        this.maxQuantity = maxQuantity;
     }
 
     public Date getStartDate() {
@@ -51,10 +51,10 @@ private Integer maxquantity;
         this.endDate = endDate;
     }
 
-    public OrderlistCondition(Integer oid, Integer ouserid, Integer ogid, Integer quantity, Integer ostoreid, Integer status, Date addTime, User user, Storeinfo storeinfo, Integer minquantity, Integer maxquantity, Date startDate, Date endDate) {
+    public OrderlistCondition(Integer oid, Integer ouserid, Integer ogid, Integer quantity, Integer ostoreid, Integer status, Date addTime, User user, Storeinfo storeinfo, Integer minQuantity, Integer maxQuantity, Date startDate, Date endDate) {
         super(oid, ouserid, ogid, quantity, ostoreid, status, addTime, user, storeinfo);
-        this.minquantity = minquantity;
-        this.maxquantity = maxquantity;
+        this.minQuantity = minQuantity;
+        this.maxQuantity = maxQuantity;
         this.startDate = startDate;
         this.endDate = endDate;
     }

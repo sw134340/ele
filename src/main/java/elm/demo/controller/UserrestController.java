@@ -2,6 +2,7 @@ package elm.demo.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import elm.demo.domain.Storeinfo;
 import elm.demo.domain.User;
 import elm.demo.domain.UserCondition;
 import elm.demo.domain.UserExample;
@@ -30,6 +31,12 @@ public class UserrestController {
     public String index(){
         //return "forward:/WEB-INF/user.jsp";    @RestController的话
         return "user";
+    }
+    @ResponseBody
+    @RequestMapping(value = "/listJSON")
+    public MessageAndData listJSON(){
+        List<User> users = userService.selectByExample(null);
+        return MessageAndData.success("").add("users",users);
     }
 
     @ResponseBody

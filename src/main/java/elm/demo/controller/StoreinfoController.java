@@ -33,7 +33,12 @@ public class StoreinfoController {
         return "storeinfo";
     }
 
-
+    @ResponseBody
+    @RequestMapping(value = "/listJSON")
+    public MessageAndData listJSON(){
+        List<Storeinfo> storeinfos = service.selectByExample(null);
+        return MessageAndData.success("").add("storeinfos",storeinfos);
+    }
 
     @ResponseBody
     @RequestMapping(value = "/list",method = {RequestMethod.GET})
