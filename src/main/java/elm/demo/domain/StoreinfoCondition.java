@@ -7,14 +7,12 @@ import java.util.Date;
 public class StoreinfoCondition extends Storeinfo implements Serializable {
     private Date startDate;
     private Date endDate;
-    private boolean offer;
 
     @Override
     public String toString() {
         return "StoreinfoCondition{" +
                 "startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", offer=" + offer +
                 '}';
     }
 
@@ -34,19 +32,11 @@ public class StoreinfoCondition extends Storeinfo implements Serializable {
         this.endDate = endDate;
     }
 
-    public boolean isOffer() {
-        return offer;
-    }
 
-    public void setOffer(boolean offer) {
-        this.offer = offer;
-    }
-
-    public StoreinfoCondition(Integer sid, String sname, String spassword, String sphoto, String marking, String dispatching, String sadderss, Boolean offer, Date addTime, Date startDate, Date endDate, boolean offer1) {
+    public StoreinfoCondition(Integer sid, String sname, String spassword, String sphoto, String marking, String dispatching, String sadderss, Boolean offer, Date addTime, Date startDate, Date endDate) {
         super(sid, sname, spassword, sphoto, marking, dispatching, sadderss, offer, addTime);
         this.startDate = startDate;
         this.endDate = endDate;
-        this.offer = offer1;
     }
 
     public StoreinfoCondition() {

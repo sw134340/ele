@@ -9,12 +9,17 @@ import elm.demo.utils.MessageAndData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 
 @Controller
@@ -27,12 +32,7 @@ public class StoreinfoController {
 //    return "forward:/WEB-INF/user.jsp";
         return "storeinfo";
     }
-@ResponseBody
-@RequestMapping(value = "/listJSON")
-public MessageAndData listJSON(){
-    List<Storeinfo> storeinfos = service.selectByExample(null);
-    return MessageAndData.success("").add("storeinfos",storeinfos);
-}
+
 
 
     @ResponseBody
@@ -47,24 +47,16 @@ public MessageAndData listJSON(){
         StoreinfoExample example = new StoreinfoExample();
         StoreinfoExample.Criteria criteria = example.createCriteria();
 
+        if(condition.getSid()!=null){
+            criteria.andSidEqualTo(condition.getSid());
+        }
 
-//        Integer uidC = condition.getUidCondition();
-//        if(uidC!=null && uidC!=-1 && condition.getUid()!=null){//不限定条件
-//            if(uidC == 0){
-//                criteria.andUidGreaterThan(condition.getUid());
-//            }
-//            if(uidC == 1){
-//                criteria.andUidEqualTo(condition.getUid());
-//            }
-//            if(uidC == 2){
-//                criteria.andUidLessThan(condition.getUid());
-//            }
-//        }
         String name="";
         if(condition.getSname()!=null && !condition.getSname().equals("")){
             name = "%"+condition.getSname()+"%";
             criteria.andSnameLike(name);
         }
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date startDate1 = dateFormat.parse("1970-01-01");
         Date endDate1 = dateFormat.parse("2999-12-31");
@@ -85,6 +77,7 @@ public MessageAndData listJSON(){
         //初始化,约束
         PageHelper.startPage(pageNum, pageSize);
         List<Storeinfo> lists = service.selectByExample(example);
+
         //使用pageHelper的方式封装数据,默认的导航列表长度为8
         PageInfo pageInfo = new PageInfo(lists, 8);
         return MessageAndData.success("").add("pageInfo",pageInfo);
@@ -100,7 +93,18 @@ public MessageAndData listJSON(){
 
     @ResponseBody
     @RequestMapping(value = "/opt",method = RequestMethod.POST)
-    public MessageAndData optInsert(Storeinfo obj){
+    public MessageAndData optInsert(@RequestParam(value = "file")MultipartFile file, HttpServletRequest request, Storeinfo obj) throws IOException {
+        String path="c:\\upload";
+//        String path = request.getSession().getServletContext().getRealPath("/images/upload");
+        String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
+        File file1 = new File(path, filename);
+        if(!file1.exists()){
+            file1.mkdirs();//迭代建立多级目录
+        }
+        file.transferTo(file1);
+        String avatarUrl = "/upload/" + filename;
+        obj.setSphoto(avatarUrl);
+
         Integer i = service.insertSelective(obj);
         if(i>0){
             return MessageAndData.success("成功添加"+i+"条记录");
@@ -135,9 +139,19 @@ public MessageAndData listJSON(){
 
     //    如果使用put方法,记得要在web.xml中添加相应过滤器,对象不能封装
     @ResponseBody
-    @RequestMapping(value = "/opt",method = RequestMethod.PUT)
-    public MessageAndData optUpdate(Storeinfo obj){
-        System.out.println(obj);
+    @RequestMapping(value = "/optu",method = RequestMethod.POST)
+    public MessageAndData optUpdate(@RequestParam(value = "file")MultipartFile file, HttpServletRequest request,Storeinfo obj) throws IOException {
+        String path="c:\\upload";
+//        String path = request.getSession().getServletContext().getRealPath("/images/upload");
+        String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
+        File file1 = new File(path, filename);
+        if(!file1.exists()){
+            file1.mkdirs();
+        }
+        file.transferTo(file1);
+        String avatarUrl = "/upload/" + filename;
+        obj.setSphoto(avatarUrl);
+
         int i = service.updateByPrimaryKeySelective(obj);
         if(i>0){
             return MessageAndData.success("成功修改"+i+"条记录");
@@ -145,4 +159,27 @@ public MessageAndData listJSON(){
             return MessageAndData.error("修改失败");
         }
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/opt",method = RequestMethod.PUT, headers="content-type=multipart/form-data")
+    public MessageAndData optUpdateRest(@RequestParam(value = "file")MultipartFile file, HttpServletRequest request,Storeinfo obj) throws IOException {
+        String path="c:\\upload";
+//        String path = request.getSession().getServletContext().getRealPath("/images/upload");
+        String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
+        File file1 = new File(path, filename);
+        if(!file1.exists()){
+            file1.mkdirs();
+        }
+        file.transferTo(file1);
+        String photoUrl = "/upload/" + filename;
+        obj.setSphoto(photoUrl);
+
+        int i = service.updateByPrimaryKeySelective(obj);
+        if(i>0){
+            return MessageAndData.success("成功修改"+i+"条记录");
+        }else{
+            return MessageAndData.error("修改失败");
+        }
+    }
+
 }

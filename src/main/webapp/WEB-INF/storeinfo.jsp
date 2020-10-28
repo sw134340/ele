@@ -17,6 +17,8 @@
     <title>后台管理</title>
     <meta charset="UTF-8"/>
     <base target="_self"/>
+
+    <meta http-equiv="Content-Type"; content="multipart/form-data; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- 引入 Bootstrap -->
     <link href="${app}/static/css/bootstrap.css" rel="stylesheet"/>
@@ -46,7 +48,7 @@
 
             <!-- 模态框主体 -->
             <div class="modal-body">
-                <form method="post" action="${app}/storeinforest/opt" class="form-horizontal" role="form" enctype="multipart/form-data">
+                <form method="post"  class="form-horizontal" role="form" enctype="multipart/form-data">
                     <%--input type="hidden" name="_method" value="POST" /--%>
                     <div class="form-group">
                         <label >sname:</label><input type="text" class="form-control"  name="sname" placeholder="请输入商家名称"/>
@@ -69,9 +71,9 @@
                         <div class="form-group">
                             <label>sadderss:</label><input type="text" class="form-control" name="sadderss" placeholder="商家地址"/>
                         </div>
-<%--                        <div class="form-group">--%>
-<%--                            <label>offer:</label><input type="radio" class="form-control" name="offer" placeholder="商家推荐是否"/>--%>
-<%--                        </div>--%>
+                        <div class="form-group">
+                            <label>offer:</label><input type="text" class="form-control" name="offer" placeholder="商家推荐是否"/>
+                        </div>
                     <div class="form-group">
                         <button id="addObjBtn" type="button" class="btn btn-block btn-primary">添加</button>
                     </div>
@@ -98,7 +100,7 @@
 
             <!-- 模态框主体 -->
             <div class="modal-body">
-                <form method="post" action="${app}/storeinforest/opt" enctype="multipart/form-data" class="form-horizontal" role="form">
+                <form method="post"  enctype="multipart/form-data" class="form-horizontal" role="form">
 
                     <div class="form-group">
                         <label >sid:</label>
@@ -127,9 +129,9 @@
                     <div class="form-group">
                         <label>sadderss:</label><input type="text" class="form-control" name="sadderss" placeholder="商家地址"/>
                     </div>
-                    <%--                        <div class="form-group">--%>
-                    <%--                            <label>offer:</label><input type="radio" class="form-control" name="offer" placeholder="商家推荐是否"/>--%>
-                    <%--                        </div>--%>
+                    <div class="form-group">
+                        <label>offer:</label><input type="text" class="form-control" name="offer" placeholder="商家推荐是否"/>
+                    </div>
                     <div class="form-group">
                         <label>addTime:</label><input type="date" class="form-control"  name="addTime" placeholder="添加时间"/>
                     </div>
@@ -151,10 +153,7 @@
 <form id="searchForm" method="get" action="${app}/storeinforest/list">
 
     <input name="sid" type="text" value="" placeholder="sid"/>
-    <input type="text" placeholder="gname" name="gname" value=""/>
-
-<%--    <input type="radio">--%>
-
+    <input type="text" placeholder="sname" name="sname" value=""/>
     <input type="date" name="startDate" value="2020-10-01"/>
     <input type="date" name="endDate" value="2020-11-12"/>
     <input class="btn btn-primary" type="button" id="searchBtn" value="查询"/>
@@ -179,6 +178,8 @@
         <th>商家图片(sphoto)</th>
         <th>商家评分(marking)</th>
         <th>配送方式(dispaching)</th>
+        <th>商家地址(sadderss)</th>
+        <th>商家是否推荐(offer)</th>
         <th>创建时间(addTime)</th>
         <th>操作(修改)</th>
         <th>操作(删除)</th>
@@ -210,7 +211,7 @@
     var currentPage=1;
     var maxPages=1;
 
-    $(function () {
+    $(document).ready(function () {
         //为了跳转页面方便,设置全局变量保存当前页和最大页码数
         //页面加载时向远端获取所有数据,页面定位在第1页
         // gotoPage(1,3);
@@ -233,7 +234,7 @@
         //给每条记录的删除按钮添加事件
         $(document).on("click", ".delBtn", deleteSingleRecord);
         //给需要点击之后上传图片的区域添加点击事件,确保能够调用文件域的点击事件
-        $('[data-my="disPhoto"]').click(function (eve) {$('[data-my="inputPhoto"]').click();});
+        $('[data-my="disPhoto"]').click(function (eve) {$(eve.target).next('[type="file"]').click();});
         $('[data-my="inputPhoto"]').change(choicePhoto);
     });
 
@@ -244,10 +245,11 @@
 
     //文件域的值发生改变,将图片改变
     function choicePhoto(e){
+        var eve = e;//传递过来的元素因为会被在传递的链条中更改,所以暂存一下
         var reader = new FileReader();
         reader.onload = (function () {
             return function (e) {
-                $('[data-my="disPhoto"]').attr('src',this.result);
+                $(eve.target).prev('img').attr('src',this.result);
             }
         })(e.target.files[0]);
         reader.readAsDataURL(e.target.files[0]);
@@ -297,8 +299,7 @@
 
     //修改信息时从远端获取数据并填入表单
     function updateForm(ele) {
-        var choice1;
-        var choice2;
+
         //打开模态框
         $("#updateModal").modal({backdrop: "static"});
         //将表单中原有数据清空
@@ -309,16 +310,14 @@
             type: "GET",
             success: function (result) {
                 //回填数据
-                $("#uidUpdateInput").val(result.dataZone.user.uid);
-                $("#usernameUpdateInput").val(result.dataZone.user.username);
-                $("#addTimeUpdateInput").val(new Date(result.dataZone.user.addTime).Format("yyyy-MM-dd"));
-
                 $('#updateModal [name="sid"]').val(result.dataZone.obj.sid);
                 $('#updateModal [name="sname"]').val(result.dataZone.obj.sname);
+                $('#updateModal [name="spassword"]').val(result.dataZone.obj.spassword);
                 $('#updateModal [data-my="disPhoto"]').attr('src',result.dataZone.obj.sphoto);
                 $('#updateModal [name="marking"]').val(result.dataZone.obj.marking);
                 $('#updateModal [name="dispatching"]').val(result.dataZone.obj.dispatching);
                 $('#updateModal [name="sadderss"]').val(result.dataZone.obj.sadderss);
+                $('#updateModal [name="offer"]').val(result.dataZone.obj.offer);
                 $('#updateModal [name="addTime"]').val(new Date(result.dataZone.obj.addTime).Format("yyyy-MM-dd"));
             },
             error: function () {
@@ -340,8 +339,9 @@
             type: "PUT",
             data: formData,
             dataType:"json",
-            contentType:'multipart/form-data; charset=utf-8',//此处对应head处的文档声明
+            contentType:false,//此处对应head处的文档声明
             processData:false,//取消默认的预处理行为
+            enctype: "multipart/form-data",//指定封装的类型
             success: function (result) {
                 $("#updateModal").modal("hide");//关闭模态框
                 gotoPage(currentPage);//回到当前页面
@@ -359,10 +359,11 @@
         //打开模态框
         $("#addModal").modal({backdrop: "static"});
         //将表单中原有数据清空
+        $('#addModal [data-my="disPhoto"]').attr('src','/upload/null.png');
         $("#addModal form").get(0).reset();
     }
 
-    function addUser() {
+    function addObj() {
         //添加数据之前先进行数据校验
         //校验通过向服务器发送请求
         //如果使用ajax上传文件,需要将数据提前处理一下
@@ -375,7 +376,6 @@
             contentType:false,//此处对应head处的文档声明
             processData:false,//取消默认的预处理行为
             success: function (result) {
-                //alert(result.message);
                 $("#addModal").modal("hide");//关闭模态框
                 gotoPage(maxPages+1);//到最后一页,想想为什么要加1
                 alertTips(result.message,"alert-success");
@@ -420,7 +420,6 @@
         names = names.substr(0, names.length - 1);//去掉最后的一个 ,
         //询问用户操作
         if (confirm("是否删除name为" + names + "的记录")) {
-            // if(confirm("是否删除uid为"+uids+"的记录")){
             //向服务器发送请求,我们已经使用过get和post方法,这次使用最底层的ajax方法
             $.ajax({
                 type: "DELETE",
@@ -474,13 +473,14 @@
             var td5 = $('<td></td>').text(item.marking);
             var td6 = $('<td></td>').text(item.dispatching);
             var td7 = $('<td></td>').text(item.sadderss);
+            var td8 = $('<td></td>').text(item.offer);
             var addTimeTd = $('<td></td>').text(new Date(item.addTime).Format("yyyy-MM-dd HH:mm:ss"));
             var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/storeinforest/opt/' + item.sid + '">修改</a>');
             var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/storeinforest/opt/' + item.sid + '">删除</a>');
             //将单元格追加到行中
             uTr.append(checkboxTh).append(countTh)
-                .append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).
-                append(addTimeTd).append(upBtnTd).append(delBtnTd);
+                .append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td8)
+                .append(addTimeTd).append(upBtnTd).append(delBtnTd);
             // 将行追加到表体中
             $("#objTable tbody").append(uTr);
         });
@@ -565,15 +565,7 @@
             });
             $("#choiceToggle").prop("checked", flag);
         });
-        // $("[name=choiceList]:checkbox").click(function () {
-        //     var flag = true;
-        //     $("[name=choiceList]:checkbox").each(function () {
-        //         if (!this.checked) {
-        //             flag = false;
-        //         }
-        //     });
-        //     $("#choiceToggle").prop("checked", flag);
-        // });
+
         //反选操作
         $("#reverseBtn").click(function () {
             $("[name=choiceList]:checkbox").each(function () {

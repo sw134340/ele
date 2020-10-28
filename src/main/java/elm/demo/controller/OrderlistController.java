@@ -27,6 +27,14 @@ public class OrderlistController {
 //    return "forward:/WEB-INF/user.jsp";
         return "orderlist";
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/listJSON")
+    public MessageAndData listJSON(){
+        List<Orderlist> orderlists = service.selectByExample(null);
+        return MessageAndData.success("").add("orderlists",orderlists);
+    }
+
     @ResponseBody
     @RequestMapping(value = "/list",method = {RequestMethod.GET})
     public MessageAndData list(
@@ -38,25 +46,9 @@ public class OrderlistController {
         System.out.println(condition);
         OrderlistExample example = new OrderlistExample();
         OrderlistExample.Criteria criteria = example.createCriteria();
-
-
-//        Integer uidC = condition.getUidCondition();
-//        if(uidC!=null && uidC!=-1 && condition.getUid()!=null){//不限定条件
-//            if(uidC == 0){
-//                criteria.andUidGreaterThan(condition.getUid());
-//            }
-//            if(uidC == 1){
-//                criteria.andUidEqualTo(condition.getUid());
-//            }
-//            if(uidC == 2){
-//                criteria.andUidLessThan(condition.getUid());
-//            }
-//        }
-//        String name="";
-//        if(userCondition.getUsername()!=null && !userCondition.getUsername().equals("")){
-//            userName = "%"+userCondition.getUsername()+"%";
-//            criteria.andUsernameLike(name);
-//        }
+        if(condition.getOid()!=null){
+            criteria.andOidEqualTo(condition.getOid());
+        }
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date startDate1 = dateFormat.parse("1970-01-01");
         Date endDate1 = dateFormat.parse("2999-12-31");

@@ -14,56 +14,56 @@ public class StoreinfoServiceImpl implements StoreinfoService {
     private StoreinfoMapper storeinfoMapper;
     @Override
     public long countByExample(StoreinfoExample example) {
-        return 0;
+        return storeinfoMapper.countByExample(example);
     }
 
     @Override
     public int deleteByExample(StoreinfoExample example) {
-        return 0;
+        return storeinfoMapper.deleteByExample(example);
     }
 
     @Override
     public int deleteByPrimaryKey(Integer sid) {
-        return 0;
+        return storeinfoMapper.deleteByPrimaryKey(sid);
     }
 
     @Override
     public int insert(Storeinfo record) {
-        return 0;
+        return storeinfoMapper.insert(record);
     }
 
     @Override
     public int insertSelective(Storeinfo record) {
-        return 0;
+        return storeinfoMapper.insertSelective(record);
     }
 
     @Override
     public List<Storeinfo> selectByExample(StoreinfoExample example) {
-        return null;
+        return storeinfoMapper.selectByExample(example);
     }
 
     @Override
     public Storeinfo selectByPrimaryKey(Integer sid) {
-        return null;
+        return storeinfoMapper.selectByPrimaryKey(sid);
     }
 
     @Override
     public int updateByExampleSelective(Storeinfo record, StoreinfoExample example) {
-        return 0;
+        return storeinfoMapper.updateByExampleSelective(record, example);
     }
 
     @Override
     public int updateByExample(Storeinfo record, StoreinfoExample example) {
-        return 0;
+        return storeinfoMapper.updateByExample(record, example);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Storeinfo record) {
-        return 0;
+        return storeinfoMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(Storeinfo record) {
-        return 0;
+        return storeinfoMapper.updateByPrimaryKey(record);
     }
 }
