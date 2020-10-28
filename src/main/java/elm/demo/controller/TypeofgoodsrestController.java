@@ -89,8 +89,8 @@ public class TypeofgoodsrestController {
         @ResponseBody
         @RequestMapping(value = "/opt/{tid}",method = RequestMethod.GET)
         public MessageAndData optSelectPrimaryKey(@PathVariable("tid")Integer tid){
-            Typeofgoods typeofgoods = service.selectByPrimaryKey(tid);
-            return MessageAndData.success("查询成功").add("typeofgoods",typeofgoods);
+            Typeofgoods obj = service.selectByPrimaryKey(tid);
+            return MessageAndData.success("查询成功").add("obj",obj);
         }
 
         @ResponseBody
