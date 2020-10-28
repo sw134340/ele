@@ -54,7 +54,7 @@
                         <label >sname:</label><input type="text" class="form-control"  name="sname" placeholder="请输入商家名称"/>
                     </div>
                     <div class="form-group">
-                        <label>spassword:</label><input type="password" class="form-control"  name="password" placeholder="请输入商家密码">
+                        <label>spassword:</label><input type="password" class="form-control"  name="spassword" placeholder="请输入商家密码">
                     </div>
                         <div class="form-group">
                             <label>sphoto:</label>

@@ -43,6 +43,7 @@ public class OrderlistController {
         System.out.println(condition);
         OrderlistExample example = new OrderlistExample();
         OrderlistExample.Criteria criteria = example.createCriteria();
+
         if(condition.getOid()!=null){
             criteria.andOidEqualTo(condition.getOid());
         }

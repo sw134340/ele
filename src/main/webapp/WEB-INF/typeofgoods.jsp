@@ -88,7 +88,7 @@
 
                     <div class="form-group">
                         <label >tid:</label>
-                        <input type="text" readonly="readonly" class="form-control"  name="tid" placeholder="请输入种类id"/>
+                        <input type="text"  readonly="readonly" class="form-control"  name="tid" placeholder="请输入种类id"/>
                     </div>
                     <div class="form-group">
                         <label >tname:</label>
@@ -200,6 +200,7 @@
 
     //获取外键对应主键表中的相关字段并填写到下拉列表中
     function getAndFill(url,comp,valueName,disName,choice){
+
         //清空原有列表
         comp.empty();
 
@@ -261,7 +262,6 @@
             error: function () {
             }
         });
-
         return false;//取消超链接的默认跳转
     }
 
@@ -306,7 +306,7 @@
         //如果使用ajax上传文件,需要将数据提前处理一下
         var formData = new FormData($("#addModal form").get(0));
         $.ajax({
-            url: "${app}/typeofgiidsrest/opt",
+            url: "${app}/typeofgoodsrest/opt",
             type: "POST",
             data: formData,
             dataType:"json",

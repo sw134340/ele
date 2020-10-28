@@ -292,8 +292,8 @@
             error: function () {
             }
         });
-        getAndFill("${app}/storeinfo/listJSON",$("#stlist"),"sid","sname",choice1);
-        getAndFill("${app}/user/listJSON",$("#uslist"),"uid","uname",choice2);
+        getAndFill("${app}/storeinforest/listJSON",$("#stlist"),"sid","sname",choice1);
+        getAndFill("${app}/userrest/listJSON",$("#uslist"),"uid","uname",choice2);
         return false;//取消超链接的默认跳转
     }
 
@@ -329,8 +329,8 @@
         //打开模态框
         $("#addModal").modal({backdrop: "static"});
         //填充列表
-        getAndFill("${app}/storeinfo/listJSON",$("#slist"),"sid","sname");
-        getAndFill("${app}/user/listJSON",$("#uselist"),"uid","uname");
+        getAndFill("${app}/storeinforest/listJSON",$("#slist"),"sid","sname");
+        getAndFill("${app}/userrest/listJSON",$("#uselist"),"uid","uname");
         //将表单中原有数据清空
         $("#addModal form").get(0).reset();
     }

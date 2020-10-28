@@ -46,4 +46,14 @@ public class Typeofgoods {
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
+
+    public Typeofgoods(Integer tid, String tname, String tinfo, Date addTime) {
+        this.tid = tid;
+        this.tname = tname;
+        this.tinfo = tinfo;
+        this.addTime = addTime;
+    }
+
+    public Typeofgoods() {
+    }
 }
