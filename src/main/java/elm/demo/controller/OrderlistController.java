@@ -22,6 +22,8 @@ import java.util.List;
 public class OrderlistController {
     @Autowired
     private OrderlistService service;
+
+
     @RequestMapping(value = "/index")
     public String index(){
 //    return "forward:/WEB-INF/user.jsp";
