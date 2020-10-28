@@ -23,6 +23,12 @@ import java.util.List;
 public class TypeofgoodsrestController {
     @Autowired
     private TypeofgoodsService typeofgoodsService;
+    @RequestMapping(value = "/index")
+    public String index(){
+//    return "forward:/WEB-INF/user.jsp";
+        return "typeofgoods";
+    }
+
     @ResponseBody
     @RequestMapping(value = "/listJSON")
     public MessageAndData listJSON(){

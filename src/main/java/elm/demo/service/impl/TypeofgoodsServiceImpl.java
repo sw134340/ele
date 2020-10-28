@@ -16,27 +16,27 @@ public class TypeofgoodsServiceImpl implements TypeofgoodsService {
 
     @Override
     public long countByExample(TypeofgoodsExample example) {
-        return 0;
+        return typeofgoodsMapper.countByExample(example);
     }
 
     @Override
     public int deleteByExample(TypeofgoodsExample example) {
-        return 0;
+        return typeofgoodsMapper.deleteByExample(example);
     }
 
     @Override
     public int deleteByPrimaryKey(Integer tid) {
-        return 0;
+        return typeofgoodsMapper.deleteByPrimaryKey(tid);
     }
 
     @Override
     public int insert(Typeofgoods record) {
-        return 0;
+        return typeofgoodsMapper.insert(record);
     }
 
     @Override
     public int insertSelective(Typeofgoods record) {
-        return 0;
+        return typeofgoodsMapper.insertSelective(record);
     }
 
     @Override
@@ -46,26 +46,26 @@ public class TypeofgoodsServiceImpl implements TypeofgoodsService {
 
     @Override
     public Typeofgoods selectByPrimaryKey(Integer tid) {
-        return null;
+        return typeofgoodsMapper.selectByPrimaryKey(tid);
     }
 
     @Override
     public int updateByExampleSelective(Typeofgoods record, TypeofgoodsExample example) {
-        return 0;
+        return typeofgoodsMapper.updateByExampleSelective(record, example);
     }
 
     @Override
     public int updateByExample(Typeofgoods record, TypeofgoodsExample example) {
-        return 0;
+        return typeofgoodsMapper.updateByExample(record, example);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Typeofgoods record) {
-        return 0;
+        return typeofgoodsMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(Typeofgoods record) {
-        return 0;
+        return typeofgoodsMapper.updateByPrimaryKey(record);
     }
 }
