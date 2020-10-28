@@ -255,4 +255,46 @@
       add_time = #{addTime,jdbcType=TIMESTAMP}
     where gid = #{gid,jdbcType=INTEGER}
   </update>
+
+
+
+  <resultMap id="BaseResultMapWithObject" type="elm.demo.domain.Goods">
+    <id column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="gname" jdbcType="VARCHAR" property="gname" />
+    <result column="ginfo" jdbcType="VARCHAR" property="ginfo" />
+    <result column="gphoto" jdbcType="VARCHAR" property="gphoto" />
+    <result column="gprice" jdbcType="DOUBLE" property="gprice" />
+    <result column="gtid" jdbcType="INTEGER" property="gtid" />
+    <result column="gsid" jdbcType="INTEGER" property="gsid" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <association property="storeinfo" javaType="elm.demo.domain.Storeinfo" select="elm.demo.dao.StoreinfoMapper.selectByPrimaryKey" column="gsid">
+      <id property="sid" column="sid"></id>
+      <result property="sname" column="sname"></result>
+    </association>
+    <association property="typeofgoods" javaType="elm.demo.domain.Typeofgoods" select="elm.demo.dao.TypeofgoodsMapper.selectByPrimaryKey" column="gtid">
+      <id property="tid" column="tid"></id>
+      <result property="tname" column="tname"></result>
+    </association>
+  </resultMap>
+  <select id="selectByExampleWithObject" parameterType="elm.demo.domain.GoodsExample" resultMap="BaseResultMapWithObject">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKeyWithObject" parameterType="java.lang.Integer" resultMap="BaseResultMapWithObject">
+    select
+    <include refid="Base_Column_List" />
+    from goods
+    where gid = #{gid,jdbcType=INTEGER}
+  </select>
+
 </mapper>

@@ -1,10 +1,12 @@
 package elm.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
 @Data
+@JsonIgnoreProperties(value = "handler")
 public class Goods implements Serializable {
     private Integer gid;
 
@@ -18,21 +20,27 @@ public class Goods implements Serializable {
 
     private Integer gtid;
 
+    private Typeofgoods typeofgoods;
+
     private Integer gsid;
+
+    private Storeinfo storeinfo;
 
     private Date addTime;
 
     public Goods() {
     }
 
-    public Goods(Integer gid, String gname, String ginfo, String gphoto, Double gprice, Integer gtid, Integer gsid, Date addTime) {
+    public Goods(Integer gid, String gname, String ginfo, String gphoto, Double gprice, Integer gtid, Typeofgoods typeofgoods, Integer gsid, Storeinfo storeinfo, Date addTime) {
         this.gid = gid;
         this.gname = gname;
         this.ginfo = ginfo;
         this.gphoto = gphoto;
         this.gprice = gprice;
         this.gtid = gtid;
+        this.typeofgoods = typeofgoods;
         this.gsid = gsid;
+        this.storeinfo = storeinfo;
         this.addTime = addTime;
     }
 
@@ -84,12 +92,28 @@ public class Goods implements Serializable {
         this.gtid = gtid;
     }
 
+    public Typeofgoods getTypeofgoods() {
+        return typeofgoods;
+    }
+
+    public void setTypeofgoods(Typeofgoods typeofgoods) {
+        this.typeofgoods = typeofgoods;
+    }
+
     public Integer getGsid() {
         return gsid;
     }
 
     public void setGsid(Integer gsid) {
         this.gsid = gsid;
+    }
+
+    public Storeinfo getStoreinfo() {
+        return storeinfo;
+    }
+
+    public void setStoreinfo(Storeinfo storeinfo) {
+        this.storeinfo = storeinfo;
     }
 
     public Date getAddTime() {
