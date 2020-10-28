@@ -14,6 +14,16 @@ public class Active implements Serializable {
 
     private Date addTime;
 
+    public Active() {
+    }
+
+    public Active(Integer aid, String aname, String aintro, Date addTime) {
+        this.aid = aid;
+        this.aname = aname;
+        this.aintro = aintro;
+        this.addTime = addTime;
+    }
+
     public Integer getAid() {
         return aid;
     }

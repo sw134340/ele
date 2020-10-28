@@ -32,19 +32,47 @@
     <![endif]-->
 </head>
 <body>
-当前登录用户:${USER_SESSION}
-<a href="${app}/user/logout">退出登录</a>
-<hr/>
-<a target="dataDisplay"href="${app}/user/list">用户管理</a>
-<a target="dataDisplay"href="${app}/typeofgoodsrest/index">商品种类管理</a>
-<a target="dataDisplay"href="${app}/activerest/index">活动管理</a>
-<a target="dataDisplay"href="${app}/storeinforest/index">商家管理</a>
-<a target="dataDisplay"href="${app}/orderlistrest/index">订单管理</a>
-<a target="dataDisplay"href="${app}/customerrest/index">客户信息管理</a>
-<a target="dataDisplay" href="${app}/goodsrest/index">商品管理</a>
-<a target="dataDisplay"href="${app}/userrest/index">用户管理REST</a>
-<hr/>
-<iframe name="dataDisplay" width="100%" height="1000" src=""></iframe>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+    <a class="navbar-brand" href="#">ELM</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" target="dataDisplay" href="${app}/userrest/index">用户管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" target="dataDisplay" href="${app}/customerrest/index">客户信息管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" target="dataDisplay" href="${app}/storeinforest/index">商家管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" target="dataDisplay" href="${app}/goodsrest/index">商品管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" target="dataDisplay" href="${app}/typeofgoodsrest/index">类别管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" target="dataDisplay" href="${app}/activerest/index">活动管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" target="dataDisplay" href="${app}/orderlistrest/index">订单管理</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    ${USER_SESSION}
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">注销</a>
+                    <a class="dropdown-item" href="${app}/user/logout">退出登录</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<iframe style="margin: 60px 2px 0px 2px" scrolling="no" frameborder="0" name="dataDisplay"  width="99%" height="1000" src="${app}/userrest/index">您的浏览器不支持内部框架,请升级</iframe>
 
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
 <script src="${app}/static/js/jquery-3.3.1.js"></script>

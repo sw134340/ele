@@ -43,8 +43,18 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public List<Goods> selectByExampleWithObject(GoodsExample example) {
+        return goodsMapper.selectByExampleWithObject(example);
+    }
+
+    @Override
     public Goods selectByPrimaryKey(Integer gid) {
         return goodsMapper.selectByPrimaryKey(gid);
+    }
+
+    @Override
+    public Goods selectByPrimaryKeyWithObject(Integer gid) {
+        return goodsMapper.selectByPrimaryKeyWithObject(gid);
     }
 
     @Override

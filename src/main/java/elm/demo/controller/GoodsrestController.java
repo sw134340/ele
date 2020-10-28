@@ -11,26 +11,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping(value = "goodsrest")
-public class GoodsController {
+public class GoodsrestController {
     @Autowired
     private GoodsService goodsService;
 
     @RequestMapping(value = "/index")
     public String index(){
         return "forward:/WEB-INF/goods.jsp";
-
     }
 
     @ResponseBody
@@ -44,11 +47,27 @@ public class GoodsController {
         GoodsExample example = new GoodsExample();
         GoodsExample.Criteria criteria = example.createCriteria();
 
+        if(condition.getGid()!=null){
+            criteria.andGidEqualTo(condition.getGid());
+        }
+
         String name="";
         if(condition.getGname()!=null && !condition.getGname().equals("")){
             name = "%"+ condition.getGname()+"%";
             criteria.andGnameLike(name);
         }
+
+//按金额查找
+        Double minPrice = 0.0;
+        Double maxPrice = 9.9E+5;
+        minPrice = condition.getMinPrice()==null?minPrice:condition.getMinPrice();
+        maxPrice = condition.getMaxPrice()==null?maxPrice:condition.getMaxPrice();
+        if(minPrice>maxPrice){
+            Double temp = minPrice;
+            minPrice = maxPrice;
+            maxPrice = temp;
+        }
+        criteria.andGpriceBetween(minPrice,maxPrice);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date startDate = dateFormat.parse("1970-01-01");
@@ -66,7 +85,7 @@ public class GoodsController {
 
         //初始化,约束
         PageHelper.startPage(pageNum, pageSize);
-        List<Goods> lists = goodsService.selectByExample(example);
+        List<Goods> lists = goodsService.selectByExampleWithObject(example);
         //使用pageHelper的方式封装数据,默认的导航列表长度为8
         PageInfo pageInfo = new PageInfo(lists, 8);
         return MessageAndData.success("").add("pageInfo",pageInfo);
@@ -75,13 +94,23 @@ public class GoodsController {
     @ResponseBody
     @RequestMapping(value = "/opt/{id}",method = RequestMethod.GET)
     public MessageAndData optSelectPrimaryKey(@PathVariable("id")Integer id){
-        Goods obj = goodsService.selectByPrimaryKey(id);
+        Goods obj = goodsService.selectByPrimaryKeyWithObject(id);
         return MessageAndData.success("查询成功").add("obj",obj);
     }
 
     @ResponseBody
     @RequestMapping(value = "/opt",method = RequestMethod.POST)
-    public MessageAndData optInsert(Goods obj){
+    public MessageAndData optInsert(@RequestParam(value = "file") MultipartFile file, HttpServletRequest request, Goods obj) throws IOException {
+        String path="c:\\upload";
+        String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
+        File file1 = new File(path, filename);
+        if(!file1.exists()){
+            file1.mkdirs();
+        }
+        file.transferTo(file1);
+        String photoUrl = "/upload/" + filename;
+        obj.setGphoto(photoUrl);
+
         Integer i = goodsService.insertSelective(obj);
         if(i>0){
             return MessageAndData.success("成功添加"+i+"条记录");
@@ -115,9 +144,18 @@ public class GoodsController {
 
     //    如果使用put方法,记得要在web.xml中添加相应过滤器,对象不能封装
     @ResponseBody
-    @RequestMapping(value = "/opt",method = RequestMethod.PUT)
-    public MessageAndData optUpdate(Goods obj){
-        System.out.println(obj);
+    @RequestMapping(value = "/opt",method = RequestMethod.PUT,headers="content-type=multipart/form-data")
+    public MessageAndData optUpdate(@RequestParam(value = "file")MultipartFile file, HttpServletRequest request,Goods obj) throws IOException {
+        String path="c:\\upload";
+        String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
+        File file1 = new File(path, filename);
+        if(!file1.exists()){
+            file1.mkdirs();
+        }
+        file.transferTo(file1);
+        String photoUrl = "/upload/" + filename;
+        obj.setGphoto(photoUrl);
+
         int i = goodsService.updateByPrimaryKeySelective(obj);
         if(i>0){
             return MessageAndData.success("成功修改"+i+"条记录");

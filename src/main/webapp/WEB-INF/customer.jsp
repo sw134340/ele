@@ -40,24 +40,49 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">添加新用户</h4>
+                <h4 class="modal-title">添加新客户</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- 模态框主体 -->
             <div class="modal-body">
-                <form method="post" action="${app}/userrest/opt" class="form-horizontal" role="form">
-                    <%--input type="hidden" name="_method" value="POST" /--%>
+                <form method="post" action="${app}/customerrest/opt" class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label for="usernameAddInput">username:</label>
-                        <input type="text" class="form-control" id="usernameAddInput" name="username"
-                               placeholder="请输入用户姓名"/>
+                        <label for="cnameAddInput">cname:</label>
+                        <input type="text" class="form-control" id="cnameAddInput" name="cname" placeholder="请输入顾客姓名"/>
                     </div>
-                    <div id="usernameTips"></div>
                     <div class="form-group">
-                        <label for="passwordAddInput">password:</label>
-                        <input type="password" class="form-control" id="passwordAddInput" name="password"
-                               placeholder="请输入密码">
+                        <label for="cphoneAddInput">cphone:</label>
+                        <input type="text" class="form-control" id="cphoneAddInput" name="cphone" placeholder="请输入顾客电话号码"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="cemailAddInput">cemail:</label>
+                        <input type="text" class="form-control" id="cemailAddInput" name="cemail" placeholder="请输入顾客电子邮箱"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="cpassAddInput">cpass:</label>
+                        <input type="password" class="form-control" id="cpassAddInput" name="cpass" placeholder="请输入顾客密码"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="cbirthAddInput">cbirth:</label>
+                        <input type="date" class="form-control" id="cbirthAddInput" name="cbirth" placeholder="请输入顾客生日"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="cavatarAddInput">cavatar:</label>
+                        <img data-my="disAvatar" src="" style="width: 100px;height: 100px;" />
+                        <input style="display:none"  type="file" class="form-control" id="cavatarAddInput" data-my="inputAvatar" name="cavatar" placeholder="avatar"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="cgenderAddInput">cgender:</label>
+                        <input type="text" class="form-control" id="cgenderAddInput" name="cgender" placeholder="请输入顾客性别"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="cstatusAddInput">cstatus:</label>
+                        <input type="text" class="form-control" id="cstatusAddInput" name="cstatus" placeholder="请输入顾客状态"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="caddressAddInput">caddress:</label>
+                        <input type="text" class="form-control" id="caddressAddInput" name="caddress" placeholder="请输入顾客地址"/>
                     </div>
 
                     <div class="form-group">
@@ -86,23 +111,48 @@
 
             <!-- 模态框主体 -->
             <div class="modal-body">
-                <form method="post" action="${app}/userrest/opt" class="form-horizontal" role="form">
+                <form method="post" class="form-horizontal" role="form">
                     <input type="hidden" name="_method" value="PUT"/>
                     <div class="form-group">
-                        <label for="uidUpdateInput">uid:</label>
-                        <input type="text" readonly="readonly" class="form-control" id="uidUpdateInput" name="uid"
-                               placeholder="uid"/>
+                        <label for="cidUpdateInput">cid:</label>
+                        <input type="text" readonly="readonly" class="form-control" id="cidUpdateInput" name="cid" placeholder="cid"/>
                     </div>
                     <div class="form-group">
-                        <label for="usernameUpdateInput">姓名username:</label>
-                        <input type="text" readonly="readonly" class="form-control" id="usernameUpdateInput"
-                               name="username"
-                               placeholder="请输入用户姓名"/>
+                        <label for="cnameUpdateInput">姓名cname:</label>
+                        <input type="text" readonly="readonly" class="form-control" id="cnameUpdateInput" name="姓名cname" placeholder="请输入用户姓名"/>
                     </div>
                     <div class="form-group">
-                        <label for="passwordUpdateInput">密码password:</label>
-                        <input type="password" class="form-control" id="passwordUpdateInput" name="password"
-                               placeholder="请输入新密码">
+                        <label for="cphoneUpdateInput">电话cphone:</label>
+                        <input type="text" class="form-control" id="cphoneUpdateInput" name="cphone" placeholder="请输入顾客电话号码"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="cemailUpdateInput">邮箱cemail:</label>
+                        <input type="text" class="form-control" id="cemailUpdateInput" name="cemail" placeholder="请输入顾客电子邮箱"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="cpassUpdateInput">cpass:</label>
+                        <input type="password" class="form-control" id="cpassUpdateInput" name="cpass" placeholder="请输入顾客密码"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="cbirthUpdateInput">cbirth:</label>
+                        <input type="date" class="form-control" id="cbirthUpdateInput" name="cbirth" placeholder="请输入顾客生日"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="cavatarUpdateInput">cavatar:</label>
+                        <img data-my="disAvatar" src="" style="width: 100px;height: 100px;" />
+                        <input style="display:none"  type="file" class="form-control" id="cavatarUpdateInput" data-my="inputAvatar" name="cavatar" placeholder="avatar"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="cgenderUpdateInput">cgender:</label>
+                        <input type="text" class="form-control" id="cgenderUpdateInput" name="cgender" placeholder="请输入顾客性别"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="cstatusUpdateInput">cstatus:</label>
+                        <input type="text" class="form-control" id="cstatusUpdateInput" name="cstatus" placeholder="请输入顾客状态"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="caddressUpdateInput">caddress:</label>
+                        <input type="text" class="form-control" id="caddressUpdateInput" name="caddress" placeholder="请输入顾客地址"/>
                     </div>
 
                     <div class="form-group">
@@ -120,16 +170,19 @@
 
 
 
-<form id="searchForm" method="get" action="${app}/userrest/list">
-    <select id="uidList" name="uidCondition">
-        <option selected="selected" value="-1">不限uid</option>
-        <option value="0">uid大于</option>
-        <option value="1">uid等于</option>
-        <option value="2">uid小于</option>
+<form id="searchForm" method="get" action="${app}/customerrest/list">
+    <select id="cidList" name="cidCondition">
+        <option selected="selected" value="-1">不限cid</option>
+        <option value="0">cid大于</option>
+        <option value="1">cid等于</option>
+        <option value="2">cid小于</option>
     </select>
 
-    <input name="uid" type="text" value="" placeholder="uid"/>
-    <input type="text" placeholder="username" name="username" value=""/>
+    <input name="cid" type="text" value="" placeholder="uid"/>
+    <input type="text" placeholder="cname" name="cname" value=""/>
+    <input type="date" name="minCbirth" value="1970-01-01">
+    <input type="date" name="maxCbirth" value="2020-10-28">
+    <input type="text" name="gender" value="0">
     <input type="date" name="startDate" value="2020-10-01"/>
     <input type="date" name="endDate" value="2020-11-12"/>
     <input class="btn btn-primary" type="button" id="searchBtn" value="查询"/>
@@ -140,7 +193,7 @@
     </button>
     <input class="btn btn-danger" type="button" id="deletesBtn" value="删除所选"/>
 </div>
-<table id="userTable" class="table table-striped table-bordered table-hover">
+<table id="objTable" class="table table-striped table-bordered table-hover">
     <thead>
     <tr class="bg-primary text-white">
         <th>
@@ -148,9 +201,16 @@
             <input class="btn btn-sm btn-warning" type="button" id="reverseBtn" value="反选"/>
         </th>
         <th>序号#</th>
-        <th>用户id(uid)</th>
-        <th>姓名(username)</th>
-        <th>密码(password)</th>
+        <th>客户id(cid)</th>
+        <th>客户名称(cname)</th>
+        <th>电话(cphone)</th>
+        <th>邮箱(cemail)</th>
+        <th>密码(cpass)</th>
+        <th>生日(cbirth)</th>
+        <th>头像(cavatar)</th>
+        <th>性别(cgender)</th>
+        <th>状态(cstatus)</th>
+        <th>地址(caddress)</th>
         <th>创建时间(addTime)</th>
         <th>操作(修改)</th>
         <th>操作(删除)</th>
@@ -199,17 +259,78 @@
         //给添加按钮绑定事件
         $("#openAddModalBtn").click(addForm);
         //点击添加按钮将新增数据存放到数据库
-        $("#addUserBtn").click(addUser);
+        $("#addObjBtn").click(addObj);
         //给每条记录的修改按钮添加事件
         $(document).on("click", ".upBtn", updateForm);
         //给修改用户信息的按钮添加事件
-        $("#updateUserBtn").click(updateUser);
+        $("#updateObjBtn").click(updateObj);
         //给每条记录的删除按钮添加事件
         $(document).on("click", ".delBtn", deleteSingleRecord);
+        //给需要点击之后上传图片的区域添加点击事件,确保能够调用文件域的点击事件
+        $('[data-my="disAvatar"]').click(function (eve){$(eve.target).next('[type="file"]').click();});
+        $('[data-my="inputAvatar"]').change(choiceAvatar);
     });
 
+    //文件域的值发生改变,将图片改变
+    function choiceAvatar(e){
+        var eve = e;//传递过来的元素因为会被在传递的链条中更改,所以暂存一下
+        var reader = new FileReader();
+        reader.onload = (function () {
+            return function (e) {
+                //修改显示图片,因为采用了相邻选择器,所以一定要注意HTML元素中对应的位置
+                $(eve.target).prev('img').attr('src',this.result);
+            }
+        })(e.target.files[0]);
+        reader.readAsDataURL(e.target.files[0]);
+    };
+
+
+    //获取外键对应主键表中的相关字段并填写到下拉列表中
+    function getAndFill(url,comp,valueName,disName,choice){
+        //清空原有列表
+        comp.empty();
+
+        $.ajax({
+            url:url,
+            type:"GET",
+            success:function(res){
+                $.each(res.dataZone.lists,function(index,item){
+                    if(choice==valueName){
+                        //如果传递了默认的被选中项,则使用selected属性使之默认选中,此代码适用于datalist和select组件
+                        comp.append('<option selected="selected" value="'+item[valueName]+'">'+item[disName]+'</option>');
+                    }else{
+                        comp.append('<option value="'+item[valueName]+'">'+item[disName]+'</option>');
+                    }
+
+                });
+            }
+        });
+    }
+
+
+    //搜索功能的实现
+    function search() {
+        //修改数据之前先进行数据校验
+        //校验通过向服务器发送请求
+        // alert("search被调用了");
+        $.ajax({
+            url: "${app}/customerrest/list",
+            type: "GET",
+            data: $("#searchForm").serialize(),
+            success: function (result) {
+                gotoPage();//回到第一页
+            },
+            error: function (result) {
+                alertTips(result.message,"alert-danger");
+                return false;
+            }
+        });
+    }
     //修改信息时从远端获取数据并填入表单
     function updateForm(ele) {
+        //声明变量用以接收原始值,主要用于填写下拉列表
+        var choice1;
+        var choice2;
         //打开模态框
         $("#updateModal").modal({backdrop: "static"});
         //将表单中原有数据清空
@@ -220,9 +341,17 @@
             type: "GET",
             success: function (result) {
                 //回填数据
-                $("#uidUpdateInput").val(result.dataZone.user.uid);
-                $("#usernameUpdateInput").val(result.dataZone.user.username);
-                $("#addTimeUpdateInput").val(new Date(result.dataZone.user.addTime).Format("yyyy-MM-dd"));
+                $('#updateModal [name="cid"]').val(result.dataZone.obj.cid);
+                $('#updateModal [name="cname"]').val(result.dataZone.obj.cname);
+                $('#updateModal [name="cphone"]').val(result.dataZone.obj.cphone);
+                $('#updateModal [name="cemail"]').val(result.dataZone.obj.cemail);
+                $('#updateModal [name="cpass"]').val(result.dataZone.obj.cpass);
+                $('#updateModal [name="cbirth"]').val(result.dataZone.obj.cbirth);
+                $('#updateModal [name="cavatar"]').val(result.dataZone.obj.cavatar);
+                $('#updateModal [name="cgender"]').val(result.dataZone.obj.cgender);
+                $('#updateModal [name="cstatus"]').val(result.dataZone.obj.cstatus);
+                $('#updateModal [name="caddress"]').val(result.dataZone.obj.caddress);
+                $('#updateModal [name="addTime"]').val(new Date(result.dataZone.obj.addTime).Format("yyyy-MM-dd"));
 
             },
             error: function () {
@@ -232,47 +361,26 @@
         return false;//取消超链接的默认跳转
     }
 
-    function search() {
-        //修改数据之前先进行数据校验
-        //校验通过向服务器发送请求
-        // alert("search被调用了");
-        $.ajax({
-            //url: "${app}/userrest/list?startDate=2020-10-12&endDate=2020-10-13",
-            url: "${app}/userrest/list",
-            type: "GET",
-            data: $("#searchForm").serialize(),
-            success: function (result) {
-                // alert(result.message);
-                gotoPage();//回到第一页
-                // parseDataAndShow(result);
-                //解析渲染分页条
-                // parsePageAndShow(result);
-            },
-            error: function (result) {
-                // alert(result.message);
-                alertTips(result.message,"alert-danger");
-                return false;
-            }
-        });
-    }
-
     //提交用户修改的信息
-    function updateUser() {
+    function updateObj() {
         //修改数据之前先进行数据校验
         //校验通过向服务器发送请求
+        var formData = new FormData($("#updateModal form").get(0));
+        formData.append("_method", 'put');
         $.ajax({
-            url: "${app}/userrest/opt",
+            url: "${app}/customerrest/opt",
             type: "PUT",
-            data: $("#updateModal form").serialize(),
+            data: formData,
+            dataType:"json",
+            contentType:false,//此处对应head处的文档声明
+            processData:false,//取消默认的预处理行为
+            enctype: "multipart/form-data",//指定封装的类型
             success: function (result) {
-                // alert(result.message);
-
                 $("#updateModal").modal("hide");//关闭模态框
                 gotoPage(currentPage);//回到当前页面
                 alertTips(result.message,"alert-success");
             },
             error: function (result) {
-                // alert(result.message);
                 alertTips(result.message,"alert-danger");
                 return false;
             }
@@ -287,13 +395,17 @@
         $("#addModal form").get(0).reset();
     }
 
-    function addUser() {
+    function addObj() {
         //添加数据之前先进行数据校验
         //校验通过向服务器发送请求
+        var formData = new FormData($("#addModal form").get(0));
         $.ajax({
-            url: "${app}/userrest/opt",
+            url: "${app}/customerrest/opt",
             type: "POST",
-            data: $("#addModal form").serialize(),
+            data: formData,
+            dataType:"json",
+            contentType:false,//此处对应head处的文档声明
+            processData:false,//取消默认的预处理行为
             success: function (result) {
                 //alert(result.message);
                 $("#addModal").modal("hide");//关闭模态框
@@ -315,10 +427,7 @@
             url: ele.target.href,
             type: "DELETE",
             success: function (result) {
-                // alert(result.message);
                 alertTips(result.message,"alert-success");
-                // alert(result.dataZone.num);
-                // alert(currentPage);
                 gotoPage(currentPage);
             },
             error: function (result) {
@@ -331,27 +440,24 @@
     function deleteMuliRecord() {
         //点击删除所选按钮时删除多条记录
 
-        var uids = "";//需要传递给服务器的uid列表
-        var usernames = "";//需要显式给操作者看的提示信息列表
+        var ids = "";//需要传递给服务器的cid列表
+        var names = "";//需要显式给操作者看的提示信息列表
         $("[name=choiceList]:checkbox").each(function () {
             if (this.checked) {
-                uids += $(this).parents("tr").find("td:eq(0)").text() + "-";//通过 - 连接
-                usernames += $(this).parents("tr").find("td:eq(1)").text() + ",";//通过 , 连接
+                ids += $(this).parents("tr").find("td:eq(0)").text() + "|";//通过 - 连接
+                names += $(this).parents("tr").find("td:eq(1)").text() + ",";//通过 , 连接
             }
         });
-        uids = uids.substr(0, uids.length - 1);//去掉最后的一个 -
-        usernames = usernames.substr(0, usernames.length - 1);//去掉最后的一个 ,
+        ids = ids.substr(0, ids.length - 1);//去掉最后的一个 -
+        names = names.substr(0, names.length - 1);//去掉最后的一个 ,
         //询问用户操作
-        if (confirm("是否删除username为" + usernames + "的记录")) {
-            // if(confirm("是否删除uid为"+uids+"的记录")){
+        if (confirm("是否删除" + names + "的记录")) {
+            // if(confirm("是否删除cid为"+cids+"的记录")){
             //向服务器发送请求,我们已经使用过get和post方法,这次使用最底层的ajax方法
             $.ajax({
                 type: "DELETE",
-                url: "${app}/userrest/opt/" + uids,
+                url: "${app}/customerrest/opt/" + ids,
                 success: function (result) {
-                    // alert(result.message);
-                    // $(document).flush();//刷新当前页
-                    // window.location.reload();
                     gotoPage(currentPage);
                     alertTips(result.message,"alert-success");
                 },
@@ -363,13 +469,12 @@
     }
 
     function gotoPage(page, pageSize) {
-        var page1 = page == null ? 1 : page;
-        var pageSize1 = pageSize == null ? 10 : page;
+        pageNum = pageNum == null ? 1 : pageNum;
+        pageSize = pageSize == null ? 10 : pageSize;
         $.ajax({
             type: "GET",
-            url: "${app}/userrest/list?pageNum=" + page1 + "&pageSize=" + pageSize1,
+            url: "${app}/customerrest/list?pageNum=" + pageNum + "&pageSize=" + pageSize,
             dataType: "json",
-            // data: "pageNum=" + page1 + "&pageSize=" + pageSize1,
             data: $("#searchForm").serialize(),
             success: function (result) {
                 // 解析返回的json数据并显示到界面中,封装为函数吧,太多东西了
@@ -386,27 +491,34 @@
     }
 
     function parseDataAndShow(result) {
-        $("#userTable tbody").empty();
+        $("#ObjTable tbody").empty();
         // 获取数据集合
         let users = result.dataZone.pageInfo.list;
         $.each(users, function (index, item) {
             //构建行
-            var uTr = $("<tr></tr>");
+            var cTr = $("<tr></tr>");
             //构建多个单元格
-            var checkboxTh = $('<th><input type="checkbox" name="choiceList" value="${item.uid}"/></th>');
+            var checkboxTh = $('<th><input type="checkbox" name="choiceList" value="${item.cid}"/></th>');
             var countTh = $('<th></th>').text(index + 1);
-            var uidTd = $('<td></td>').text(item.uid);
-            var usernameTd = $('<td></td>').text(item.username);
-            var passwordTd = $('<td></td>').text(item.password);
+            var td1 = $('<td></td>').text(item.cid);
+            var td2 = $('<td></td>').text(item.cname);
+            var td3 = $('<td></td>').text(item.cphone);
+            var td4 = $('<td></td>').text(item.cemail);
+            var td5 = $('<td></td>').text(item.cpass);
+            var td6 = $('<td></td>').text(item.cbirth);
+            var td7 = $('<td></td>').text(item.cavatar);
+            var td8 = $('<td></td>').text(item.cgender);
+            var td9 = $('<td></td>').text(item.cstatus);
+            var td10 = $('<td></td>').text(item.caddress);
             var addTimeTd = $('<td></td>').text(new Date(item.addTime).Format("yyyy-MM-dd HH:mm:ss"));
-            var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/userrest/opt/' + item.uid + '">修改</a>');
-            var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/userrest/opt/' + item.uid + '">删除</a>');
+            var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/customerrest/opt/' + item.cid + '">修改</a>');
+            var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/customerrest/opt/' + item.cid + '">删除</a>');
             //将单元格追加到行中
-            uTr.append(checkboxTh).append(countTh).append(uidTd)
-                .append(usernameTd).append(passwordTd).append(addTimeTd)
+            cTr.append(checkboxTh).append(countTh)
+                .append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td8).append(td9).append(td10)
                 .append(upBtnTd).append(delBtnTd);
             // 将行追加到表体中
-            $("#userTable tbody").append(uTr);
+            $("#objTable tbody").append(cTr);
         });
     }
 
@@ -489,15 +601,7 @@
             });
             $("#choiceToggle").prop("checked", flag);
         });
-        // $("[name=choiceList]:checkbox").click(function () {
-        //     var flag = true;
-        //     $("[name=choiceList]:checkbox").each(function () {
-        //         if (!this.checked) {
-        //             flag = false;
-        //         }
-        //     });
-        //     $("#choiceToggle").prop("checked", flag);
-        // });
+
         //反选操作
         $("#reverseBtn").click(function () {
             $("[name=choiceList]:checkbox").each(function () {
