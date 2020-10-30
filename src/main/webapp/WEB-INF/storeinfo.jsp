@@ -33,7 +33,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js" rel="external nofollow"></script>
     <![endif]-->
 </head>
-<body>
+<body >
 
 <!--提示消息框-->
 <div class="alert"></div>
@@ -196,6 +196,8 @@
     <div id="pageTips" class="col-12 col-md-4">
 
     </div>
+
+    ----------------------------------------------------------
 </div>
 
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->

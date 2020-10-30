@@ -100,7 +100,6 @@ public class StoreinfoController {
     @RequestMapping(value = "/opt",method = RequestMethod.POST)
     public MessageAndData optInsert(@RequestParam(value = "file")MultipartFile file, HttpServletRequest request, Storeinfo obj) throws IOException {
         String path="c:\\upload";
-//        String path = request.getSession().getServletContext().getRealPath("/images/upload");
         String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
         File file1 = new File(path, filename);
         if(!file1.exists()){
@@ -142,28 +141,6 @@ public class StoreinfoController {
     }
 
 
-    //    如果使用put方法,记得要在web.xml中添加相应过滤器,对象不能封装
-    @ResponseBody
-    @RequestMapping(value = "/optu",method = RequestMethod.POST)
-    public MessageAndData optUpdate(@RequestParam(value = "file")MultipartFile file, HttpServletRequest request,Storeinfo obj) throws IOException {
-        String path="c:\\upload";
-//        String path = request.getSession().getServletContext().getRealPath("/images/upload");
-        String filename = UUID.randomUUID() + "-" + file.getOriginalFilename();
-        File file1 = new File(path, filename);
-        if(!file1.exists()){
-            file1.mkdirs();
-        }
-        file.transferTo(file1);
-        String avatarUrl = "/upload/" + filename;
-        obj.setSphoto(avatarUrl);
-
-        int i = service.updateByPrimaryKeySelective(obj);
-        if(i>0){
-            return MessageAndData.success("成功修改"+i+"条记录");
-        }else{
-            return MessageAndData.error("修改失败");
-        }
-    }
 
     @ResponseBody
     @RequestMapping(value = "/opt",method = RequestMethod.PUT, headers="content-type=multipart/form-data")

@@ -72,7 +72,7 @@
         </ul>
     </div>
 </nav>
-<iframe style="margin: 60px 2px 0px 2px" scrolling="no" frameborder="0" name="dataDisplay"  width="99%" height="1000" src="${app}/userrest/index">您的浏览器不支持内部框架,请升级</iframe>
+<iframe style="margin: 60px 2px 0px 2px" scrolling="yes" frameborder="0" name="dataDisplay"  width="99%" height="99%" src="${app}/userrest/index">您的浏览器不支持内部框架,请升级</iframe>
 
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
 <script src="${app}/static/js/jquery-3.3.1.js"></script>
