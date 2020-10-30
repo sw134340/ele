@@ -30,8 +30,8 @@ public class CustomerrestController {
     @ResponseBody
     @RequestMapping(value = "/listJSON")
     public MessageAndData listJSON(){
-        List<Customer> customers = service.selectByExample(null);
-        return MessageAndData.success("").add("customers",customers);
+        List<Customer> lists = service.selectByExample(null);
+        return MessageAndData.success("").add("lists",lists);
     }
 
 @ResponseBody

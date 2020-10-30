@@ -39,8 +39,8 @@ public class GoodsrestController {
     @ResponseBody
     @RequestMapping(value = "/listJSON")
     public MessageAndData listJSON(){
-        List<Goods> goods = goodsService.selectByExample(null);
-        return MessageAndData.success("").add("goods",goods);
+        List<Goods> lists = goodsService.selectByExample(null);
+        return MessageAndData.success("").add("lists",lists);
     }
 
     @ResponseBody

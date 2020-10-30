@@ -121,8 +121,7 @@
                         <datalist id="clist" class="custom-select-sm"></datalist>
                     </div>
                     <div class="form-group">
-                        <label>addTime:</label><input list="uslist" type="date" class="form-control"  name="addTime" placeholder="添加时间"/>
-                        <datalist id="uslist"></datalist>
+                        <label>addTime:</label><input  type="date" class="form-control"  name="addTime" placeholder="添加时间"/>
                     </div>
                     <div class="form-group">
                         <button id="updateObjBtn" type="button" class="btn btn-block btn-primary">修改</button>
@@ -299,9 +298,9 @@
             error: function () {
             }
         });
-        getAndFill("${app}/goodsrest/listJSON",$("#glist"),"ogid","gname",choice1);
-        getAndFill("${app}/storeinforest/listJSON",$("#slist"),"osid","sname",choice2);
-        getAndFill("${app}/customerrest/listJSON",$("#clist"),"ocid","cname",choice3);
+        getAndFill("${app}/goodsrest/listJSON",$("#glist"),"gid","gname",choice1);
+        getAndFill("${app}/storeinforest/listJSON",$("#slist"),"sid","sname",choice2);
+        getAndFill("${app}/customerrest/listJSON",$("#clist"),"cid","cname",choice3);
         return false;//取消超链接的默认跳转
     }
 

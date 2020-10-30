@@ -36,8 +36,8 @@ public class StoreinfoController {
     @ResponseBody
     @RequestMapping(value = "/listJSON")
     public MessageAndData listJSON(){
-        List<Storeinfo> storeinfos = service.selectByExample(null);
-        return MessageAndData.success("").add("storeinfos",storeinfos);
+        List<Storeinfo> lists = service.selectByExample(null);
+        return MessageAndData.success("").add("lists",lists);
     }
 
     @ResponseBody
