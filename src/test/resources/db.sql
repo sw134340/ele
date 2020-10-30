@@ -197,7 +197,8 @@ BEGIN
         i INT DEFAULT 1;
     WHILE
             i < 100 DO
-            insert into storeinfo (sname,spassword) value (concat('sto',i),'696aa7bb5ee7ac9135f7ed4ef526fe4d') ;
+            insert into storeinfo (sname,spassword,sphoto,marking,dispatching,sadderss,offer) value
+            (concat('sto',i),'696aa7bb5ee7ac9135f7ed4ef526fe4d','/upload/storeinfo.png',FlOOR(RAND() * 5 + 1),'蜂鸟配送','高新区火炬路',false) ;
             SET i = i + 1;
 
         END WHILE;
@@ -303,15 +304,16 @@ CALL st_ac_insert();
 drop table if exists orderlist;
 create table if not exists orderlist(
                                         oid integer auto_increment comment '订单编号',
-                                        ouserid integer default null comment '所属用户',
+                                        ocid integer default null comment '所属用户',
                                         ogid integer not null comment '订购产品',
                                         quantity integer not null comment '产品数量',
                                         ostoreid integer default null comment '所属商户',
                                         status integer default false comment '结算状态未支付',
                                         add_time timestamp  not null default current_timestamp comment '创建时间',
                                         up_time  timestamp  not null default current_timestamp on update current_timestamp comment '修改时间',
-                                        constraint `fk_ol_ouserid_to_cus_cid`foreign key orderlist(`ouserid`)references customer(`cid`),
+                                        constraint `fk_ol_ocid_to_cus_cid`foreign key orderlist(`ocid`)references customer(`cid`),
                                         constraint `fk_ol_ostoreid_to_store_sid`foreign key orderlist(`ostoreid`)references storeinfo(`sid`),
+                                        constraint `fk_ol_ogid_to_goods_gid`foreign key orderlist(`ogid`)references storeinfo(`gid`),
                                         primary key (`oid`)
 )comment '订单表';
 
@@ -328,7 +330,8 @@ BEGIN
         i INT DEFAULT 1;
     WHILE
             i < 100 DO
-            insert into orderlist (ogid,quantity) value (i,1) ;
+            insert into orderlist (ogid,ocid,ogid,quantity,ostoreid,status) value
+            (i,FlOOR(RAND() * 9 + 1),FlOOR(RAND() * 9 + 1),FlOOR(RAND() * 9 + 1),FlOOR(RAND() * 9 + 1),FlOOR(RAND() * 3 + 1)) ;
             SET i = i + 1;
 
         END WHILE;
