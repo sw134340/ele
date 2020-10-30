@@ -1,17 +1,11 @@
 package elm.demo.domain;
 
-import com.fasterxml.jackson.annotation.JacksonAnnotation;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-
-import java.io.Serializable;
 import java.util.Date;
-@Data
-@JsonIgnoreProperties(value = "handler")    //用于解决mybatis关联查询时使用了懒加载方式过程中数据封装引发的问题
-public class Orderlist implements Serializable {
+
+public class Orderlist {
     private Integer oid;
 
-    private Integer ouserid;
+    private Integer ocid;
 
     private Integer ogid;
 
@@ -23,21 +17,23 @@ public class Orderlist implements Serializable {
 
     private Date addTime;
 
-    private User user;
     private Storeinfo storeinfo;
+    private Customer customer;
+    private Goods goods;
 
     @Override
     public String toString() {
         return "Orderlist{" +
                 "oid=" + oid +
-                ", ouserid=" + ouserid +
+                ", ocid=" + ocid +
                 ", ogid=" + ogid +
                 ", quantity=" + quantity +
                 ", ostoreid=" + ostoreid +
                 ", status=" + status +
                 ", addTime=" + addTime +
-                ", user=" + user +
                 ", storeinfo=" + storeinfo +
+                ", customer=" + customer +
+                ", goods=" + goods +
                 '}';
     }
 
@@ -49,12 +45,12 @@ public class Orderlist implements Serializable {
         this.oid = oid;
     }
 
-    public Integer getOuserid() {
-        return ouserid;
+    public Integer getOcid() {
+        return ocid;
     }
 
-    public void setOuserid(Integer ouserid) {
-        this.ouserid = ouserid;
+    public void setOcid(Integer ocid) {
+        this.ocid = ocid;
     }
 
     public Integer getOgid() {
@@ -97,14 +93,6 @@ public class Orderlist implements Serializable {
         this.addTime = addTime;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Storeinfo getStoreinfo() {
         return storeinfo;
     }
@@ -113,16 +101,33 @@ public class Orderlist implements Serializable {
         this.storeinfo = storeinfo;
     }
 
-    public Orderlist(Integer oid, Integer ouserid, Integer ogid, Integer quantity, Integer ostoreid, Integer status, Date addTime, User user, Storeinfo storeinfo) {
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
+
+    public Orderlist(Integer oid, Integer ocid, Integer ogid, Integer quantity, Integer ostoreid, Integer status, Date addTime, Storeinfo storeinfo, Customer customer, Goods goods) {
         this.oid = oid;
-        this.ouserid = ouserid;
+        this.ocid = ocid;
         this.ogid = ogid;
         this.quantity = quantity;
         this.ostoreid = ostoreid;
         this.status = status;
         this.addTime = addTime;
-        this.user = user;
         this.storeinfo = storeinfo;
+        this.customer = customer;
+        this.goods = goods;
     }
 
     public Orderlist() {

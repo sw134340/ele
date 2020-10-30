@@ -36,30 +36,30 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--        6 指定数据表的生成策略-->
-        <table tableName="adminuser" domainObjectName="User">
-            <ignoreColumn column="up_time"></ignoreColumn>
-        </table>
-        <table tableName="customer" domainObjectName="Customer">
-            <!--            忽略部分字段的生成-->
-            <ignoreColumn column="up_time"></ignoreColumn>
-        </table>
-        <table tableName="storeinfo" domainObjectName="Storeinfo">
-            <!--            忽略部分字段的生成-->
-            <ignoreColumn column="up_time"></ignoreColumn>
-        </table>
-        <table tableName="active" domainObjectName="Active">
-            <!--            忽略部分字段的生成-->
-            <ignoreColumn column="up_time"></ignoreColumn>
-        </table>
+<!--        <table tableName="adminuser" domainObjectName="User">-->
+<!--            <ignoreColumn column="up_time"></ignoreColumn>-->
+<!--        </table>-->
+<!--        <table tableName="customer" domainObjectName="Customer">-->
+<!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
+<!--            <ignoreColumn column="up_time"></ignoreColumn>-->
+<!--        </table>-->
+<!--        <table tableName="storeinfo" domainObjectName="Storeinfo">-->
+<!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
+<!--            <ignoreColumn column="up_time"></ignoreColumn>-->
+<!--        </table>-->
+<!--        <table tableName="active" domainObjectName="Active">-->
+<!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
+<!--            <ignoreColumn column="up_time"></ignoreColumn>-->
+<!--        </table>-->
 
-        <table tableName="typeofgoods" domainObjectName="Typeofgoods">
-            <!--            忽略部分字段的生成-->
-            <ignoreColumn column="up_time"></ignoreColumn>
-        </table>
-        <table tableName="goods" domainObjectName="Goods">
-            <!--            忽略部分字段的生成-->
-            <ignoreColumn column="up_time"></ignoreColumn>
-        </table>
+<!--        <table tableName="typeofgoods" domainObjectName="Typeofgoods">-->
+<!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
+<!--            <ignoreColumn column="up_time"></ignoreColumn>-->
+<!--        </table>-->
+<!--        <table tableName="goods" domainObjectName="Goods">-->
+<!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
+<!--            <ignoreColumn column="up_time"></ignoreColumn>-->
+<!--        </table>-->
         <table tableName="orderlist" domainObjectName="Orderlist">
             <!--            忽略部分字段的生成-->
             <ignoreColumn column="up_time"></ignoreColumn>

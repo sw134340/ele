@@ -37,6 +37,13 @@ public class GoodsrestController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/listJSON")
+    public MessageAndData listJSON(){
+        List<Goods> goods = goodsService.selectByExample(null);
+        return MessageAndData.success("").add("goods",goods);
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/list",method = {RequestMethod.GET})
     public MessageAndData list(
             GoodsCondition condition,/*检索条件*/

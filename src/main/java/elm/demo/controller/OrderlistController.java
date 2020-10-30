@@ -61,19 +61,19 @@ public class OrderlistController {
         criteria.andQuantityBetween(minQuantity,maxQuantity);
 
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date startDate1 = dateFormat.parse("1970-01-01");
-        Date endDate1 = dateFormat.parse("2999-12-31");
-
-        Date startDate = condition.getStartDate()==null?startDate1:condition.getStartDate();
-        Date endDate = condition.getEndDate()==null?endDate1:condition.getEndDate();
-        if(startDate.after(endDate)){
-            Date tempDate = startDate;
-            startDate = endDate;
-            endDate = tempDate;
-        }
-
-        criteria.andAddTimeBetween(startDate,endDate);
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        Date startDate1 = dateFormat.parse("1970-01-01");
+//        Date endDate1 = dateFormat.parse("2999-12-31");
+//
+//        Date startDate = condition.getStartDate()==null?startDate1:condition.getStartDate();
+//        Date endDate = condition.getEndDate()==null?endDate1:condition.getEndDate();
+//        if(startDate.after(endDate)){
+//            Date tempDate = startDate;
+//            startDate = endDate;
+//            endDate = tempDate;
+//        }
+//
+//        criteria.andAddTimeBetween(startDate,endDate);
 
 
 

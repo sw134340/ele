@@ -32,12 +32,7 @@ public class UserrestController {
         //return "forward:/WEB-INF/user.jsp";    @RestController的话
         return "user";
     }
-    @ResponseBody
-    @RequestMapping(value = "/listJSON")
-    public MessageAndData listJSON(){
-        List<User> users = userService.selectByExample(null);
-        return MessageAndData.success("").add("users",users);
-    }
+
 
     @ResponseBody
     @RequestMapping(value = "/list",method = {RequestMethod.GET})

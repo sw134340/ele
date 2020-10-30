@@ -26,6 +26,14 @@ public class CustomerrestController {
     public String index(){
         return "customer";
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/listJSON")
+    public MessageAndData listJSON(){
+        List<Customer> customers = service.selectByExample(null);
+        return MessageAndData.success("").add("customers",customers);
+    }
+
 @ResponseBody
 @RequestMapping(value = "/list",method = {RequestMethod.GET})
 public MessageAndData list(

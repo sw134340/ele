@@ -165,63 +165,63 @@ public class OrderlistExample {
             return (Criteria) this;
         }
 
-        public Criteria andOuseridIsNull() {
-            addCriterion("ouserid is null");
+        public Criteria andOcidIsNull() {
+            addCriterion("ocid is null");
             return (Criteria) this;
         }
 
-        public Criteria andOuseridIsNotNull() {
-            addCriterion("ouserid is not null");
+        public Criteria andOcidIsNotNull() {
+            addCriterion("ocid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOuseridEqualTo(Integer value) {
-            addCriterion("ouserid =", value, "ouserid");
+        public Criteria andOcidEqualTo(Integer value) {
+            addCriterion("ocid =", value, "ocid");
             return (Criteria) this;
         }
 
-        public Criteria andOuseridNotEqualTo(Integer value) {
-            addCriterion("ouserid <>", value, "ouserid");
+        public Criteria andOcidNotEqualTo(Integer value) {
+            addCriterion("ocid <>", value, "ocid");
             return (Criteria) this;
         }
 
-        public Criteria andOuseridGreaterThan(Integer value) {
-            addCriterion("ouserid >", value, "ouserid");
+        public Criteria andOcidGreaterThan(Integer value) {
+            addCriterion("ocid >", value, "ocid");
             return (Criteria) this;
         }
 
-        public Criteria andOuseridGreaterThanOrEqualTo(Integer value) {
-            addCriterion("ouserid >=", value, "ouserid");
+        public Criteria andOcidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("ocid >=", value, "ocid");
             return (Criteria) this;
         }
 
-        public Criteria andOuseridLessThan(Integer value) {
-            addCriterion("ouserid <", value, "ouserid");
+        public Criteria andOcidLessThan(Integer value) {
+            addCriterion("ocid <", value, "ocid");
             return (Criteria) this;
         }
 
-        public Criteria andOuseridLessThanOrEqualTo(Integer value) {
-            addCriterion("ouserid <=", value, "ouserid");
+        public Criteria andOcidLessThanOrEqualTo(Integer value) {
+            addCriterion("ocid <=", value, "ocid");
             return (Criteria) this;
         }
 
-        public Criteria andOuseridIn(List<Integer> values) {
-            addCriterion("ouserid in", values, "ouserid");
+        public Criteria andOcidIn(List<Integer> values) {
+            addCriterion("ocid in", values, "ocid");
             return (Criteria) this;
         }
 
-        public Criteria andOuseridNotIn(List<Integer> values) {
-            addCriterion("ouserid not in", values, "ouserid");
+        public Criteria andOcidNotIn(List<Integer> values) {
+            addCriterion("ocid not in", values, "ocid");
             return (Criteria) this;
         }
 
-        public Criteria andOuseridBetween(Integer value1, Integer value2) {
-            addCriterion("ouserid between", value1, value2, "ouserid");
+        public Criteria andOcidBetween(Integer value1, Integer value2) {
+            addCriterion("ocid between", value1, value2, "ocid");
             return (Criteria) this;
         }
 
-        public Criteria andOuseridNotBetween(Integer value1, Integer value2) {
-            addCriterion("ouserid not between", value1, value2, "ouserid");
+        public Criteria andOcidNotBetween(Integer value1, Integer value2) {
+            addCriterion("ocid not between", value1, value2, "ocid");
             return (Criteria) this;
         }
 

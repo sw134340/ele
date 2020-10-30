@@ -17,11 +17,8 @@ public interface OrderlistMapper {
     int insertSelective(Orderlist record);
 
     List<Orderlist> selectByExample(OrderlistExample example);
-    List<Orderlist> selectByExampleWithObject(OrderlistExample example);
 
     Orderlist selectByPrimaryKey(Integer oid);
-    Orderlist selectByPrimaryKeyWithObject(Integer oid);
-
 
     int updateByExampleSelective(@Param("record") Orderlist record, @Param("example") OrderlistExample example);
 
@@ -30,4 +27,8 @@ public interface OrderlistMapper {
     int updateByPrimaryKeySelective(Orderlist record);
 
     int updateByPrimaryKey(Orderlist record);
+
+    List<Orderlist> selectByExampleWithObject(OrderlistExample example);
+
+    Orderlist selectByPrimaryKeyWithObject(Integer oid);
 }

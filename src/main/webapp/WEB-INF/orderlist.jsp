@@ -49,7 +49,8 @@
                 <form method="post"  class="form-horizontal" role="form" enctype="multipart/form-data">
                     <%--input type="hidden" name="_method" value="POST" /--%>
                     <div class="form-group">
-                        <label>ogid:</label><input type="text" class="form-control" name="ogid" placeholder="订购产品"/>
+                        <label>ogid:</label><input list="oglist" type="text" class="form-control" name="ogid" placeholder="订购产品"/>
+                        <datalist id="oglist" class="custom-select-sm"></datalist>
                     </div>
                     <div class="form-group">
                         <label>quantity:</label><input type="text" class="form-control" name="quantity" placeholder="产品数量"/>
@@ -58,12 +59,12 @@
                             <label>status:</label><input type="text" class="form-control" name="status" placeholder="结算状态"/>
                         </div>
                     <div class="form-group">
-                        <label>ostoreid:</label><input list="slist" type="text" class="form-control" name="ostoreid" placeholder="所属商户"/>
-                        <datalist id="slist"></datalist>
+                        <label>ostoreid:</label><input list="oslist" type="text" class="form-control" name="ostoreid" placeholder="所属商户"/>
+                        <datalist id="oslist" class="custom-select-sm"></datalist>
                     </div>
                     <div class="form-group">
-                        <label>ouserid:</label><input list="uselist" type="text" class="form-control"  name="ouserid" placeholder="所属用户">
-                        <datalist id="uselist"></datalist>
+                        <label>ocid:</label><input list="oclist" type="text" class="form-control"  name="ocid" placeholder="所属用户">
+                        <datalist id="oclist" class="custom-select-sm"></datalist>
                     </div>
 
                     <div class="form-group">
@@ -100,7 +101,8 @@
                     </div>
                     <div class="form-group">
                         <label >ogid:</label>
-                        <input type="text" class="form-control" name="ogid" placeholder="请输入订购产品"/>
+                        <input type="text" list="glist" class="form-control" name="ogid" placeholder="请输入订购产品"/>
+                        <datalist id="glist" class="custom-select-sm"></datalist>
                     </div>
                     <div class="form-group">
                         <label>quantiy:</label>
@@ -111,11 +113,12 @@
                         <label>status:</label><input type="text" class="form-control" name="status" placeholder="结算状态"/>
                     </div>
                     <div class="form-group">
-                        <label>ouserid:</label><input type="text" class="form-control" name="ouserid" placeholder="所属用户"/>
+                        <label>ostoreid:</label><input list="slist" type="text" class="form-control" name="ostoreid" placeholder="所属商家"/>
+                        <datalist id="slist"></datalist>
                     </div>
                     <div class="form-group">
-                        <label>ostoreid:</label><input list="stlist" type="text" class="form-control" name="ostoreid" placeholder="所属商家"/>
-                        <datalist id="stlist"></datalist>
+                        <label>ocid:</label><input list="clist" type="text" class="form-control" name="ocid" placeholder="所属用户"/>
+                        <datalist id="clist" class="custom-select-sm"></datalist>
                     </div>
                     <div class="form-group">
                         <label>addTime:</label><input list="uslist" type="date" class="form-control"  name="addTime" placeholder="添加时间"/>
@@ -271,6 +274,7 @@
     function updateForm(ele) {
         var choice1;
         var choice2;
+        var choice3;
         //打开模态框
         $("#updateModal").modal({backdrop: "static"});
         //将表单中原有数据清空
@@ -283,17 +287,21 @@
                 //回填数据
                 $('#updateModal [name="oid"]').val(result.dataZone.obj.oid);
                 $('#updateModal [name="ogid"]').val(result.dataZone.obj.ogid);
+                choice1 = result.dataZone.obj.ogid;
                 $('#updateModal [name="quantity"]').val(result.dataZone.obj.quantity);
                 $('#updateModal [name="status"]').val(result.dataZone.obj.status);
                 $('#updateModal [name="ostoreid"]').val(result.dataZone.obj.ostoreid);
-                $('#updateModal [name="ouserid"]').val(result.dataZone.obj.ouserid);
+                choice2 = result.dataZone.obj.ostoreid;
+                $('#updateModal [name="ocid"]').val(result.dataZone.obj.ocid);
+                choice3 = result.dataZone.obj.ocid;
                 $('#updateModal [name="addTime"]').val(new Date(result.dataZone.obj.addTime).Format("yyyy-MM-dd"));
             },
             error: function () {
             }
         });
-        getAndFill("${app}/storeinforest/listJSON",$("#stlist"),"sid","sname",choice1);
-        getAndFill("${app}/userrest/listJSON",$("#uslist"),"uid","uname",choice2);
+        getAndFill("${app}/goodsrest/listJSON",$("#glist"),"ogid","gname",choice1);
+        getAndFill("${app}/storeinforest/listJSON",$("#slist"),"osid","sname",choice2);
+        getAndFill("${app}/customerrest/listJSON",$("#clist"),"ocid","cname",choice3);
         return false;//取消超链接的默认跳转
     }
 
@@ -439,11 +447,11 @@
             var checkboxTh = $('<th><input type="checkbox" name="choiceList" value="${item.oid}"/></th>');
             var countTh = $('<th></th>').text(index + 1);
             var td1 = $('<td></td>').text(item.oid);
-            var td2 = $('<td></td>').text(item.ogid);
+            var td2 = $('<td></td>').text(item.goods.gname);
             var td3 = $('<td></td>').text(item.quantity);
             var td4 = $('<td></td>').text(item.status);
-            var td5 = $('<td></td>').text(item.ostoreid);
-            var td6 = $('<td></td>').text(item.ouserid);
+            var td5 = $('<td></td>').text(item.storeinfo.sname);
+            var td6 = $('<td></td>').text(item.customer.cname);
             var addTimeTd = $('<td></td>').text(new Date(item.addTime).Format("yyyy-MM-dd HH:mm:ss"));
             var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/orderlistrest/opt/' + item.oid + '">修改</a>');
             var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/orderlistrest/opt/' + item.oid + '">删除</a>');
