@@ -32,7 +32,6 @@ public class StoreinfoCondition extends Storeinfo implements Serializable {
         this.endDate = endDate;
     }
 
-
     public StoreinfoCondition(Integer sid, String sname, String spassword, String sphoto, String marking, String dispatching, String sadderss, Boolean offer, Date addTime, Date startDate, Date endDate) {
         super(sid, sname, spassword, sphoto, marking, dispatching, sadderss, offer, addTime);
         this.startDate = startDate;

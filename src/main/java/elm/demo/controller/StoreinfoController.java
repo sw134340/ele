@@ -3,6 +3,7 @@ package elm.demo.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import elm.demo.domain.*;
+import elm.demo.service.ActiveService;
 import elm.demo.service.OrderlistService;
 import elm.demo.service.StoreinfoService;
 import elm.demo.utils.MessageAndData;
@@ -27,6 +28,8 @@ import java.util.UUID;
 public class StoreinfoController {
     @Autowired
     private StoreinfoService service;
+    @Autowired
+    private ActiveService activeService;
     @RequestMapping(value = "/index")
     public String index(){
 //    return "forward:/WEB-INF/user.jsp";
@@ -61,7 +64,7 @@ public class StoreinfoController {
             name = "%"+condition.getSname()+"%";
             criteria.andSnameLike(name);
         }
-
+example.setOrderByClause("sid");
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date startDate1 = dateFormat.parse("1970-01-01");
         Date endDate1 = dateFormat.parse("2999-12-31");
@@ -77,7 +80,9 @@ public class StoreinfoController {
         criteria.andAddTimeBetween(startDate,endDate);
 
 
+        //获取所有的活动列表
 
+        List<Active> activities = activeService.selectByExample(null);
 
         //初始化,约束
         PageHelper.startPage(pageNum, pageSize);
@@ -95,7 +100,12 @@ public class StoreinfoController {
         return MessageAndData.success("查询成功").add("obj",obj);
     }
 
-
+    @ResponseBody
+    @RequestMapping(value = "/opt/{sid}/{aid}/{offer}", method = RequestMethod.GET)
+    public MessageAndData optSelectPrimaryKey(@PathVariable("sid") Integer sid,@PathVariable("aid") Integer aid,@PathVariable("offer") Boolean offer) {
+        int i = service.updateOffer(sid,aid,offer);
+        return MessageAndData.success("处理成功").add("num", i);
+    }
     @ResponseBody
     @RequestMapping(value = "/opt",method = RequestMethod.POST)
     public MessageAndData optInsert(@RequestParam(value = "file")MultipartFile file, HttpServletRequest request, Storeinfo obj) throws IOException {
@@ -128,19 +138,20 @@ public class StoreinfoController {
         for (String sId : sIds) {
             iIds.add(Integer.parseInt(sId));
         }
-        if(iIds.size() > 1) {//删除多条记录
-            //创建一个UserExample对象
-            StoreinfoExample example = new StoreinfoExample();
-            example.createCriteria().andSidIn(iIds);
-            //执行批量删除
-            i = service.deleteByExample(example);
-        }else{//删除一条记录
-            i = service.deleteByPrimaryKey(iIds.get(0));
+//        if(iIds.size() > 1) {//删除多条记录
+//            //创建一个UserExample对象
+//            StoreinfoExample example = new StoreinfoExample();
+//            example.createCriteria().andSidIn(iIds);
+//            //执行批量删除
+//            i = service.deleteByExample(example);
+//        }else{//删除一条记录
+//            i = service.deleteByPrimaryKey(iIds.get(0));
+//        }
+        for (Integer iId : iIds) {
+            i += service.deleteByPrimaryKey(iIds.get(iId));
         }
         return MessageAndData.success("删除成功"+i+"条记录").add("num", i);
     }
-
-
 
     @ResponseBody
     @RequestMapping(value = "/opt",method = RequestMethod.PUT, headers="content-type=multipart/form-data")

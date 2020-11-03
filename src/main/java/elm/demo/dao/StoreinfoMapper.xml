@@ -272,4 +272,49 @@
       add_time = #{addTime,jdbcType=TIMESTAMP}
     where sid = #{sid,jdbcType=INTEGER}
   </update>
+
+
+  <!--    商家参与活动-->
+  <sql id="Extend_Column_List">
+    s.sid, s.sname, s.spassword, s.photo, s.marking, s.dispatching, s.sadderss, s.offer,s.add_time as sadd_time
+   ,a.aid,a.aname,a.aintor,a.add_time as aadd_time,sta.add_time as staadd_time
+  </sql>
+  <resultMap id="BaseResultMapWithObject" type="elm.demo.domain.Storeinfo">
+    <id column="sid" jdbcType="INTEGER" property="sid" />
+    <result column="sname" jdbcType="VARCHAR" property="sname" />
+    <result column="spassword" jdbcType="VARCHAR" property="spassword" />
+    <result column="sphoto" jdbcType="VARCHAR" property="sphoto" />
+    <result column="marking" jdbcType="VARCHAR" property="marking" />
+    <result column="dispatching" jdbcType="VARCHAR" property="dispatching" />
+    <result column="sadderss" jdbcType="VARCHAR" property="sadderss" />
+    <result column="offer" jdbcType="BIT" property="offer" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <collection property="activeList" ofType="elm.demo.domain.Active">
+      <id property="aid" column="aid"></id>
+      <result property="aname" column="aname"></result>
+    </collection>
+  </resultMap>
+  <select id="selectByExampleWithObject" parameterType="elm.demo.domain.StoreinfoExample"
+          resultMap="BaseResultMapWithObject">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Extend_Column_List"/>
+    from storeinfo s
+    left join st_ac sta on s.sid=sta.fsid
+    left join activie a on sta.faid = a.aid
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause"/>
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKeyWithObject" parameterType="java.lang.Integer" resultMap="BaseResultMapWithObject">
+    select
+    <include refid="Extend_Column_List"/>
+    from storeinfo s
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
 </mapper>

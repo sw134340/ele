@@ -60,7 +60,11 @@
 <!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
 <!--            <ignoreColumn column="up_time"></ignoreColumn>-->
 <!--        </table>-->
-        <table tableName="orderlist" domainObjectName="Orderlist">
+<!--        <table tableName="orderlist" domainObjectName="Orderlist">-->
+<!--            &lt;!&ndash;            忽略部分字段的生成&ndash;&gt;-->
+<!--            <ignoreColumn column="up_time"></ignoreColumn>-->
+<!--        </table>-->
+        <table tableName="st_ac" domainObjectName="StAc">
             <!--            忽略部分字段的生成-->
             <ignoreColumn column="up_time"></ignoreColumn>
         </table>

@@ -5,6 +5,8 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 @Data
 @JsonIgnoreProperties(value = "handler")    //用于解决mybatis关联查询时使用了懒加载方式过程中数据封装引发的问题
 public class Storeinfo implements Serializable {
@@ -25,8 +27,9 @@ public class Storeinfo implements Serializable {
     private Boolean offer;
 
     private Date addTime;
+    private List<Active> activeList;
 
-    public Storeinfo(Integer sid, String sname, String spassword, String sphoto, String marking, String dispatching, String sadderss, Boolean offer, Date addTime) {
+    public Storeinfo(Integer sid, String sname, String spassword, String sphoto, String marking,  String dispatching, String sadderss,Boolean offer, Date addTime) {
         this.sid = sid;
         this.sname = sname;
         this.spassword = spassword;
@@ -37,10 +40,6 @@ public class Storeinfo implements Serializable {
         this.offer = offer;
         this.addTime = addTime;
     }
-
-    public Storeinfo() {
-    }
-
     public Integer getSid() {
         return sid;
     }
@@ -111,5 +110,16 @@ public class Storeinfo implements Serializable {
 
     public void setAddTime(Date addTime) {
         this.addTime = addTime;
+    }
+
+    public List<Active> getActiveList() {
+        return activeList;
+    }
+
+    public void setActiveList(List<Active> activeList) {
+        this.activeList = activeList;
+    }
+
+    public Storeinfo() {
     }
 }

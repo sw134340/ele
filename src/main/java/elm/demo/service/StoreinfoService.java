@@ -20,6 +20,9 @@ public interface StoreinfoService {
     List<Storeinfo> selectByExample(StoreinfoExample example);
 
     Storeinfo selectByPrimaryKey(Integer sid);
+    List<Storeinfo> selectByExampleWithObject(StoreinfoExample example);
+
+    Storeinfo selectByPrimaryKeyWithObject(Integer sid);
 
     int updateByExampleSelective(@Param("record") Storeinfo record, @Param("example") StoreinfoExample example);
 
@@ -28,4 +31,5 @@ public interface StoreinfoService {
     int updateByPrimaryKeySelective(Storeinfo record);
 
     int updateByPrimaryKey(Storeinfo record);
+    int updateOffer(Integer sid,Integer aid,Boolean offer);
 }

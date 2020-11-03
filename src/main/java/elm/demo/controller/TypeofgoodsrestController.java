@@ -105,23 +105,23 @@ public class TypeofgoodsrestController {
         }
 
         @ResponseBody
-        @RequestMapping(value = "/opt/{tids}",method = RequestMethod.DELETE)
-        public MessageAndData deletes(@PathVariable("tids")String tids){
+        @RequestMapping(value = "/opt/{ids}",method = RequestMethod.DELETE)
+        public MessageAndData deletes(@PathVariable("tids")String ids){
             //获取传递过来的tid列表,分解为一个集合对象
-            List<Integer> iTids = new ArrayList<Integer>();
-            String[] sTids = tids.split("-");
+            List<Integer> iIds = new ArrayList<Integer>();
+            String[] sIds = ids.split("-");
             Integer i = null;
-            for (String sTid : sTids) {
-                iTids.add(Integer.parseInt(sTid));
+            for (String sTid : sIds) {
+                iIds.add(Integer.parseInt(sTid));
             }
-            if(iTids.size() > 1) {//删除多条记录
+            if(iIds.size() > 1) {//删除多条记录
                 //创建一个UserExample对象
                 TypeofgoodsExample example = new TypeofgoodsExample();
-                example.createCriteria().andTidIn(iTids);
+                example.createCriteria().andTidIn(iIds);
                 //执行批量删除
                 i = service.deleteByExample(example);
             }else{//删除一条记录
-                i = service.deleteByPrimaryKey(iTids.get(0));
+                i = service.deleteByPrimaryKey(iIds.get(0));
             }
             return MessageAndData.success("删除成功"+i+"条记录").add("num", i);
         }

@@ -220,7 +220,14 @@
         $("#updateObjBtn").click(updateObj);
         //给每条记录的删除按钮添加事件
         $(document).on("click", ".delBtn", deleteSingleRecord);
-
+        //给点击获取相关信息的链接打开模态框
+        $(document).on("click", ".disBtn", displayInfo);
+        //给点击切换状态的连接添加事件
+        $(document).on("click",".changeBtn",changeStatus);
+        //给点击获取相关信息的链接打开模态框
+        $(document).on("click", ".disBtn", displayInfo);
+        //给点击切换状态的连接添加事件
+        $(document).on("click",".changeBtn",changeStatus);
     });
 
 

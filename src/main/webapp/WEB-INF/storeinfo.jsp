@@ -388,25 +388,57 @@
             }
         });
     }
-
-    function deleteSingleRecord(ele) {
-        //询问是否删除
-        if (!confirm("真的删除"))
-            return false;
-        $.ajax({
-            url: ele.target.href,
-            type: "DELETE",
-            success: function (result) {
-                alertTips(result.message,"alert-success");
-                gotoPage(currentPage);
-            },
-            error: function (result) {
-                alertTips(result.message,"alert-danger");
+    //
+    // function deleteSingleRecord(ele) {
+    //     //询问是否删除
+    //     if (!confirm("真的删除"))
+    //         return false;
+    //     $.ajax({
+    //         url: ele.target.href,
+    //         type: "DELETE",
+    //         success: function (result) {
+    //             alertTips(result.message,"alert-success");
+    //             gotoPage(currentPage);
+    //         },
+    //         error: function (result) {
+    //             alertTips(result.message,"alert-danger");
+    //         }
+    //     });
+    //     return false;
+    // }
+    function deleteMuliRecord(eve) {
+        //点击删除所选按钮时删除多条记录
+        let url = $(eve.target).attr("action");
+        let ids = "";//需要传递给服务器的uid列表
+        let names = "";//需要显式给操作者看的提示信息列表
+        $("[name=choiceList]:checkbox").each(function () {
+            if (this.checked) {
+                ids += $(this).parents("tr").find("td:eq(0)").text() + ",";//通过 - 连接
+                names += $(this).parents("tr").find("td:eq(1)").text() + ",";//通过 , 连接
             }
         });
-        return false;
+        ids = ids.substr(0, ids.length - 1);//去掉最后的一个 -
+        names = names.substr(0, names.length - 1);//去掉最后的一个 ,
+        //首先判断是否选择了数据
+        if(ids.length==0){//如果没有任何选择,则不做任何操作
+            alertTips('你没有选择任何信息', "alert-danger");
+            return ;
+        }
+        //询问用户操作
+        if (confirm("是否删除" + names + "的记录")) {
+            //向服务器发送请求,我们已经使用过get和post方法,这次使用最底层的ajax方法
+            $.ajax({
+                type: "DELETE",
+                url: url + "/" + ids,
+                success: function (result) {
+                    gotoPage(currentPage);
+                    alertTips(result.message, "alert-success");
+                },
+                error: function () {
+                }
+            });
+        }
     }
-
     function deleteMuliRecord() {
         //点击删除所选按钮时删除多条记录
 
@@ -473,9 +505,25 @@
             var td3 = $('<td></td>').text(item.spassword);
             var td4 = $('<td></td>').text(item.sphoto);
             var td5 = $('<td></td>').text(item.marking);
+            <%--//处理带列表的输出--%>
+            <%--let tempStr = '';--%>
+            <%--for (let j = 0; j < result.dataZone.activities.length; j++) {--%>
+            <%--    let flag = false;--%>
+            <%--    for (let i = 0; i < item.activities.length; i++) {--%>
+            <%--        if (item.activities[i].aid == result.dataZone.activities[j].aid) {--%>
+            <%--            flag = true;--%>
+            <%--            tempStr += `<a class='changeBtn btn btn-block btn-success' href='${app}/businessrest/opt/${"${item.bid}"}/${"${result.dataZone.activities[j].aid}"}/${"${flag}"}'>${"${result.dataZone.activities[j].aname}"}</a>`;--%>
+            <%--            break;--%>
+            <%--        }--%>
+            <%--    }--%>
+            <%--    if (!flag) {--%>
+            <%--        tempStr += `<a class='changeBtn btn btn-block btn-danger' href='${app}/businessrest/opt/${"${item.bid}"}/${"${result.dataZone.activities[j].aid}"}/${"${flag}"}'>${"${result.dataZone.activities[j].aname}"}</a>`;--%>
+            <%--    }--%>
+            <%--}--%>
             var td6 = $('<td></td>').text(item.dispatching);
             var td7 = $('<td></td>').text(item.sadderss);
             var td8 = $('<td></td>').text(item.offer);
+            // var td9=$('<td></td>').html(tempStr);
             var addTimeTd = $('<td></td>').text(new Date(item.addTime).Format("yyyy-MM-dd HH:mm:ss"));
             var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/storeinforest/opt/' + item.sid + '">修改</a>');
             var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/storeinforest/opt/' + item.sid + '">删除</a>');

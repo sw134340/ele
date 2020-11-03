@@ -23,6 +23,15 @@ public class OrderlistController {
     @Autowired
     private OrderlistService service;
 
+    @ResponseBody
+    @RequestMapping(value = "/cusorders/{id}")
+    public MessageAndData getCustomerWithOrder(@PathVariable("id")Integer id){
+        OrderlistExample example = new OrderlistExample();
+        OrderlistExample.Criteria criteria = example.createCriteria();
+        criteria.andOcidEqualTo(id);
+        List<Orderlist> lists = service.selectByExampleWithObject(example);
+        return MessageAndData.success("").add("lists",lists);
+    }
 
     @RequestMapping(value = "/index")
     public String index(){
@@ -131,7 +140,7 @@ public class OrderlistController {
 
     //    如果使用put方法,记得要在web.xml中添加相应过滤器,对象不能封装
     @ResponseBody
-    @RequestMapping(value = "/opt",method = RequestMethod.PUT)
+    @RequestMapping(value = "/opt",method = RequestMethod.PUT,headers = "content-type=multipart/form-data")
     public MessageAndData optUpdate(Orderlist obj){
         System.out.println(obj);
         int i = service.updateByPrimaryKeySelective(obj);
