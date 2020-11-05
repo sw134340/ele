@@ -10,6 +10,7 @@ public interface CustomerService {
     long countByExample(CustomerExample example);
 
     int deleteByExample(CustomerExample example);
+    int deleteByExample(CustomerExample example,List <Integer> ids);
 
     int deleteByPrimaryKey(Integer cid);
 

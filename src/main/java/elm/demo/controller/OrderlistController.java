@@ -35,11 +35,8 @@ public class OrderlistController {
 
     @RequestMapping(value = "/index")
     public String index(){
-//    return "forward:/WEB-INF/user.jsp";
         return "orderlist";
     }
-
-
 
     @ResponseBody
     @RequestMapping(value = "/list",method = {RequestMethod.GET})
@@ -49,7 +46,7 @@ public class OrderlistController {
             @RequestParam(value = "pageSize",defaultValue = "10")Integer pageSize
 
     ) throws ParseException {
-        System.out.println(condition);
+//        System.out.println(condition);
         OrderlistExample example = new OrderlistExample();
         OrderlistExample.Criteria criteria = example.createCriteria();
 
@@ -58,31 +55,16 @@ public class OrderlistController {
         }
 
 
-        Integer minQuantity = 0;
-        Integer maxQuantity = 1000000000;
-        minQuantity = condition.getMinQuantity()==null?minQuantity:condition.getMinQuantity();
-        maxQuantity = condition.getMaxQuantity()==null?maxQuantity:condition.getMaxQuantity();
-        if(minQuantity>maxQuantity){
-            Integer temp = minQuantity;
-            minQuantity = maxQuantity;
-            maxQuantity = temp;
-        }
-        criteria.andQuantityBetween(minQuantity,maxQuantity);
-
-
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        Date startDate1 = dateFormat.parse("1970-01-01");
-//        Date endDate1 = dateFormat.parse("2999-12-31");
-//
-//        Date startDate = condition.getStartDate()==null?startDate1:condition.getStartDate();
-//        Date endDate = condition.getEndDate()==null?endDate1:condition.getEndDate();
-//        if(startDate.after(endDate)){
-//            Date tempDate = startDate;
-//            startDate = endDate;
-//            endDate = tempDate;
+//        Integer minQuantity = 0;
+//        Integer maxQuantity = 1000000000;
+//        minQuantity = condition.getMinQuantity()==null?minQuantity:condition.getMinQuantity();
+//        maxQuantity = condition.getMaxQuantity()==null?maxQuantity:condition.getMaxQuantity();
+//        if(minQuantity>maxQuantity){
+//            Integer temp = minQuantity;
+//            minQuantity = maxQuantity;
+//            maxQuantity = temp;
 //        }
-//
-//        criteria.andAddTimeBetween(startDate,endDate);
+//        criteria.andQuantityBetween(minQuantity,maxQuantity);
 
 
 
@@ -106,7 +88,7 @@ public class OrderlistController {
     @ResponseBody
     @RequestMapping(value = "/opt",method = RequestMethod.POST)
     public MessageAndData optInsert(Orderlist obj){
-        Integer i = service.insertSelective(obj);
+        int i = service.insertSelective(obj);
         if(i>0){
             return MessageAndData.success("成功添加"+i+"条记录");
         }else{
