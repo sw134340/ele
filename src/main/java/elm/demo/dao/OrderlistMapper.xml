@@ -3,7 +3,7 @@
 <mapper namespace="elm.demo.dao.OrderlistMapper">
   <resultMap id="BaseResultMap" type="elm.demo.domain.Orderlist">
     <id column="oid" jdbcType="INTEGER" property="oid" />
-    <result column="ocid" jdbcType="INTEGER" property="ocid" />
+    <result column="ouserid" jdbcType="INTEGER" property="ouserid" />
     <result column="ogid" jdbcType="INTEGER" property="ogid" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
     <result column="ostoreid" jdbcType="INTEGER" property="ostoreid" />
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    oid, ocid, ogid, quantity, ostoreid, status, add_time
+    oid, ouserid, ogid, quantity, ostoreid, status, add_time
   </sql>
   <select id="selectByExample" parameterType="elm.demo.domain.OrderlistExample" resultMap="BaseResultMap">
     select
@@ -102,10 +102,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="elm.demo.domain.Orderlist">
-    insert into orderlist (oid, ocid, ogid, 
+    insert into orderlist (oid, ouserid, ogid, 
       quantity, ostoreid, status, 
       add_time)
-    values (#{oid,jdbcType=INTEGER}, #{ocid,jdbcType=INTEGER}, #{ogid,jdbcType=INTEGER}, 
+    values (#{oid,jdbcType=INTEGER}, #{ouserid,jdbcType=INTEGER}, #{ogid,jdbcType=INTEGER}, 
       #{quantity,jdbcType=INTEGER}, #{ostoreid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{addTime,jdbcType=TIMESTAMP})
   </insert>
@@ -115,8 +115,8 @@
       <if test="oid != null">
         oid,
       </if>
-      <if test="ocid != null">
-        ocid,
+      <if test="ouserid != null">
+        ouserid,
       </if>
       <if test="ogid != null">
         ogid,
@@ -138,8 +138,8 @@
       <if test="oid != null">
         #{oid,jdbcType=INTEGER},
       </if>
-      <if test="ocid != null">
-        #{ocid,jdbcType=INTEGER},
+      <if test="ouserid != null">
+        #{ouserid,jdbcType=INTEGER},
       </if>
       <if test="ogid != null">
         #{ogid,jdbcType=INTEGER},
@@ -170,8 +170,8 @@
       <if test="record.oid != null">
         oid = #{record.oid,jdbcType=INTEGER},
       </if>
-      <if test="record.ocid != null">
-        ocid = #{record.ocid,jdbcType=INTEGER},
+      <if test="record.ouserid != null">
+        ouserid = #{record.ouserid,jdbcType=INTEGER},
       </if>
       <if test="record.ogid != null">
         ogid = #{record.ogid,jdbcType=INTEGER},
@@ -196,7 +196,7 @@
   <update id="updateByExample" parameterType="map">
     update orderlist
     set oid = #{record.oid,jdbcType=INTEGER},
-      ocid = #{record.ocid,jdbcType=INTEGER},
+      ouserid = #{record.ouserid,jdbcType=INTEGER},
       ogid = #{record.ogid,jdbcType=INTEGER},
       quantity = #{record.quantity,jdbcType=INTEGER},
       ostoreid = #{record.ostoreid,jdbcType=INTEGER},
@@ -209,8 +209,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="elm.demo.domain.Orderlist">
     update orderlist
     <set>
-      <if test="ocid != null">
-        ocid = #{ocid,jdbcType=INTEGER},
+      <if test="ouserid != null">
+        ouserid = #{ouserid,jdbcType=INTEGER},
       </if>
       <if test="ogid != null">
         ogid = #{ogid,jdbcType=INTEGER},
@@ -232,7 +232,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="elm.demo.domain.Orderlist">
     update orderlist
-    set ocid = #{ocid,jdbcType=INTEGER},
+    set ouserid = #{ouserid,jdbcType=INTEGER},
       ogid = #{ogid,jdbcType=INTEGER},
       quantity = #{quantity,jdbcType=INTEGER},
       ostoreid = #{ostoreid,jdbcType=INTEGER},
@@ -244,28 +244,22 @@
 
 
 
-  <sql id="Extend_Column_List">
-    o.oid, o.ocid, o.ogid, o.quantity, o.ostoreid, o.status, o.add_time,s.sname,g.gname,c.cname
-  </sql>
+
   <resultMap id="BaseResultMapWithObject" type="elm.demo.domain.Orderlist">
     <id column="oid" jdbcType="INTEGER" property="oid" />
-    <result column="ocid" jdbcType="INTEGER" property="ocid" />
+    <result column="ouserid" jdbcType="INTEGER" property="ouserid" />
     <result column="ogid" jdbcType="INTEGER" property="ogid" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
     <result column="ostoreid" jdbcType="INTEGER" property="ostoreid" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <association property="goods" javaType="elm.demo.domain.Goods">
-      <id property="gid" column="ogid"></id>
-      <result property="gname" column="gname"></result>
-    </association>
-    <association property="customer" javaType="elm.demo.domain.Customer">
-      <id property="cid" column="ocid"></id>
-      <result property="cname" column="cname"></result>
-    </association>
-    <association property="storeinfo" javaType="elm.demo.domain.Storeinfo">
-      <id property="sid" column="ostoreid"></id>
+    <association property="storeinfo" javaType="elm.demo.domain.Storeinfo" select="elm.demo.dao.StoreinfoMapper.selectByPrimaryKey" column="ostoreid">
+      <id property="sid" column="sid"></id>
       <result property="sname" column="sname"></result>
+    </association>
+    <association property="user" javaType="elm.demo.domain.User" select="elm.demo.dao.UserMapper.selectByPrimaryKey" column="ouserid">
+      <id property="uid" column="uid"></id>
+      <result property="username" column="username"></result>
     </association>
   </resultMap>
   <select id="selectByExampleWithObject" parameterType="elm.demo.domain.OrderlistExample" resultMap="BaseResultMapWithObject">
@@ -273,11 +267,8 @@
     <if test="distinct">
       distinct
     </if>
-    <include refid="Extend_Column_List"/>
-    from orderlist o
-    left join goods g on o.ogid = g.gid
-    left join customer c on o.ocid = c.cid
-    left join storeinfo s on o.ostoreid = s.sid
+    <include refid="Base_Column_List" />
+    from orderlist
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -287,11 +278,8 @@
   </select>
   <select id="selectByPrimaryKeyWithObject" parameterType="java.lang.Integer" resultMap="BaseResultMapWithObject">
     select
-    <include refid="Extend_Column_List"/>
-    from orderlist o
-    left join goods g on o.ogid = g.gid
-    left join customer c on o.ocid = c.cid
-    left join storeinfo s on o.ostoreid = s.sid
+    <include refid="Base_Column_List" />
+    from orderlist
     where oid = #{oid,jdbcType=INTEGER}
   </select>
 </mapper>

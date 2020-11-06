@@ -185,7 +185,7 @@
     </dependencies>
 
     <build>
-        <finalName>ssm</finalName>
+        <finalName>ele</finalName>
 
         <!--        项目发布时需要发布的资源:本例中主要用于发布dao层的mapper-->
         <resources>

@@ -17,6 +17,7 @@
     <title>后台管理</title>
     <meta charset="UTF-8"/>
     <base target="_self"/>
+    <meta http-equiv="Content-Type" ; content="multipart/form-data; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- 引入 Bootstrap -->
     <link href="${app}/static/css/bootstrap.css" rel="stylesheet"/>
@@ -46,7 +47,7 @@
 
             <!-- 模态框主体 -->
             <div class="modal-body">
-                <form method="post" action="${app}/customerrest/opt" class="form-horizontal" role="form">
+                <form action="${app}/customerrest/opt" enctype="multipart/form-data" class="form-horizontal" role="form">
                     <div class="form-group">
                         <label for="cnameAddInput">cname:</label>
                         <input type="text" class="form-control" id="cnameAddInput" name="cname" placeholder="请输入顾客姓名"/>
@@ -57,44 +58,58 @@
                     </div>
                     <div class="form-group">
                         <label for="cemailAddInput">cemail:</label>
-                        <input type="text" class="form-control" id="cemailAddInput" name="cemail" placeholder="请输入顾客电子邮箱"/>
+                        <input type="email" class="form-control" id="cemailAddInput" name="cemail" placeholder="请输入顾客电子邮箱"/>
                     </div>
                     <div class="form-group">
                         <label for="cpassAddInput">cpass:</label>
-                        <input type="password" class="form-control" id="cpassAddInput" name="cpass" placeholder="请输入顾客密码"/>
+                        <input type="text" class="form-control" id="cpassAddInput" name="cpass" placeholder="请输入顾客密码"/>
                     </div>
                     <div class="form-group">
                         <label for="cbirthAddInput">cbirth:</label>
                         <input type="date" class="form-control" id="cbirthAddInput" name="cbirth" placeholder="请输入顾客生日"/>
                     </div>
                     <div class="form-group">
-                        <label for="cavatarAddInput">cavatar:</label>
+                        <label>cavatar:</label>
                         <img data-my="disAvatar" src="" style="width: 100px;height: 100px;" />
-                        <input style="display:none"  type="file" class="form-control" id="cavatarAddInput" data-my="inputAvatar" name="cavatar" placeholder="avatar"/>
+                        <input style="display:none;"  type="file" class="form-control" data-my="inputAvatar" name="file" placeholder="avatar"/>
+
                     </div>
                     <div class="form-group">
-                        <label for="cgenderAddInput">cgender:</label>
-                        <input type="text" class="form-control" id="cgenderAddInput" name="cgender" placeholder="请输入顾客性别"/>
+                        <label>cgender: </label>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" value="1" name="cgender"/> 男
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input class="form-check-input" checked="checked" type="radio" value="0"
+                                       name="cgender"/> 女
+                            </label>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="cstatusAddInput">cstatus:</label>
-                        <input type="text" class="form-control" id="cstatusAddInput" name="cstatus" placeholder="请输入顾客状态"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="caddressAddInput">caddress:</label>
-                        <input type="text" class="form-control" id="caddressAddInput" name="caddress" placeholder="请输入顾客地址"/>
+                        <label>cstatus: </label>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" class="form-control" value="1"
+                                       name="cstatus"/>是否禁用该用户
+                            </label>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <button id="addUserBtn" type="button" class="btn btn-block btn-primary">添加</button>
+                        <label>caddress:</label><textarea class="form-control" name="caddress"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <button id="addObjBtn" type="button" class="btn btn-block btn-primary">添加</button>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
             </div>
-
-
         </div>
     </div>
 </div>
@@ -111,52 +126,65 @@
 
             <!-- 模态框主体 -->
             <div class="modal-body">
-                <form method="post" class="form-horizontal" role="form">
-                    <input type="hidden" name="_method" value="PUT"/>
+                <form action="${app}/customerrest/opt"  enctype="multipart/form-data"  class="form-horizontal" role="form">
+<%--                    <input type="hidden" name="_method" value="PUT"/>--%>
                     <div class="form-group">
                         <label for="cidUpdateInput">cid:</label>
                         <input type="text" readonly="readonly" class="form-control" id="cidUpdateInput" name="cid" placeholder="cid"/>
                     </div>
                     <div class="form-group">
-                        <label for="cnameUpdateInput">姓名cname:</label>
+                        <label for="cnameUpdateInput">cname:</label>
                         <input type="text" readonly="readonly" class="form-control" id="cnameUpdateInput" name="姓名cname" placeholder="请输入用户姓名"/>
                     </div>
                     <div class="form-group">
-                        <label for="cphoneUpdateInput">电话cphone:</label>
+                        <label for="cphoneUpdateInput">cphone:</label>
                         <input type="text" class="form-control" id="cphoneUpdateInput" name="cphone" placeholder="请输入顾客电话号码"/>
                     </div>
                     <div class="form-group">
-                        <label for="cemailUpdateInput">邮箱cemail:</label>
-                        <input type="text" class="form-control" id="cemailUpdateInput" name="cemail" placeholder="请输入顾客电子邮箱"/>
+                        <label for="cemailUpdateInput">cemail:</label>
+                        <input type="email" class="form-control" id="cemailUpdateInput" name="cemail" placeholder="请输入顾客电子邮箱"/>
                     </div>
                     <div class="form-group">
                         <label for="cpassUpdateInput">cpass:</label>
-                        <input type="password" class="form-control" id="cpassUpdateInput" name="cpass" placeholder="请输入顾客密码"/>
+                        <input type="text" class="form-control" id="cpassUpdateInput" name="cpass" placeholder="请输入顾客密码"/>
                     </div>
                     <div class="form-group">
                         <label for="cbirthUpdateInput">cbirth:</label>
                         <input type="date" class="form-control" id="cbirthUpdateInput" name="cbirth" placeholder="请输入顾客生日"/>
                     </div>
                     <div class="form-group">
-                        <label for="cavatarUpdateInput">cavatar:</label>
+                        <label>cavatar:</label>
                         <img data-my="disAvatar" src="" style="width: 100px;height: 100px;" />
-                        <input style="display:none"  type="file" class="form-control" id="cavatarUpdateInput" data-my="inputAvatar" name="cavatar" placeholder="avatar"/>
+                        <input style="display:none"  type="file" class="form-control" data-my="inputAvatar" name="file"/>
                     </div>
+                     <div class="form-group">
+                          <label>cgender: </label>
+                     <div class="form-check form-check-inline">
+                          <label class="form-check-label">
+                             <input class="form-check-input" type="radio" value="1" name="cgender"/> 男
+                         </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                               <input class="form-check-input" checked="checked" type="radio" value="0"
+                              name="cgender"/> 女
+                           </label>
+                       </div>
+                      </div>
+                        <div class="form-group">
+                          <label>cstatus: </label>
+                           <div class="form-check form-check-inline">
+                          <label class="form-check-label"><input class="form-check-input" type="checkbox" class="form-control" value="1"
+                       name="cstatus"/>是否禁用该用户
+                         </label>
+                        </div>
+                   </div>
                     <div class="form-group">
-                        <label for="cgenderUpdateInput">cgender:</label>
-                        <input type="text" class="form-control" id="cgenderUpdateInput" name="cgender" placeholder="请输入顾客性别"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="cstatusUpdateInput">cstatus:</label>
-                        <input type="text" class="form-control" id="cstatusUpdateInput" name="cstatus" placeholder="请输入顾客状态"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="caddressUpdateInput">caddress:</label>
-                        <input type="text" class="form-control" id="caddressUpdateInput" name="caddress" placeholder="请输入顾客地址"/>
+                        <label>caddress:</label><textarea class="form-control" name="caddress"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <button id="updateUserBtn" type="button" class="btn btn-block btn-primary">修改</button>
+                        <button id="updateObjBtn" type="button" class="btn btn-block btn-primary">修改</button>
                     </div>
                 </form>
             </div>
@@ -167,31 +195,42 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="displayInfo">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">显示相关信息</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
 
+            <!-- 模态框主体 -->
+            <div class="modal-body">
+                显示信息
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 <form id="searchForm" method="get" action="${app}/customerrest/list">
-    <select id="cidList" name="cidCondition">
-        <option selected="selected" value="-1">不限cid</option>
-        <option value="0">cid大于</option>
-        <option value="1">cid等于</option>
-        <option value="2">cid小于</option>
-    </select>
-
-    <input name="cid" type="text" value="" placeholder="uid"/>
+<%--    <input name="cid" type="text" value="" placeholder="cid"/>--%>
     <input type="text" placeholder="cname" name="cname" value=""/>
-    <input type="date" name="minCbirth" value="1970-01-01">
-    <input type="date" name="maxCbirth" value="2020-10-28">
-    <input type="text" name="gender" value="0">
+<%--    <input type="date" name="minCbirth" value="1930-01-01">--%>
+<%--    <input type="date" name="maxCbirth" value="2999-12-31">--%>
     <input type="date" name="startDate" value="2020-10-01"/>
     <input type="date" name="endDate" value="2020-11-12"/>
+    <input class="btn btn-secondary" type="button" id="searchCleanBtn" value="清除条件"/>
     <input class="btn btn-primary" type="button" id="searchBtn" value="查询"/>
 </form>
 <div>
     <!-- 按钮：用于打开模态框 -->
     <button id="openAddModalBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">新增
     </button>
-    <input class="btn btn-danger" type="button" id="deletesBtn" value="删除所选"/>
+    <input class="btn btn-danger" type="button" action="${app}/customerrest/opt" id="deletesBtn" value="删除所选"/>
 </div>
 <table id="objTable" class="table table-striped table-bordered table-hover">
     <thead>
@@ -242,14 +281,10 @@
     var currentPage=1;
     var maxPages=1;
 
-    $(function () {
-        //为了跳转页面方便,设置全局变量保存当前页和最大页码数
-
-
+    $(document).ready(function () {
         //页面加载时向远端获取所有数据,页面定位在第1页
         // gotoPage(1,3);
         gotoPage();
-
         //页面加载时给全选和反选按钮绑定事件
         mulCheck();
         //给查询按钮绑定事件
@@ -267,22 +302,28 @@
         //给每条记录的删除按钮添加事件
         $(document).on("click", ".delBtn", deleteSingleRecord);
         //给需要点击之后上传图片的区域添加点击事件,确保能够调用文件域的点击事件
-        $('[data-my="disAvatar"]').click(function (eve){$(eve.target).next('[type="file"]').click();});
+        $('[data-my="disAvatar"]').click(function (eve) {
+            $(eve.target).next('[type="file"]').click();
+        });
         $('[data-my="inputAvatar"]').change(choiceAvatar);
+        //给点击获取相关信息的链接打开模态框
+        $(document).on("click", ".disBtn", displayInfo);
+        //给点击切换状态的连接添加事件
+        $(document).on("click",".changeBtn",changeStatus);
     });
 
     //文件域的值发生改变,将图片改变
-    function choiceAvatar(e){
-        var eve = e;//传递过来的元素因为会被在传递的链条中更改,所以暂存一下
-        var reader = new FileReader();
+    function choiceAvatar(eve){
+        let that= eve;//传递过来的元素因为会被在传递的链条中更改,所以暂存一下
+        let reader = new FileReader();
         reader.onload = (function () {
-            return function (e) {
+            return function (eve) {
                 //修改显示图片,因为采用了相邻选择器,所以一定要注意HTML元素中对应的位置
-                $(eve.target).prev('img').attr('src',this.result);
+                $(that.target).prev('img').attr('src',this.result);
             }
-        })(e.target.files[0]);
-        reader.readAsDataURL(e.target.files[0]);
-    };
+        })(eve.target.files[0]);
+        reader.readAsDataURL(eve.target.files[0]);
+    }
 
 
     //获取外键对应主键表中的相关字段并填写到下拉列表中
@@ -298,6 +339,8 @@
                     if(choice==valueName){
                         //如果传递了默认的被选中项,则使用selected属性使之默认选中,此代码适用于datalist和select组件
                         comp.append('<option selected="selected" value="'+item[valueName]+'">'+item[disName]+'</option>');
+                        comp.append('<option selected="selected" value="'+item[valueName]+'">'+item[disName]+'</option>');
+
                     }else{
                         comp.append('<option value="'+item[valueName]+'">'+item[disName]+'</option>');
                     }
@@ -327,29 +370,32 @@
         });
     }
     //修改信息时从远端获取数据并填入表单
-    function updateForm(ele) {
-        //声明变量用以接收原始值,主要用于填写下拉列表
-        var choice1;
-        var choice2;
+    function updateForm(eve) {
         //打开模态框
         $("#updateModal").modal({backdrop: "static"});
         //将表单中原有数据清空
         $("#updateModal form").get(0).reset();
         //从服务器获取信息填入修改表单中
         $.ajax({
-            url: ele.target.href,
+            url: eve.target.href,
             type: "GET",
-            success: function (result) {
+            success: function (result) {//result.dataZone.obj.cavatar == '' ? '/upload/null.png' :
                 //回填数据
                 $('#updateModal [name="cid"]').val(result.dataZone.obj.cid);
                 $('#updateModal [name="cname"]').val(result.dataZone.obj.cname);
                 $('#updateModal [name="cphone"]').val(result.dataZone.obj.cphone);
                 $('#updateModal [name="cemail"]').val(result.dataZone.obj.cemail);
                 $('#updateModal [name="cpass"]').val(result.dataZone.obj.cpass);
-                $('#updateModal [name="cbirth"]').val(result.dataZone.obj.cbirth);
-                $('#updateModal [name="cavatar"]').val(result.dataZone.obj.cavatar);
-                $('#updateModal [name="cgender"]').val(result.dataZone.obj.cgender);
-                $('#updateModal [name="cstatus"]').val(result.dataZone.obj.cstatus);
+                $('#updateModal [name="cbirth"]').val(new Date(result.dataZone.obj.cbirth).Format("yyyy-MM-dd"));
+                $('#updateModal [data-my="disAvatar"]').attr('src',result.dataZone.obj.cavatar);
+                $('#updateModal [name="cgender"]').each(function () {
+                    // console.log("当前单选框的值"+$(this).val());//1或者0
+                    if ($(this).val() == result.dataZone.obj.cgender) {
+                        $(this).prop('checked', 'true');//和服务器匹配的选项默认设置为选中
+                    }
+                });
+                // 复选框的处理方式
+                $('#updateModal [name="cstatus"]').prop('checked', result.dataZone.obj.cstatus);
                 $('#updateModal [name="caddress"]').val(result.dataZone.obj.caddress);
                 $('#updateModal [name="addTime"]').val(new Date(result.dataZone.obj.addTime).Format("yyyy-MM-dd"));
 
@@ -366,7 +412,7 @@
         //修改数据之前先进行数据校验
         //校验通过向服务器发送请求
         var formData = new FormData($("#updateModal form").get(0));
-        formData.append("_method", 'put');
+        //formData.append("_method", 'put');
         $.ajax({
             url: "${app}/customerrest/opt",
             type: "PUT",
@@ -392,6 +438,7 @@
         //打开模态框
         $("#addModal").modal({backdrop: "static"});
         //将表单中原有数据清空
+        $('#addModal [data-my="disPhoto"]').attr('src','/upload/null.png');
         $("#addModal form").get(0).reset();
     }
 
@@ -468,7 +515,7 @@
         }
     }
 
-    function gotoPage(page, pageSize) {
+    function gotoPage(pageNum, pageSize) {
         pageNum = pageNum == null ? 1 : pageNum;
         pageSize = pageSize == null ? 10 : pageSize;
         $.ajax({
@@ -493,29 +540,29 @@
     function parseDataAndShow(result) {
         $("#ObjTable tbody").empty();
         // 获取数据集合
-        let users = result.dataZone.pageInfo.list;
-        $.each(users, function (index, item) {
+        let lists = result.dataZone.pageInfo.list;
+        $.each(lists, function (index, item) {
             //构建行
             var cTr = $("<tr></tr>");
             //构建多个单元格
             var checkboxTh = $('<th><input type="checkbox" name="choiceList" value="${item.cid}"/></th>');
             var countTh = $('<th></th>').text(index + 1);
             var td1 = $('<td></td>').text(item.cid);
-            var td2 = $('<td></td>').text(item.cname);
+            var td2 = $('<td></td>').html(`<a class="disBtn"  href="${app}/orderlistrest/cusorders/${"${item.cid}"}">${"${item.cname}"}</a>`);
             var td3 = $('<td></td>').text(item.cphone);
             var td4 = $('<td></td>').text(item.cemail);
             var td5 = $('<td></td>').text(item.cpass);
-            var td6 = $('<td></td>').text(item.cbirth);
+            var td6 = $('<td></td>').text(new Date(item.cbirth).Format("yyyy-MM-dd"));
             var td7 = $('<td></td>').text(item.cavatar);
-            var td8 = $('<td></td>').text(item.cgender);
-            var td9 = $('<td></td>').text(item.cstatus);
+            var td8 = $('<td></td>').text(item.cgender == true ? '男' : '女');
+            var td9 = $('<td></td>').text(item.cstatus == true ? '禁用':'启用');
             var td10 = $('<td></td>').text(item.caddress);
             var addTimeTd = $('<td></td>').text(new Date(item.addTime).Format("yyyy-MM-dd HH:mm:ss"));
             var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/customerrest/opt/' + item.cid + '">修改</a>');
             var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/customerrest/opt/' + item.cid + '">删除</a>');
             //将单元格追加到行中
             cTr.append(checkboxTh).append(countTh)
-                .append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td8).append(td9).append(td10)
+                .append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td8).append(td9).append(td10).append(addTimeTd)
                 .append(upBtnTd).append(delBtnTd);
             // 将行追加到表体中
             $("#objTable tbody").append(cTr);
@@ -612,7 +659,7 @@
 
     //完成后弹出消息框
     function alertTips(message,alert_type){
-        $('.alert').html(message).addClass(alert_type).show().delay(1000).fadeOut();
+        $('.alert').html(message).removeAttr("class").addClass(alert_type).show().delay(1000).fadeOut();
     }
 
 
