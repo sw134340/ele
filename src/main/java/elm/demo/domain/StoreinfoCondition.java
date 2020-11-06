@@ -3,6 +3,7 @@ package elm.demo.domain;
 import javax.xml.crypto.Data;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class StoreinfoCondition extends Storeinfo implements Serializable {
     private Date startDate;
@@ -32,8 +33,8 @@ public class StoreinfoCondition extends Storeinfo implements Serializable {
         this.endDate = endDate;
     }
 
-    public StoreinfoCondition(Integer sid, String sname, String spassword, String sphoto, String marking, String dispatching, String sadderss, Boolean offer, Date addTime, Date startDate, Date endDate) {
-        super(sid, sname, spassword, sphoto, marking, dispatching, sadderss, offer, addTime);
+    public StoreinfoCondition(Integer sid, String sname, String spassword, String sphoto, String marking, String dispatching, String sadderss, Boolean offer, Date addTime, List<Active> active, Date startDate, Date endDate) {
+        super(sid, sname, spassword, sphoto, marking, dispatching, sadderss, offer, addTime, active);
         this.startDate = startDate;
         this.endDate = endDate;
     }

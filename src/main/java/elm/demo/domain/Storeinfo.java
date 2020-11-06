@@ -27,19 +27,8 @@ public class Storeinfo implements Serializable {
     private Boolean offer;
 
     private Date addTime;
-    private List<Active> activeList;
+    private List<Active> active;
 
-    public Storeinfo(Integer sid, String sname, String spassword, String sphoto, String marking,  String dispatching, String sadderss,Boolean offer, Date addTime) {
-        this.sid = sid;
-        this.sname = sname;
-        this.spassword = spassword;
-        this.sphoto = sphoto;
-        this.marking = marking;
-        this.dispatching = dispatching;
-        this.sadderss = sadderss;
-        this.offer = offer;
-        this.addTime = addTime;
-    }
     public Integer getSid() {
         return sid;
     }
@@ -112,12 +101,25 @@ public class Storeinfo implements Serializable {
         this.addTime = addTime;
     }
 
-    public List<Active> getActiveList() {
-        return activeList;
+    public List<Active> getActive() {
+        return active;
     }
 
-    public void setActiveList(List<Active> activeList) {
-        this.activeList = activeList;
+    public void setActive(List<Active> active) {
+        this.active = active;
+    }
+
+    public Storeinfo(Integer sid, String sname, String spassword, String sphoto, String marking, String dispatching, String sadderss, Boolean offer, Date addTime, List<Active> active) {
+        this.sid = sid;
+        this.sname = sname;
+        this.spassword = spassword;
+        this.sphoto = sphoto;
+        this.marking = marking;
+        this.dispatching = dispatching;
+        this.sadderss = sadderss;
+        this.offer = offer;
+        this.addTime = addTime;
+        this.active = active;
     }
 
     public Storeinfo() {

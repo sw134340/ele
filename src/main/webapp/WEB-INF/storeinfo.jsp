@@ -63,7 +63,7 @@
                             <input type="text" class="form-control" name="sphoto" placeholder="商家图片"/>
                         </div>
                         <div class="form-group">
-                            <label>marking:</label><input type="text" class="form-control" name="marking" placeholder="商家评分"/>
+                            <label>marking:</label><input type="range" class="form-control" min="0" max="5" step="1" name="marking" placeholder="商家评分"/>
                         </div>
                         <div class="form-group">
                             <label>dispatching:</label><input type="text" class="form-control" name="dispatching" placeholder="配送方式"/>
@@ -71,14 +71,23 @@
                         <div class="form-group">
                             <label>sadderss:</label><input type="text" class="form-control" name="sadderss" placeholder="商家地址"/>
                         </div>
-                        <div class="form-group">
-                            <label>offer:</label><input type="text" class="form-control" name="offer" placeholder="商家推荐是否"/>
-                        </div>
+
                     <div class="form-group">
                         <button id="addObjBtn" type="button" class="btn btn-block btn-primary">添加</button>
                     </div>
                 </form>
             </div>
+
+            <div class="form-group">
+                <label>offer: </label>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" class="form-control" value="1"
+                               name="offer"/>是推荐用该商户
+                    </label>
+                </div>
+            </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
             </div>
@@ -129,12 +138,21 @@
                     <div class="form-group">
                         <label>sadderss:</label><input type="text" class="form-control" name="sadderss" placeholder="商家地址"/>
                     </div>
-                    <div class="form-group">
-                        <label>offer:</label><input type="text" class="form-control" name="offer" placeholder="商家推荐是否"/>
-                    </div>
+
                     <div class="form-group">
                         <label>addTime:</label><input type="date" class="form-control"  name="addTime" placeholder="添加时间"/>
                     </div>
+
+                    <div class="form-group">
+                        <label>offer: </label>
+                        <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" class="form-control" value="1"
+                                       name="offer"/>是否推荐该商户
+                            </label>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <button id="updateObjBtn" type="button" class="btn btn-block btn-primary">修改</button>
                     </div>
@@ -179,7 +197,8 @@
         <th>商家评分(marking)</th>
         <th>配送方式(dispaching)</th>
         <th>商家地址(sadderss)</th>
-        <th>商家是否推荐(offer)</th>
+        <th>参与活动</th>
+        <th>推荐</th>
         <th>创建时间(addTime)</th>
         <th>操作(修改)</th>
         <th>操作(删除)</th>
@@ -238,6 +257,10 @@
         //给需要点击之后上传图片的区域添加点击事件,确保能够调用文件域的点击事件
         $('[data-my="disPhoto"]').click(function (eve) {$(eve.target).next('[type="file"]').click();});
         $('[data-my="inputPhoto"]').change(choicePhoto);
+        //给点击获取相关信息的链接打开模态框
+        $(document).on("click", ".disBtn", displayInfo);
+        //给点击切换状态的连接添加事件
+        $(document).on("click",".changeBtn",changeStatus);
     });
 
 
@@ -319,7 +342,8 @@
                 $('#updateModal [name="marking"]').val(result.dataZone.obj.marking);
                 $('#updateModal [name="dispatching"]').val(result.dataZone.obj.dispatching);
                 $('#updateModal [name="sadderss"]').val(result.dataZone.obj.sadderss);
-                $('#updateModal [name="offer"]').val(result.dataZone.obj.offer);
+                $('#updateModal [name="active"]').val(result.dataZone.obj.active);
+                $('#updateModal [name="offer"]').prop('checked', result.dataZone.obj.offer);
                 $('#updateModal [name="addTime"]').val(new Date(result.dataZone.obj.addTime).Format("yyyy-MM-dd"));
             },
             error: function () {
@@ -388,24 +412,24 @@
             }
         });
     }
-    //
-    // function deleteSingleRecord(ele) {
-    //     //询问是否删除
-    //     if (!confirm("真的删除"))
-    //         return false;
-    //     $.ajax({
-    //         url: ele.target.href,
-    //         type: "DELETE",
-    //         success: function (result) {
-    //             alertTips(result.message,"alert-success");
-    //             gotoPage(currentPage);
-    //         },
-    //         error: function (result) {
-    //             alertTips(result.message,"alert-danger");
-    //         }
-    //     });
-    //     return false;
-    // }
+
+    function deleteSingleRecord(ele) {
+        //询问是否删除
+        if (!confirm("真的删除"))
+            return false;
+        $.ajax({
+            url: ele.target.href,
+            type: "DELETE",
+            success: function (result) {
+                alertTips(result.message,"alert-success");
+                gotoPage(currentPage);
+            },
+            error: function (result) {
+                alertTips(result.message,"alert-danger");
+            }
+        });
+        return false;
+    }
     function deleteMuliRecord(eve) {
         //点击删除所选按钮时删除多条记录
         let url = $(eve.target).attr("action");
@@ -505,31 +529,32 @@
             var td3 = $('<td></td>').text(item.spassword);
             var td4 = $('<td></td>').text(item.sphoto);
             var td5 = $('<td></td>').text(item.marking);
-            <%--//处理带列表的输出--%>
-            <%--let tempStr = '';--%>
-            <%--for (let j = 0; j < result.dataZone.activities.length; j++) {--%>
-            <%--    let flag = false;--%>
-            <%--    for (let i = 0; i < item.activities.length; i++) {--%>
-            <%--        if (item.activities[i].aid == result.dataZone.activities[j].aid) {--%>
-            <%--            flag = true;--%>
-            <%--            tempStr += `<a class='changeBtn btn btn-block btn-success' href='${app}/businessrest/opt/${"${item.bid}"}/${"${result.dataZone.activities[j].aid}"}/${"${flag}"}'>${"${result.dataZone.activities[j].aname}"}</a>`;--%>
-            <%--            break;--%>
-            <%--        }--%>
-            <%--    }--%>
-            <%--    if (!flag) {--%>
-            <%--        tempStr += `<a class='changeBtn btn btn-block btn-danger' href='${app}/businessrest/opt/${"${item.bid}"}/${"${result.dataZone.activities[j].aid}"}/${"${flag}"}'>${"${result.dataZone.activities[j].aname}"}</a>`;--%>
-            <%--    }--%>
-            <%--}--%>
             var td6 = $('<td></td>').text(item.dispatching);
             var td7 = $('<td></td>').text(item.sadderss);
-            var td8 = $('<td></td>').text(item.offer);
+            //处理带列表的输出
+            let tempStr = '';
+            for (let j = 0; j < result.dataZone.active.length; j++) {
+                let flag = false;
+                for (let i = 0; i < item.active.length; i++) {
+                    if (item.active[i].aid == result.dataZone.active[j].aid) {
+                        flag = true;
+                        tempStr += `<a class='changeBtn btn btn-block btn-success' href='${app}/storeinforest/opt/${"${item.sid}"}/${"${result.dataZone.active[j].aid}"}/${"${flag}"}'>${"${result.dataZone.active[j].aname}"}</a>`;
+                        break;
+                    }
+                }
+                if (!flag) {
+                    tempStr += `<a class='changeBtn btn btn-block btn-danger' href='${app}/storeinforest/opt/${"${item.sid}"}/${"${result.dataZone.active[j].aid}"}/${"${flag}"}'>${"${result.dataZone.active[j].aname}"}</a>`;
+                }
+            }
+            var td8 = $('<td></td>').html(tempStr);
+            var td9 = $('<td></td>').text(item.offer==true ? "禁用" : "启用");
             // var td9=$('<td></td>').html(tempStr);
             var addTimeTd = $('<td></td>').text(new Date(item.addTime).Format("yyyy-MM-dd HH:mm:ss"));
             var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/storeinforest/opt/' + item.sid + '">修改</a>');
             var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/storeinforest/opt/' + item.sid + '">删除</a>');
             //将单元格追加到行中
             uTr.append(checkboxTh).append(countTh)
-                .append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td8)
+                .append(td1).append(td2).append(td3).append(td4).append(td5).append(td6).append(td7).append(td8).append(td9)
                 .append(addTimeTd).append(upBtnTd).append(delBtnTd);
             // 将行追加到表体中
             $("#objTable tbody").append(uTr);

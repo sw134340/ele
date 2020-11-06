@@ -6,6 +6,7 @@ import elm.demo.dao.StAcMapper;
 import elm.demo.dao.StoreinfoMapper;
 import elm.demo.domain.*;
 import elm.demo.service.StoreinfoService;
+import elm.demo.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,12 +52,13 @@ public class StoreinfoServiceImpl implements StoreinfoService {
 
     @Override
     public int insert(Storeinfo record) {
-
+record.setSpassword(MD5Util.getMD5(record.getSpassword()));
         return storeinfoMapper.insert(record);
     }
 
     @Override
     public int insertSelective(Storeinfo record) {
+        record.setSpassword(MD5Util.getMD5(record.getSpassword()));
         return storeinfoMapper.insertSelective(record);
     }
 
@@ -82,21 +84,25 @@ public class StoreinfoServiceImpl implements StoreinfoService {
 
     @Override
     public int updateByExampleSelective(Storeinfo record, StoreinfoExample example) {
+        record.setSpassword(MD5Util.getMD5(record.getSpassword()));
         return storeinfoMapper.updateByExampleSelective(record, example);
     }
 
     @Override
     public int updateByExample(Storeinfo record, StoreinfoExample example) {
+        record.setSpassword(MD5Util.getMD5(record.getSpassword()));
         return storeinfoMapper.updateByExample(record, example);
     }
 
     @Override
     public int updateByPrimaryKeySelective(Storeinfo record) {
+        record.setSpassword(MD5Util.getMD5(record.getSpassword()));
         return storeinfoMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
     public int updateByPrimaryKey(Storeinfo record) {
+        record.setSpassword(MD5Util.getMD5(record.getSpassword()));
         return storeinfoMapper.updateByPrimaryKey(record);
     }
 

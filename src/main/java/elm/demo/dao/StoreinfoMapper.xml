@@ -289,7 +289,7 @@
     <result column="sadderss" jdbcType="VARCHAR" property="sadderss" />
     <result column="offer" jdbcType="BIT" property="offer" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <collection property="activeList" ofType="elm.demo.domain.Active">
+    <collection property="active" ofType="elm.demo.domain.Active">
       <id property="aid" column="aid"></id>
       <result property="aname" column="aname"></result>
     </collection>
