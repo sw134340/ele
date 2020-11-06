@@ -65,32 +65,34 @@ public class StoreinfoController {
             criteria.andSnameLike(name);
         }
 example.setOrderByClause("sid");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date startDate1 = dateFormat.parse("1970-01-01");
-        Date endDate1 = dateFormat.parse("2999-12-31");
-
-        Date startDate = condition.getStartDate()==null?startDate1:condition.getStartDate();
-        Date endDate = condition.getEndDate()==null?endDate1:condition.getEndDate();
-        if(startDate.after(endDate)){
-            Date tempDate = startDate;
-            startDate = endDate;
-            endDate = tempDate;
-        }
-
-        criteria.andAddTimeBetween(startDate,endDate);
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        Date startDate1 = dateFormat.parse("1970-01-01");
+//        Date endDate1 = dateFormat.parse("2999-12-31");
+//
+//        Date startDate = condition.getStartDate()==null?startDate1:condition.getStartDate();
+//        Date endDate = condition.getEndDate()==null?endDate1:condition.getEndDate();
+//        if(startDate.after(endDate)){
+//            Date tempDate = startDate;
+//            startDate = endDate;
+//            endDate = tempDate;
+//        }
+//
+//        criteria.andAddTimeBetween(startDate,endDate);
 
 
         //获取所有的活动列表
 
-        List<Active> activities = activeService.selectByExample(null);
+        List<Active> active = activeService.selectByExample(null);
+        System.out.println(active);
+
 
         //初始化,约束
         PageHelper.startPage(pageNum, pageSize);
-        List<Storeinfo> lists = service.selectByExample(example);
-
+        List<Storeinfo> lists = service.selectByExampleWithObject(example);
+        System.out.println(lists);
         //使用pageHelper的方式封装数据,默认的导航列表长度为8
         PageInfo pageInfo = new PageInfo(lists, 8);
-        return MessageAndData.success("").add("pageInfo",pageInfo);
+        return MessageAndData.success("").add("pageInfo",pageInfo).add("active",active);
     }
 
     @ResponseBody
@@ -166,6 +168,11 @@ example.setOrderByClause("sid");
         file.transferTo(file1);
         String photoUrl = "/upload/" + filename;
         obj.setSphoto(photoUrl);
+        //如果涉及到复选框的操作,特别是前台如果通过复选框设置单一字段的状态,需要处理,否则出现能设置上不能取消
+        //原因是使用了框架的自动封装功能,如果没有选中则封装为null,example判断如果为null则不会添加到更新字段中
+        if (obj.getOffer() == null) {
+            obj.setOffer(false);
+        }
 
         int i = service.updateByPrimaryKeySelective(obj);
         if(i>0){

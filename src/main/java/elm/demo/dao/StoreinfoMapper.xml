@@ -276,8 +276,8 @@
 
   <!--    商家参与活动-->
   <sql id="Extend_Column_List">
-    s.sid, s.sname, s.spassword, s.photo, s.marking, s.dispatching, s.sadderss, s.offer,s.add_time as sadd_time
-   ,a.aid,a.aname,a.aintor,a.add_time as aadd_time,sta.add_time as staadd_time
+    s.sid, s.sname, s.spassword, s.sphoto, s.marking, s.dispatching, s.sadderss, s.offer,s.add_time as sadd_time
+   ,a.aid,a.aname,a.add_time as aadd_time,sta.add_time as staadd_time
   </sql>
   <resultMap id="BaseResultMapWithObject" type="elm.demo.domain.Storeinfo">
     <id column="sid" jdbcType="INTEGER" property="sid" />
@@ -303,7 +303,7 @@
     <include refid="Extend_Column_List"/>
     from storeinfo s
     left join st_ac sta on s.sid=sta.fsid
-    left join activie a on sta.faid = a.aid
+    left join active a on sta.faid = a.aid
     <if test="_parameter != null">
       <include refid="Example_Where_Clause"/>
     </if>

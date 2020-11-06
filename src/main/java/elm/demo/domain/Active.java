@@ -16,7 +16,6 @@ public class Active implements Serializable {
 
     private Date addTime;
 
-    private List<Storeinfo> storeinfo;
 
     public Active() {
     }
@@ -53,19 +52,10 @@ public class Active implements Serializable {
         this.addTime = addTime;
     }
 
-    public List<Storeinfo> getStoreinfo() {
-        return storeinfo;
-    }
-
-    public void setStoreinfo(List<Storeinfo> storeinfo) {
-        this.storeinfo = storeinfo;
-    }
-
-    public Active(Integer aid, String aname, String aintro, Date addTime, List<Storeinfo> storeinfo) {
+    public Active(Integer aid, String aname, String aintro, Date addTime) {
         this.aid = aid;
         this.aname = aname;
         this.aintro = aintro;
         this.addTime = addTime;
-        this.storeinfo = storeinfo;
     }
 }

@@ -13,8 +13,8 @@ public class ActiveCondition extends Active implements Serializable {
     public ActiveCondition() {
     }
 
-    public ActiveCondition(Integer aid, String aname, String aintro, Date addTime, List<Storeinfo> storeinfo, Integer aidCondition, Date startDate, Date endDate) {
-        super(aid, aname, aintro, addTime, storeinfo);
+    public ActiveCondition(Integer aid, String aname, String aintro, Date addTime, Integer aidCondition, Date startDate, Date endDate) {
+        super(aid, aname, aintro, addTime);
         this.aidCondition = aidCondition;
         this.startDate = startDate;
         this.endDate = endDate;

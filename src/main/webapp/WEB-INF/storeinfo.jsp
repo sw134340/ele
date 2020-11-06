@@ -548,7 +548,6 @@
             }
             var td8 = $('<td></td>').html(tempStr);
             var td9 = $('<td></td>').text(item.offer==true ? "禁用" : "启用");
-            // var td9=$('<td></td>').html(tempStr);
             var addTimeTd = $('<td></td>').text(new Date(item.addTime).Format("yyyy-MM-dd HH:mm:ss"));
             var upBtnTd = $('<td></td>').html('<a class="upBtn btn btn-info btn-sm" href="${app}/storeinforest/opt/' + item.sid + '">修改</a>');
             var delBtnTd = $('<td></td>').html('<a class="delBtn btn btn-danger btn-sm" href="${app}/storeinforest/opt/' + item.sid + '">删除</a>');

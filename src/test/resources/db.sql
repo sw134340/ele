@@ -34,7 +34,7 @@ BEGIN
     DECLARE
         i INT DEFAULT 1;
     WHILE
-            i < 100 DO
+            i < 10 DO
             insert into adminuser (username,password) value (concat('user',i),'fe8fb64eb34764f9e0a58a32a819dcb2') ;
             SET i = i + 1;
 
