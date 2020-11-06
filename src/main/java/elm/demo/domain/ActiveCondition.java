@@ -2,6 +2,7 @@ package elm.demo.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 public class ActiveCondition extends Active implements Serializable {
@@ -12,8 +13,8 @@ public class ActiveCondition extends Active implements Serializable {
     public ActiveCondition() {
     }
 
-    public ActiveCondition(Integer aid, String aname, Date addTime, Integer aidCondition, Date startDate, Date endDate) {
-        super();
+    public ActiveCondition(Integer aid, String aname, String aintro, Date addTime, List<Storeinfo> storeinfo, Integer aidCondition, Date startDate, Date endDate) {
+        super(aid, aname, aintro, addTime, storeinfo);
         this.aidCondition = aidCondition;
         this.startDate = startDate;
         this.endDate = endDate;

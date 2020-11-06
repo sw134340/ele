@@ -244,10 +244,12 @@
 
 
 
-
+  <sql id="Extend_Column_List">
+    o.oid,o.quantity,  o.status, o.ogid, o.ocid, o.ostoreid, o.add_time,s.sname,c.cname,g.gname
+  </sql>
   <resultMap id="BaseResultMapWithObject" type="elm.demo.domain.Orderlist">
     <id column="oid" jdbcType="INTEGER" property="oid" />
-    <result column="ouserid" jdbcType="INTEGER" property="ouserid" />
+    <result column="ocid" jdbcType="INTEGER" property="ocid" />
     <result column="ogid" jdbcType="INTEGER" property="ogid" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
     <result column="ostoreid" jdbcType="INTEGER" property="ostoreid" />
@@ -267,8 +269,11 @@
     <if test="distinct">
       distinct
     </if>
-    <include refid="Base_Column_List" />
-    from orderlist
+    <include refid="Extend_Column_List" />
+    from orderlist o
+    left join goods g on o.ogid = g.gid
+    left join customer c on o.ocid = c.cid
+    left join storeinfo b on o.ostoreid = s.sid
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -278,7 +283,7 @@
   </select>
   <select id="selectByPrimaryKeyWithObject" parameterType="java.lang.Integer" resultMap="BaseResultMapWithObject">
     select
-    <include refid="Base_Column_List" />
+    <include refid="Extend_Column_List" />
     from orderlist
     where oid = #{oid,jdbcType=INTEGER}
   </select>
