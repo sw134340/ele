@@ -21,7 +21,6 @@ public interface UserService {
     List<User> selectByExample(UserExample example);
 
     User selectByPrimaryKey(Integer uid);
-    User selectByUser(User user);
 
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 

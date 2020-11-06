@@ -29,7 +29,6 @@ public class UserrestController {
 
     @RequestMapping(value = "/index")
     public String index(){
-        //return "forward:/WEB-INF/user.jsp";    @RestController的话
         return "user";
     }
 

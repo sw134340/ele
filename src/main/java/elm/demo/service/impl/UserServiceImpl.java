@@ -61,11 +61,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User selectByUser(User user) {
-        return null;
-    }
-
-    @Override
     public int updateByExampleSelective(User record, UserExample example) {
         //对传递过来的明文密码加密为密文然后比对
         record.setPassword(MD5Util.getMD5(record.getPassword()));

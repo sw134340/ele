@@ -18,7 +18,7 @@
 %>
 <html>
 <head>
-    <title>前台首页</title>
+    <title>登录首页</title>
     <meta charset="UTF-8"/>
     <base target="_self" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -36,9 +36,31 @@
     <![endif]-->
 </head>
 <body>
-站点前台首页
-
+用户登录
 <a href="${app}/user/login">后台登录</a>
+<form action="/user/loginCheckCode" method="post">
+    <input type="text" name="username" placeholder="请输入姓名"/>
+    <input type="password" name="password" placeholder="请输入密码"/>
+    <input type="text" name="verify"/>
+    <input type="key" id="key" name="key" placeholder="请输入验证码"/>
+    <img src="/user/getCode" id="verifyCode" width="120" height="80">
+    <input type="submit" value="用户登录"/>
+</form>
+
+<script>
+    $('#verifyCode').click(function(){
+        $.ajax({
+            url:'user/getCode',
+            type:"GET",
+            success:function(re){
+                console.log(re);
+                $('#verifyCode').attr('src','data:image/png;base64,'+ re.image);
+                $('#key').val(re.key);
+            }
+        })
+});
+</script>
+
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
 <script src="${app}/static/js/jquery-3.3.1.js" ></script>
 <!-- 包括所有已编译的插件 -->

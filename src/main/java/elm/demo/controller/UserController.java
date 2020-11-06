@@ -5,20 +5,27 @@ import com.github.pagehelper.PageInfo;
 import elm.demo.domain.UserExample;
 import elm.demo.service.UserService;
 import elm.demo.utils.MD5Util;
+import elm.demo.utils.VerifyCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Base64Utils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import elm.demo.domain.User;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -110,4 +117,53 @@ public class UserController {
 //            session.invalidate();//使所有的session失效
         return "redirect:/index.jsp";
     }
+
+    @GetMapping("/getCode")
+    public Map<String,String> getImage(HttpServletRequest request) throws IOException {
+        Map<String,String> result = new HashMap<>();
+        VerifyCode verifyCode = new VerifyCode(320,240,8,136);
+        //获取验证码
+        String securityCode = verifyCode.getCode();
+        //验证码存入session
+        String key = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        request.getSession().setAttribute(key,securityCode);
+        //生成图片
+        BufferedImage image = verifyCode.getBuffImg();
+        //进行base64编码
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ImageIO.write(image,"png",bos);
+        String string = Base64Utils.encodeToString(bos.toByteArray());
+        result.put("key",key);
+        result.put("image",string);
+        return result;
+    }
+
+    @PostMapping(value = "/loginCheckCode")
+    public String loginCheck(User user,@RequestParam("verify")String verify,@RequestParam("key")String key,HttpServletRequest request){
+        System.out.println(verify);
+        System.out.println(request.getSession().getAttribute(key));
+        if(verify.equals(request.getSession().getAttribute(key))){
+            return "验证码成功";
+        }
+        return "hh";
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
