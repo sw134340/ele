@@ -13,6 +13,13 @@ public class GoodsCondition extends Goods implements Serializable {
     public GoodsCondition() {
     }
 
+    public GoodsCondition(Double minPrice, Double maxPrice, Date startDate, Date endDate) {
+        this.minPrice = minPrice;
+        this.maxPrice = maxPrice;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public GoodsCondition(Integer gid, String gname, String ginfo, String gphoto, Double gprice, Integer gtid, Typeofgoods typeofgoods, Integer gsid, Storeinfo storeinfo, Date addTime, Double minPrice, Double maxPrice, Date startDate, Date endDate) {
         super(gid, gname, ginfo, gphoto, gprice, gtid, typeofgoods, gsid, storeinfo, addTime);
         this.minPrice = minPrice;

@@ -23,7 +23,7 @@ public class Orderlist implements Serializable {
 
     private Date addTime;
 
-    private User user;
+   private  Goods goods;
     private Storeinfo storeinfo;
 
     public Integer getOid() {
@@ -90,12 +90,12 @@ public class Orderlist implements Serializable {
         this.addTime = addTime;
     }
 
-    public User getUser() {
-        return user;
+    public Goods getGoods() {
+        return goods;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setGoods(Goods goods) {
+        this.goods = goods;
     }
 
     public Storeinfo getStoreinfo() {
@@ -103,6 +103,19 @@ public class Orderlist implements Serializable {
     }
 
     public void setStoreinfo(Storeinfo storeinfo) {
+        this.storeinfo = storeinfo;
+    }
+
+    public Orderlist(Integer oid, Integer ocid, Customer customer, Integer ogid, Integer quantity, Integer ostoreid, Integer status, Date addTime, Goods goods, Storeinfo storeinfo) {
+        this.oid = oid;
+        this.ocid = ocid;
+        this.customer = customer;
+        this.ogid = ogid;
+        this.quantity = quantity;
+        this.ostoreid = ostoreid;
+        this.status = status;
+        this.addTime = addTime;
+        this.goods = goods;
         this.storeinfo = storeinfo;
     }
 

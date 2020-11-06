@@ -256,12 +256,16 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <association property="storeinfo" javaType="elm.demo.domain.Storeinfo" select="elm.demo.dao.StoreinfoMapper.selectByPrimaryKey" column="ostoreid">
-      <id property="sid" column="sid"></id>
+      <id property="sid" column="ostoreid"></id>
       <result property="sname" column="sname"></result>
     </association>
-    <association property="user" javaType="elm.demo.domain.User" select="elm.demo.dao.UserMapper.selectByPrimaryKey" column="ouserid">
-      <id property="uid" column="uid"></id>
-      <result property="username" column="username"></result>
+    <association property="customer" javaType="elm.demo.domain.Customer" select="elm.demo.dao.CustomerMapper.selectByPrimaryKey" column="cid">
+      <id property="cid" column="ocid"></id>
+      <result property="cname" column="cname"></result>
+    </association>
+    <association property="goods" javaType="elm.demo.domain.Goods" select="elm.demo.dao.GoodsMapper.selectByPrimaryKey" column="gid">
+      <id property="gid" column="ogid"></id>
+      <result property="gname" column="gname"></result>
     </association>
   </resultMap>
   <select id="selectByExampleWithObject" parameterType="elm.demo.domain.OrderlistExample" resultMap="BaseResultMapWithObject">
@@ -273,7 +277,7 @@
     from orderlist o
     left join goods g on o.ogid = g.gid
     left join customer c on o.ocid = c.cid
-    left join storeinfo b on o.ostoreid = s.sid
+    left join storeinfo s on o.ostoreid = s.sid
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
