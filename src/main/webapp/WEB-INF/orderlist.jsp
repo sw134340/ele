@@ -231,9 +231,11 @@
     });
 
 
-
-
-
+    $("#openAddModalBtn").click(function () {
+    getAndFill("${app}/goodsrest/listJSON",$('#addModal [id="oglist" ] '),"gid","gname");
+    getAndFill("${app}/storeinforest/listJSON",$('#addModal [id="oslist" ] '),"sid","sname");
+    getAndFill("${app}/customerrest/listJSON",$('#addModal [id="oclist" ] '),"cid","cname");
+    });
     //获取外键对应主键表中的相关字段并填写到下拉列表中
     function getAndFill(url,comp,valueName,disName,choice){
         //清空原有列表
